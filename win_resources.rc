@@ -1,0 +1,4 @@
+#include "wx/msw/wx.rc"
+1 24 "wx/msw/wx.manifest"
+_a ICON "Icons/icon.ico"
+aaaa ICON "Icons/icon.ico"
