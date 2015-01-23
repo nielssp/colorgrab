@@ -125,9 +125,20 @@ MainFrameBaseClass::MainFrameBaseClass(wxWindow* parent, wxWindowID id, const wx
     
     boxSizer51->Add(m_colourPicker, 0, wxALL, 5);
     
-    m_grabButton = new wxButton(m_mainPanel, wxID_ANY, _("Grab"), wxDefaultPosition, wxSize(-1,-1), 0);
+    m_panel55 = new wxPanel(m_mainPanel, wxID_ANY, wxDefaultPosition, wxSize(-1,-1), wxTAB_TRAVERSAL);
     
-    gridSizer15->Add(m_grabButton, 0, wxALL, 5);
+    gridSizer15->Add(m_panel55, 0, wxALL, 5);
+    
+    wxBoxSizer* boxSizer57 = new wxBoxSizer(wxVERTICAL);
+    m_panel55->SetSizer(boxSizer57);
+    
+    m_grabButton = new wxButton(m_panel55, wxID_ANY, _("Grab"), wxDefaultPosition, wxSize(-1,-1), 0);
+    
+    boxSizer57->Add(m_grabButton, 0, wxALL, 5);
+    
+    m_staticText59 = new wxStaticText(m_panel55, wxID_ANY, _("Drag Me"), wxDefaultPosition, wxSize(-1,-1), 0);
+    
+    boxSizer57->Add(m_staticText59, 0, wxALL, 5);
     
     m_dumpImage = new ImagePanel(m_mainPanel);
     gridSizer15->Add(m_dumpImage, 0, wxALL, 5);
@@ -159,6 +170,7 @@ MainFrameBaseClass::MainFrameBaseClass(wxWindow* parent, wxWindowID id, const wx
     m_blueCtrl->Connect(wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler(MainFrameBaseClass::OnColorChange), NULL, this);
     m_colourPicker->Connect(wxEVT_COMMAND_COLOURPICKER_CHANGED, wxColourPickerEventHandler(MainFrameBaseClass::OnColorPick), NULL, this);
     m_grabButton->Connect(wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler(MainFrameBaseClass::OnGrabClick), NULL, this);
+    m_staticText59->Connect(wxEVT_LEFT_DOWN, wxMouseEventHandler(MainFrameBaseClass::OnLeftDown), NULL, this);
     this->Connect(m_menuItem7->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(MainFrameBaseClass::OnExit), NULL, this);
     this->Connect(m_menuItem9->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(MainFrameBaseClass::OnAbout), NULL, this);
     
@@ -171,6 +183,7 @@ MainFrameBaseClass::~MainFrameBaseClass()
     m_blueCtrl->Disconnect(wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler(MainFrameBaseClass::OnColorChange), NULL, this);
     m_colourPicker->Disconnect(wxEVT_COMMAND_COLOURPICKER_CHANGED, wxColourPickerEventHandler(MainFrameBaseClass::OnColorPick), NULL, this);
     m_grabButton->Disconnect(wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler(MainFrameBaseClass::OnGrabClick), NULL, this);
+    m_staticText59->Disconnect(wxEVT_LEFT_DOWN, wxMouseEventHandler(MainFrameBaseClass::OnLeftDown), NULL, this);
     this->Disconnect(m_menuItem7->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(MainFrameBaseClass::OnExit), NULL, this);
     this->Disconnect(m_menuItem9->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(MainFrameBaseClass::OnAbout), NULL, this);
     

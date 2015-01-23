@@ -36,7 +36,9 @@ protected:
     wxPanel* m_panel47;
     wxButton* m_colorButton;
     wxColourPickerCtrl* m_colourPicker;
+    wxPanel* m_panel55;
     wxButton* m_grabButton;
+    wxStaticText* m_staticText59;
     ImagePanel* m_dumpImage;
     wxMenuBar* m_menuBar;
     wxMenu* m_name6;
@@ -48,6 +50,7 @@ protected:
     virtual void OnColorChange(wxCommandEvent& event) { event.Skip(); }
     virtual void OnColorPick(wxColourPickerEvent& event) { event.Skip(); }
     virtual void OnGrabClick(wxCommandEvent& event) { event.Skip(); }
+    virtual void OnLeftDown(wxMouseEvent& event) { event.Skip(); }
     virtual void OnExit(wxCommandEvent& event) { event.Skip(); }
     virtual void OnAbout(wxCommandEvent& event) { event.Skip(); }
 

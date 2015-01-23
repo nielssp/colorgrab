@@ -31,6 +31,8 @@ set ( CXX_SRCS
     wxcrafter.cpp
     wxcrafter_bitmaps.cpp
     ImagePanel.cpp
+    GrabFrame.cpp
+    GrabDropSource.cpp
 )
 
 set_source_files_properties(
