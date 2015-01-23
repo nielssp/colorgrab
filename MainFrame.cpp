@@ -1,7 +1,12 @@
 #include "MainFrame.h"
+
+#include "GrabFrame.h"
+
 #include <wx/aboutdlg.h>
 #include <wx/dcscreen.h>
 #include <wx/dcmemory.h>
+#include <wx/dialog.h>
+#include <wx/gdicmn.h>
 
 
 MainFrame::MainFrame(wxWindow* parent)
@@ -23,7 +28,7 @@ void MainFrame::OnAbout(wxCommandEvent& event)
 {
     wxUnusedVar(event);
     wxAboutDialogInfo info;
-    info.SetCopyright(_("color picker test"));
+    info.SetCopyright(_("Copyright 2015 Niels Sonnich Poulsen"));
     info.SetLicence(_("MIT License"));
     info.SetDescription(_("Short description goes here"));
     ::wxAboutBox(info);
@@ -46,6 +51,10 @@ void MainFrame::OnGrabClick(wxCommandEvent& event)
 {
 	wxBitmap bmp = GetScreenShot();
 	m_dumpImage->SetImage(bmp);
+	wxFrame* frame = new GrabFrame(this);
+	wxMessageOutput::Get()->Printf("Hello, %i!", frame->CanSetTransparent());
+	frame->Show(true);
+	frame->ShowFullScreen(true);
 }
 
 long getColorValue(wxTextCtrl* ctrl) {
