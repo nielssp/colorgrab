@@ -14,6 +14,7 @@ public:
     void OnAbout(wxCommandEvent& event);
 	 
 	 void SetColor(const wxColor& color);
+	 void SetColorFromMouse();
 	 void SetColorFromPixel(wxCoord x, wxCoord y);
 	 void UpdateZoomArea();
 protected:

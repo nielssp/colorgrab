@@ -6,9 +6,6 @@ ImagePanel::ImagePanel(wxWindow* parent) : wxPanel(parent)
 {
 }
 
-ImagePanel::~ImagePanel()
-{
-}
 
 BEGIN_EVENT_TABLE(ImagePanel, wxPanel)
 

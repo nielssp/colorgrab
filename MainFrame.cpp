@@ -5,6 +5,7 @@
 
 #include <wx/aboutdlg.h>
 #include <wx/dcscreen.h>
+#include <wx/graphics.h>
 #include <wx/dcmemory.h>
 #include <wx/dialog.h>
 #include <wx/gdicmn.h>
@@ -57,25 +58,47 @@ void MainFrame::UpdateZoomArea()
 	 int x = 0, y = 0;
 	 if (mouse.x > 10)
 	 {
-		  if (mouse.x > screenSize.x - 20)
+		  if (mouse.x > screenSize.x - 10)
 				x = screenSize.x - 20;
 		  else
 				x = mouse.x - 10;
 	 }
 	 if (mouse.y > 10)
 	 {
-		  if (mouse.y > screenSize.y - 20)
+		  if (mouse.y > screenSize.y - 10)
 				y = screenSize.y - 20;
 		  else
 				y = mouse.y - 10;
 	 }
+	 int relX = mouse.x - x, relY = mouse.y - y;
 	 wxBitmap bitmap(100, 100);
 	 wxScreenDC dc;
 	 wxMemoryDC memDC;
 	 memDC.SelectObject(bitmap);
 	 memDC.StretchBlit(0, 0, 100, 100, &dc, x, y, 20, 20);
 	 memDC.SelectObject(wxNullBitmap);
+    wxGraphicsContext* gc = wxGraphicsContext::Create( bitmap );
+	 if (gc)
+	 {
+		  gc->SetPen(*wxWHITE_PEN);
+		  gc->SetBrush(wxNullBrush);
+		  wxGraphicsPath path = gc->CreatePath();
+		  path.AddCircle(relX * 5.0 + 2.5, relY * 5.0 + 2, 5);
+		  gc->StrokePath(path);
+		  path = gc->CreatePath();
+		  path.AddCircle(relX * 5.0 + 2.5, relY * 5.0 + 2, 4);
+		  gc->SetPen(*wxBLACK_PEN);
+		  gc->StrokePath(path);
+		  delete gc;
+	 }
 	 m_dumpImage->SetImage(bitmap);
+}
+
+void MainFrame::SetColorFromMouse()
+{
+	 int x, y;
+	 wxGetMousePosition(&x, &y);
+	 SetColorFromPixel(x, y);
 }
 
 void MainFrame::SetColorFromPixel(wxCoord x, wxCoord y)
@@ -140,6 +163,8 @@ void MainFrame::OnLeftDown(wxMouseEvent& event)
 }
 void MainFrame::OnCaptureStart(wxMouseEvent& event)
 {
+	 SetColorFromMouse();
+	 UpdateZoomArea();
 	 CaptureMouse();
 	 SetCursor(*wxCROSS_CURSOR);
 	 capturing = true;
@@ -148,9 +173,8 @@ void MainFrame::OnCaptureEnd(wxMouseEvent& event)
 {
 	 if (capturing)
 	 {
-		  int x, y;
-		  wxGetMousePosition(&x, &y);
-		  SetColorFromPixel(x, y);
+		  SetColorFromMouse();
+		  UpdateZoomArea();
 		  ReleaseMouse();
 		  capturing = false;
 		  SetCursor(wxNullCursor);
@@ -160,9 +184,7 @@ void MainFrame::OnCaptureMove(wxMouseEvent& event)
 {
 	 if (capturing)
 	 {
-		  int x, y;
-		  wxGetMousePosition(&x, &y);
-		  SetColorFromPixel(x, y);
+		  SetColorFromMouse();
 		  UpdateZoomArea();
 	 }
 }

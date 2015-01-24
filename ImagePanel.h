@@ -10,7 +10,6 @@ private:
 	 wxBitmap image;
 public:
 	ImagePanel(wxWindow* parent);
-	~ImagePanel();
 	
 	void paintEvent(wxPaintEvent & evt);
 	void paintNow();
