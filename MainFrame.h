@@ -5,7 +5,9 @@
 class MainFrame : public MainFrameBaseClass
 {
 private:
+    bool dragPicker;
 	 bool capturing;
+    wxString format;
 public:
     MainFrame(wxWindow* parent);
     virtual ~MainFrame();
@@ -13,11 +15,16 @@ public:
     void OnExit(wxCommandEvent& event);
     void OnAbout(wxCommandEvent& event);
 	 
-	 void SetColor(const wxColor& color);
+    wxColour GetColor() const;
+	 void SetColor(const wxColor& color, bool updateInputs = true);
 	 void SetColorFromMouse();
 	 void SetColorFromPixel(wxCoord x, wxCoord y);
 	 void UpdateZoomArea();
 protected:
+    virtual void OnFormatChoose(wxMenuEvent& event);
+    virtual void OnFormatClick(wxCommandEvent& event);
+    virtual void OnSettingDrag(wxCommandEvent& event);
+    virtual void OnSystemColorPicker(wxCommandEvent& event);
     virtual void OnCaptureMove(wxMouseEvent& event);
     virtual void OnCaptureEnd(wxMouseEvent& event);
     virtual void OnCaptureStart(wxMouseEvent& event);

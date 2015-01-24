@@ -134,12 +134,23 @@ MainFrameBaseClass::MainFrameBaseClass(wxWindow* parent, wxWindowID id, const wx
     wxBoxSizer* boxSizer57 = new wxBoxSizer(wxVERTICAL);
     m_panel55->SetSizer(boxSizer57);
     
-    m_formatText = new wxTextCtrl(m_panel55, wxID_ANY, wxT("#000000"), wxDefaultPosition, wxSize(-1,-1), wxTE_CENTRE);
+    m_panel95 = new wxPanel(m_panel55, wxID_ANY, wxDefaultPosition, wxSize(-1,-1), wxTAB_TRAVERSAL);
+    
+    boxSizer57->Add(m_panel95, 0, wxALL, 5);
+    
+    wxBoxSizer* boxSizer97 = new wxBoxSizer(wxHORIZONTAL);
+    m_panel95->SetSizer(boxSizer97);
+    
+    m_formatText = new wxTextCtrl(m_panel95, wxID_ANY, wxT("#000000"), wxDefaultPosition, wxSize(70,20), wxTE_CENTRE);
     #if wxVERSION_NUMBER >= 3000
     m_formatText->SetHint(wxT(""));
     #endif
     
-    boxSizer57->Add(m_formatText, 0, wxALL|wxALIGN_CENTER_HORIZONTAL, 5);
+    boxSizer97->Add(m_formatText, 0, wxALL|wxALIGN_CENTER_HORIZONTAL, 5);
+    
+    m_formatMenuButton = new wxButton(m_panel95, wxID_ANY, _("F"), wxDefaultPosition, wxSize(20,20), 0);
+    
+    boxSizer97->Add(m_formatMenuButton, 0, wxALL, 5);
     
     m_pickerButton = new wxButton(m_panel55, wxID_ANY, _("Drag me!"), wxDefaultPosition, wxSize(-1,-1), 0);
     
@@ -171,8 +182,21 @@ MainFrameBaseClass::MainFrameBaseClass(wxWindow* parent, wxWindowID id, const wx
     m_name8 = new wxMenu();
     m_menuBar->Append(m_name8, _("Tools"));
     
+    m_menuItem79 = new wxMenuItem(m_name8, wxID_ANY, _("System Color Picker"), wxT(""), wxITEM_NORMAL);
+    m_name8->Append(m_menuItem79);
+    
     m_menu65 = new wxMenu();
     m_menuBar->Append(m_menu65, _("Settings"));
+    
+    m_dragMenuItem = new wxMenuItem(m_menu65, wxID_ANY, _("Drag color picker"), wxT(""), wxITEM_CHECK);
+    m_menu65->Append(m_dragMenuItem);
+    m_dragMenuItem->Check();
+    
+    m_menu87 = new wxMenu();
+    m_menu65->AppendSubMenu(m_menu87, _("Zoom level"));
+    
+    m_menuItem89 = new wxMenuItem(m_menu87, wxID_ANY, _("Item11"), wxT(""), wxITEM_NORMAL);
+    m_menu87->Append(m_menuItem89);
     
     SetSizeHints(240,300);
     if ( GetSizer() ) {
@@ -186,9 +210,12 @@ MainFrameBaseClass::MainFrameBaseClass(wxWindow* parent, wxWindowID id, const wx
     m_greenCtrl->Connect(wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler(MainFrameBaseClass::OnColorChange), NULL, this);
     m_blueCtrl->Connect(wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler(MainFrameBaseClass::OnColorChange), NULL, this);
     m_colourPicker->Connect(wxEVT_COMMAND_COLOURPICKER_CHANGED, wxColourPickerEventHandler(MainFrameBaseClass::OnColorPick), NULL, this);
+    m_formatMenuButton->Connect(wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler(MainFrameBaseClass::OnFormatClick), NULL, this);
     m_pickerButton->Connect(wxEVT_LEFT_DOWN, wxMouseEventHandler(MainFrameBaseClass::OnCaptureStart), NULL, this);
     this->Connect(m_menuItem9->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(MainFrameBaseClass::OnAbout), NULL, this);
     this->Connect(m_menuItem7->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(MainFrameBaseClass::OnExit), NULL, this);
+    this->Connect(m_menuItem79->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(MainFrameBaseClass::OnSystemColorPicker), NULL, this);
+    this->Connect(m_dragMenuItem->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(MainFrameBaseClass::OnSettingDrag), NULL, this);
     
 }
 
@@ -200,8 +227,11 @@ MainFrameBaseClass::~MainFrameBaseClass()
     m_greenCtrl->Disconnect(wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler(MainFrameBaseClass::OnColorChange), NULL, this);
     m_blueCtrl->Disconnect(wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler(MainFrameBaseClass::OnColorChange), NULL, this);
     m_colourPicker->Disconnect(wxEVT_COMMAND_COLOURPICKER_CHANGED, wxColourPickerEventHandler(MainFrameBaseClass::OnColorPick), NULL, this);
+    m_formatMenuButton->Disconnect(wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler(MainFrameBaseClass::OnFormatClick), NULL, this);
     m_pickerButton->Disconnect(wxEVT_LEFT_DOWN, wxMouseEventHandler(MainFrameBaseClass::OnCaptureStart), NULL, this);
     this->Disconnect(m_menuItem9->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(MainFrameBaseClass::OnAbout), NULL, this);
     this->Disconnect(m_menuItem7->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(MainFrameBaseClass::OnExit), NULL, this);
+    this->Disconnect(m_menuItem79->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(MainFrameBaseClass::OnSystemColorPicker), NULL, this);
+    this->Disconnect(m_dragMenuItem->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(MainFrameBaseClass::OnSettingDrag), NULL, this);
     
 }

@@ -37,7 +37,9 @@ protected:
     wxPanel* m_colorButton;
     wxColourPickerCtrl* m_colourPicker;
     wxPanel* m_panel55;
+    wxPanel* m_panel95;
     wxTextCtrl* m_formatText;
+    wxButton* m_formatMenuButton;
     wxButton* m_pickerButton;
     wxPanel* m_panel72;
     ImagePanel* m_dumpImage;
@@ -46,16 +48,23 @@ protected:
     wxMenuItem* m_menuItem9;
     wxMenuItem* m_menuItem7;
     wxMenu* m_name8;
+    wxMenuItem* m_menuItem79;
     wxMenu* m_menu65;
+    wxMenuItem* m_dragMenuItem;
+    wxMenu* m_menu87;
+    wxMenuItem* m_menuItem89;
 
 protected:
     virtual void OnCaptureEnd(wxMouseEvent& event) { event.Skip(); }
     virtual void OnCaptureMove(wxMouseEvent& event) { event.Skip(); }
     virtual void OnColorChange(wxCommandEvent& event) { event.Skip(); }
     virtual void OnColorPick(wxColourPickerEvent& event) { event.Skip(); }
+    virtual void OnFormatClick(wxCommandEvent& event) { event.Skip(); }
     virtual void OnCaptureStart(wxMouseEvent& event) { event.Skip(); }
     virtual void OnAbout(wxCommandEvent& event) { event.Skip(); }
     virtual void OnExit(wxCommandEvent& event) { event.Skip(); }
+    virtual void OnSystemColorPicker(wxCommandEvent& event) { event.Skip(); }
+    virtual void OnSettingDrag(wxCommandEvent& event) { event.Skip(); }
 
 public:
     MainFrameBaseClass(wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = _("ColorGrab"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize(240,300), long style = wxCAPTION|wxRESIZE_BORDER|wxMINIMIZE_BOX|wxSYSTEM_MENU|wxCLOSE_BOX|wxSTAY_ON_TOP);
