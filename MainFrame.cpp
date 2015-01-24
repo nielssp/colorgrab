@@ -116,6 +116,7 @@ void MainFrame::SetColor(const wxColor& color)
 	m_redCtrl->ChangeValue(wxString::Format("%d", color.Red()));
 	m_greenCtrl->ChangeValue(wxString::Format("%d", color.Green()));
 	m_blueCtrl->ChangeValue(wxString::Format("%d", color.Blue()));
+	m_formatText->ChangeValue(wxString::Format("#%02x%02x%02x", color.Red(), color.Green(), color.Blue()));
 }
 
 
