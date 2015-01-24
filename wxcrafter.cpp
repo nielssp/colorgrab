@@ -116,14 +116,14 @@ MainFrameBaseClass::MainFrameBaseClass(wxWindow* parent, wxWindowID id, const wx
     wxBoxSizer* boxSizer51 = new wxBoxSizer(wxVERTICAL);
     m_panel47->SetSizer(boxSizer51);
     
-    m_colorButton = new wxButton(m_panel47, wxID_ANY, wxT(""), wxDefaultPosition, wxSize(100,70), 0);
+    m_colorButton = new wxPanel(m_panel47, wxID_ANY, wxDefaultPosition, wxSize(70,70), wxTAB_TRAVERSAL|wxBORDER_THEME);
     m_colorButton->SetBackgroundColour(wxColour(wxT("rgb(0,0,0)")));
     
-    boxSizer51->Add(m_colorButton, 0, wxALL, 5);
+    boxSizer51->Add(m_colorButton, 0, wxALL|wxALIGN_CENTER_HORIZONTAL, 5);
     
     m_colourPicker = new wxColourPickerCtrl(m_panel47, wxID_ANY, *wxBLACK, wxDefaultPosition, wxSize(-1,-1), wxCLRP_DEFAULT_STYLE);
     
-    boxSizer51->Add(m_colourPicker, 0, wxALL, 5);
+    boxSizer51->Add(m_colourPicker, 0, wxALL|wxALIGN_CENTER_HORIZONTAL, 5);
     
     m_panel55 = new wxPanel(m_mainPanel, wxID_ANY, wxDefaultPosition, wxSize(-1,-1), wxTAB_TRAVERSAL);
     
@@ -132,15 +132,7 @@ MainFrameBaseClass::MainFrameBaseClass(wxWindow* parent, wxWindowID id, const wx
     wxBoxSizer* boxSizer57 = new wxBoxSizer(wxVERTICAL);
     m_panel55->SetSizer(boxSizer57);
     
-    m_grabButton = new wxButton(m_panel55, wxID_ANY, _("Grab"), wxDefaultPosition, wxSize(-1,-1), 0);
-    
-    boxSizer57->Add(m_grabButton, 0, wxALL, 5);
-    
-    m_staticText59 = new wxStaticText(m_panel55, wxID_ANY, _("Drag Me"), wxDefaultPosition, wxSize(-1,-1), 0);
-    
-    boxSizer57->Add(m_staticText59, 0, wxALL, 5);
-    
-    m_button61 = new wxButton(m_panel55, wxID_ANY, _("Capture"), wxDefaultPosition, wxSize(-1,-1), 0);
+    m_button61 = new wxButton(m_panel55, wxID_ANY, _("Drag me!"), wxDefaultPosition, wxSize(-1,-1), 0);
     
     boxSizer57->Add(m_button61, 0, wxALL, 5);
     
@@ -175,8 +167,6 @@ MainFrameBaseClass::MainFrameBaseClass(wxWindow* parent, wxWindowID id, const wx
     m_greenCtrl->Connect(wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler(MainFrameBaseClass::OnColorChange), NULL, this);
     m_blueCtrl->Connect(wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler(MainFrameBaseClass::OnColorChange), NULL, this);
     m_colourPicker->Connect(wxEVT_COMMAND_COLOURPICKER_CHANGED, wxColourPickerEventHandler(MainFrameBaseClass::OnColorPick), NULL, this);
-    m_grabButton->Connect(wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler(MainFrameBaseClass::OnGrabClick), NULL, this);
-    m_staticText59->Connect(wxEVT_LEFT_DOWN, wxMouseEventHandler(MainFrameBaseClass::OnLeftDown), NULL, this);
     m_button61->Connect(wxEVT_LEFT_DOWN, wxMouseEventHandler(MainFrameBaseClass::OnCaptureStart), NULL, this);
     this->Connect(m_menuItem7->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(MainFrameBaseClass::OnExit), NULL, this);
     this->Connect(m_menuItem9->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(MainFrameBaseClass::OnAbout), NULL, this);
@@ -191,8 +181,6 @@ MainFrameBaseClass::~MainFrameBaseClass()
     m_greenCtrl->Disconnect(wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler(MainFrameBaseClass::OnColorChange), NULL, this);
     m_blueCtrl->Disconnect(wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler(MainFrameBaseClass::OnColorChange), NULL, this);
     m_colourPicker->Disconnect(wxEVT_COMMAND_COLOURPICKER_CHANGED, wxColourPickerEventHandler(MainFrameBaseClass::OnColorPick), NULL, this);
-    m_grabButton->Disconnect(wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler(MainFrameBaseClass::OnGrabClick), NULL, this);
-    m_staticText59->Disconnect(wxEVT_LEFT_DOWN, wxMouseEventHandler(MainFrameBaseClass::OnLeftDown), NULL, this);
     m_button61->Disconnect(wxEVT_LEFT_DOWN, wxMouseEventHandler(MainFrameBaseClass::OnCaptureStart), NULL, this);
     this->Disconnect(m_menuItem7->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(MainFrameBaseClass::OnExit), NULL, this);
     this->Disconnect(m_menuItem9->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(MainFrameBaseClass::OnAbout), NULL, this);

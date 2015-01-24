@@ -50,6 +50,34 @@ wxBitmap GetScreenShot()
 	return bitmap;
 }
 
+void MainFrame::UpdateZoomArea()
+{
+	 wxPoint mouse = wxGetMousePosition();
+	 wxSize screenSize = wxGetDisplaySize();
+	 int x = 0, y = 0;
+	 if (mouse.x > 10)
+	 {
+		  if (mouse.x > screenSize.x - 20)
+				x = screenSize.x - 20;
+		  else
+				x = mouse.x - 10;
+	 }
+	 if (mouse.y > 10)
+	 {
+		  if (mouse.y > screenSize.y - 20)
+				y = screenSize.y - 20;
+		  else
+				y = mouse.y - 10;
+	 }
+	 wxBitmap bitmap(100, 100);
+	 wxScreenDC dc;
+	 wxMemoryDC memDC;
+	 memDC.SelectObject(bitmap);
+	 memDC.StretchBlit(0, 0, 100, 100, &dc, x, y, 20, 20);
+	 memDC.SelectObject(wxNullBitmap);
+	 m_dumpImage->SetImage(bitmap);
+}
+
 void MainFrame::SetColorFromPixel(wxCoord x, wxCoord y)
 {
 	 wxColor color;
@@ -135,5 +163,6 @@ void MainFrame::OnCaptureMove(wxMouseEvent& event)
 		  int x, y;
 		  wxGetMousePosition(&x, &y);
 		  SetColorFromPixel(x, y);
+		  UpdateZoomArea();
 	 }
 }

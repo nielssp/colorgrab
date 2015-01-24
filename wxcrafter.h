@@ -17,8 +17,8 @@
 #include <wx/panel.h>
 #include <wx/stattext.h>
 #include <wx/textctrl.h>
-#include <wx/button.h>
 #include <wx/clrpicker.h>
+#include <wx/button.h>
 #include "ImagePanel.h"
 #include <wx/menu.h>
 
@@ -34,11 +34,9 @@ protected:
     wxStaticText* m_staticText392;
     wxTextCtrl* m_blueCtrl;
     wxPanel* m_panel47;
-    wxButton* m_colorButton;
+    wxPanel* m_colorButton;
     wxColourPickerCtrl* m_colourPicker;
     wxPanel* m_panel55;
-    wxButton* m_grabButton;
-    wxStaticText* m_staticText59;
     wxButton* m_button61;
     ImagePanel* m_dumpImage;
     wxMenuBar* m_menuBar;
@@ -52,8 +50,6 @@ protected:
     virtual void OnCaptureMove(wxMouseEvent& event) { event.Skip(); }
     virtual void OnColorChange(wxCommandEvent& event) { event.Skip(); }
     virtual void OnColorPick(wxColourPickerEvent& event) { event.Skip(); }
-    virtual void OnGrabClick(wxCommandEvent& event) { event.Skip(); }
-    virtual void OnLeftDown(wxMouseEvent& event) { event.Skip(); }
     virtual void OnCaptureStart(wxMouseEvent& event) { event.Skip(); }
     virtual void OnExit(wxCommandEvent& event) { event.Skip(); }
     virtual void OnAbout(wxCommandEvent& event) { event.Skip(); }

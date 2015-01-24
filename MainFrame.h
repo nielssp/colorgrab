@@ -15,6 +15,7 @@ public:
 	 
 	 void SetColor(const wxColor& color);
 	 void SetColorFromPixel(wxCoord x, wxCoord y);
+	 void UpdateZoomArea();
 protected:
     virtual void OnCaptureMove(wxMouseEvent& event);
     virtual void OnCaptureEnd(wxMouseEvent& event);
