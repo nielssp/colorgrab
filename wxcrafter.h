@@ -51,16 +51,19 @@ protected:
     wxMenuItem* m_menuItem79;
     wxMenu* m_menu65;
     wxMenuItem* m_dragMenuItem;
-    wxMenu* m_menu87;
-    wxMenuItem* m_menuItem89;
+    wxMenu* m_zoomMenu;
 
 protected:
     virtual void OnCaptureEnd(wxMouseEvent& event) { event.Skip(); }
     virtual void OnCaptureMove(wxMouseEvent& event) { event.Skip(); }
+    virtual void OnCaptureZoom(wxMouseEvent& event) { event.Skip(); }
     virtual void OnColorChange(wxCommandEvent& event) { event.Skip(); }
     virtual void OnColorPick(wxColourPickerEvent& event) { event.Skip(); }
     virtual void OnFormatClick(wxCommandEvent& event) { event.Skip(); }
     virtual void OnCaptureStart(wxMouseEvent& event) { event.Skip(); }
+    virtual void OnDumpGrabStart(wxMouseEvent& event) { event.Skip(); }
+    virtual void OnDumpGrabMove(wxMouseEvent& event) { event.Skip(); }
+    virtual void OnDumpGrabEnd(wxMouseEvent& event) { event.Skip(); }
     virtual void OnAbout(wxCommandEvent& event) { event.Skip(); }
     virtual void OnExit(wxCommandEvent& event) { event.Skip(); }
     virtual void OnSystemColorPicker(wxCommandEvent& event) { event.Skip(); }

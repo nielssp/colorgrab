@@ -4,6 +4,7 @@
 
 ImagePanel::ImagePanel(wxWindow* parent) : wxPanel(parent)
 {
+    SetCursor(*wxCROSS_CURSOR);
 }
 
 
