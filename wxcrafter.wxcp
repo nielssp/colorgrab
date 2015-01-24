@@ -1,7 +1,7 @@
 {
  "metadata": {
   "m_generatedFilesDir": ".",
-  "m_objCounter": 59,
+  "m_objCounter": 61,
   "m_includeFiles": [],
   "m_bitmapFunction": "wxC9ED9InitBitmapResources",
   "m_bitmapsFile": "wxcrafter_bitmaps.cpp",
@@ -128,7 +128,21 @@
      "m_label": "Bitmap File (256x256):",
      "m_path": "Icons/256x256.png"
     }],
-   "m_events": [],
+   "m_events": [{
+     "m_eventName": "wxEVT_LEFT_UP",
+     "m_eventClass": "wxMouseEvent",
+     "m_eventHandler": "wxMouseEventHandler",
+     "m_functionNameAndSignature": "OnCaptureEnd(wxMouseEvent& event)",
+     "m_description": "Process a wxEVT_LEFT_UP event.",
+     "m_noBody": false
+    }, {
+     "m_eventName": "wxEVT_MOTION",
+     "m_eventClass": "wxMouseEvent",
+     "m_eventHandler": "wxMouseEventHandler",
+     "m_functionNameAndSignature": "OnCaptureMove(wxMouseEvent& event)",
+     "m_description": "Process a wxEVT_MOTION event",
+     "m_noBody": false
+    }],
    "m_children": [{
      "m_type": 4401,
      "proportion": 0,
@@ -1388,6 +1402,101 @@
                  "m_eventClass": "wxMouseEvent",
                  "m_eventHandler": "wxMouseEventHandler",
                  "m_functionNameAndSignature": "OnLeftDown(wxMouseEvent& event)",
+                 "m_description": "Process a wxEVT_LEFT_DOWN event. The handler of this event should normally call event.Skip() to allow the default processing to take place as otherwise the window under mouse wouldn't get the focus.",
+                 "m_noBody": false
+                }],
+               "m_children": []
+              }, {
+               "m_type": 4400,
+               "proportion": 0,
+               "border": 5,
+               "gbSpan": "1,1",
+               "gbPosition": "0,0",
+               "m_styles": [],
+               "m_sizerFlags": ["wxALL", "wxLEFT", "wxRIGHT", "wxTOP", "wxBOTTOM"],
+               "m_properties": [{
+                 "type": "winid",
+                 "m_label": "ID:",
+                 "m_winid": "wxID_ANY"
+                }, {
+                 "type": "string",
+                 "m_label": "Size:",
+                 "m_value": "-1,-1"
+                }, {
+                 "type": "string",
+                 "m_label": "Minimum Size:",
+                 "m_value": "-1,-1"
+                }, {
+                 "type": "string",
+                 "m_label": "Name:",
+                 "m_value": "m_button61"
+                }, {
+                 "type": "multi-string",
+                 "m_label": "Tooltip:",
+                 "m_value": ""
+                }, {
+                 "type": "colour",
+                 "m_label": "Bg Colour:",
+                 "colour": "<Default>"
+                }, {
+                 "type": "colour",
+                 "m_label": "Fg Colour:",
+                 "colour": "<Default>"
+                }, {
+                 "type": "font",
+                 "m_label": "Font:",
+                 "m_value": ""
+                }, {
+                 "type": "bool",
+                 "m_label": "Hidden",
+                 "m_value": false
+                }, {
+                 "type": "bool",
+                 "m_label": "Disabled",
+                 "m_value": false
+                }, {
+                 "type": "bool",
+                 "m_label": "Focused",
+                 "m_value": false
+                }, {
+                 "type": "string",
+                 "m_label": "Class Name:",
+                 "m_value": ""
+                }, {
+                 "type": "string",
+                 "m_label": "Include File:",
+                 "m_value": ""
+                }, {
+                 "type": "string",
+                 "m_label": "Style:",
+                 "m_value": ""
+                }, {
+                 "type": "string",
+                 "m_label": "Label:",
+                 "m_value": "Capture"
+                }, {
+                 "type": "bool",
+                 "m_label": "Default Button",
+                 "m_value": false
+                }, {
+                 "type": "bitmapPicker",
+                 "m_label": "Bitmap File:",
+                 "m_path": ""
+                }, {
+                 "type": "choice",
+                 "m_label": "Direction",
+                 "m_selection": 0,
+                 "m_options": ["wxLEFT", "wxRIGHT", "wxTOP", "wxBOTTOM"]
+                }, {
+                 "type": "string",
+                 "m_label": "Margins:",
+                 "m_value": "2,2"
+                }],
+               "m_events": [{
+                 "m_eventName": "wxEVT_LEFT_DOWN",
+                 "m_eventClass": "wxMouseEvent",
+                 "m_eventHandler": "wxMouseEventHandler",
+                 "m_functionNameAndSignature": "OnCaptureStart(wxMouseEvent& event)",
                  "m_description": "Process a wxEVT_LEFT_DOWN event. The handler of this event should normally call event.Skip() to allow the default processing to take place as otherwise the window under mouse wouldn't get the focus.",
                  "m_noBody": false
                 }],

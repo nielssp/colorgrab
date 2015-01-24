@@ -15,6 +15,7 @@
 MainFrame::MainFrame(wxWindow* parent)
     : MainFrameBaseClass(parent)
 {
+	 capturing = false;
 }
 
 MainFrame::~MainFrame()
@@ -75,7 +76,7 @@ void MainFrame::OnGrabClick(wxCommandEvent& event)
 	ImagePanel* p = new ImagePanel(frame);
 	p->SetImage(bmp);
 	frame->Show(true);
-	frame->ShowFullScreen(true);
+   frame->ShowFullScreen(true);
 }
 
 long getColorValue(wxTextCtrl* ctrl) {
@@ -108,4 +109,31 @@ void MainFrame::OnLeftDown(wxMouseEvent& event)
 	 dragSource.SetData( my_data );
 	 wxDragResult result = dragSource.DoDragDrop(true);
 	 dragSource.SetCursor(result, *wxCROSS_CURSOR);
+}
+void MainFrame::OnCaptureStart(wxMouseEvent& event)
+{
+	 CaptureMouse();
+	 SetCursor(*wxCROSS_CURSOR);
+	 capturing = true;
+}
+void MainFrame::OnCaptureEnd(wxMouseEvent& event)
+{
+	 if (capturing)
+	 {
+		  int x, y;
+		  wxGetMousePosition(&x, &y);
+		  SetColorFromPixel(x, y);
+		  ReleaseMouse();
+		  capturing = false;
+		  SetCursor(wxNullCursor);
+	 }
+}
+void MainFrame::OnCaptureMove(wxMouseEvent& event)
+{
+	 if (capturing)
+	 {
+		  int x, y;
+		  wxGetMousePosition(&x, &y);
+		  SetColorFromPixel(x, y);
+	 }
 }

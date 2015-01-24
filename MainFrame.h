@@ -4,6 +4,8 @@
 
 class MainFrame : public MainFrameBaseClass
 {
+private:
+	 bool capturing;
 public:
     MainFrame(wxWindow* parent);
     virtual ~MainFrame();
@@ -14,6 +16,9 @@ public:
 	 void SetColor(const wxColor& color);
 	 void SetColorFromPixel(wxCoord x, wxCoord y);
 protected:
+    virtual void OnCaptureMove(wxMouseEvent& event);
+    virtual void OnCaptureEnd(wxMouseEvent& event);
+    virtual void OnCaptureStart(wxMouseEvent& event);
     virtual void OnLeftDown(wxMouseEvent& event);
     virtual void OnColorPick(wxColourPickerEvent& event);
     virtual void OnColorChange(wxCommandEvent& event);
