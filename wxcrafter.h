@@ -39,6 +39,7 @@ protected:
     wxPanel* m_panel55;
     wxTextCtrl* m_formatText;
     wxButton* m_pickerButton;
+    wxPanel* m_panel72;
     ImagePanel* m_dumpImage;
     wxMenuBar* m_menuBar;
     wxMenu* m_name6;

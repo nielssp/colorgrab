@@ -145,8 +145,15 @@ MainFrameBaseClass::MainFrameBaseClass(wxWindow* parent, wxWindowID id, const wx
     
     boxSizer57->Add(m_pickerButton, 0, wxALL|wxALIGN_CENTER, 5);
     
-    m_dumpImage = new ImagePanel(m_mainPanel);
-    flexGridSizer68->Add(m_dumpImage, 0, wxALL, 5);
+    m_panel72 = new wxPanel(m_mainPanel, wxID_ANY, wxDefaultPosition, wxSize(-1,-1), wxTAB_TRAVERSAL|wxBORDER_THEME);
+    
+    flexGridSizer68->Add(m_panel72, 0, wxALL, 0);
+    
+    wxBoxSizer* boxSizer74 = new wxBoxSizer(wxVERTICAL);
+    m_panel72->SetSizer(boxSizer74);
+    
+    m_dumpImage = new ImagePanel(m_panel72);
+    boxSizer74->Add(m_dumpImage, 0, wxALL, 0);
     m_dumpImage->SetMinSize(wxSize(100,100));
     
     m_menuBar = new wxMenuBar(0);
