@@ -17,8 +17,8 @@
 #include <wx/panel.h>
 #include <wx/stattext.h>
 #include <wx/textctrl.h>
-#include <wx/clrpicker.h>
 #include <wx/button.h>
+#include <wx/clrpicker.h>
 #include "ImagePanel.h"
 #include <wx/menu.h>
 
@@ -35,11 +35,11 @@ protected:
     wxTextCtrl* m_blueCtrl;
     wxPanel* m_panel47;
     wxPanel* m_colorButton;
-    wxColourPickerCtrl* m_colourPicker;
-    wxPanel* m_panel55;
-    wxPanel* m_panel95;
+    wxPanel* m_panel112;
     wxTextCtrl* m_formatText;
     wxButton* m_formatMenuButton;
+    wxColourPickerCtrl* m_colourPicker;
+    wxPanel* m_panel55;
     wxButton* m_pickerButton;
     wxPanel* m_panel72;
     ImagePanel* m_dumpImage;
@@ -58,8 +58,8 @@ protected:
     virtual void OnCaptureMove(wxMouseEvent& event) { event.Skip(); }
     virtual void OnCaptureZoom(wxMouseEvent& event) { event.Skip(); }
     virtual void OnColorChange(wxCommandEvent& event) { event.Skip(); }
-    virtual void OnColorPick(wxColourPickerEvent& event) { event.Skip(); }
     virtual void OnFormatClick(wxCommandEvent& event) { event.Skip(); }
+    virtual void OnColorPick(wxColourPickerEvent& event) { event.Skip(); }
     virtual void OnCaptureStart(wxMouseEvent& event) { event.Skip(); }
     virtual void OnDumpGrabStart(wxMouseEvent& event) { event.Skip(); }
     virtual void OnDumpGrabMove(wxMouseEvent& event) { event.Skip(); }
