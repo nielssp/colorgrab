@@ -19,7 +19,7 @@
 #include <wx/textctrl.h>
 #include <wx/button.h>
 #include <wx/clrpicker.h>
-#include "ImagePanel.h"
+#include "ZoomPanel.h"
 #include <wx/menu.h>
 
 class MainFrameBaseClass : public wxFrame
@@ -42,7 +42,7 @@ protected:
     wxPanel* m_panel55;
     wxButton* m_pickerButton;
     wxPanel* m_panel72;
-    ImagePanel* m_dumpImage;
+    ZoomPanel* m_zoomPanel;
     wxMenuBar* m_menuBar;
     wxMenu* m_name6;
     wxMenuItem* m_menuItem9;
@@ -61,9 +61,10 @@ protected:
     virtual void OnFormatClick(wxCommandEvent& event) { event.Skip(); }
     virtual void OnColorPick(wxColourPickerEvent& event) { event.Skip(); }
     virtual void OnCaptureStart(wxMouseEvent& event) { event.Skip(); }
-    virtual void OnDumpGrabStart(wxMouseEvent& event) { event.Skip(); }
-    virtual void OnDumpGrabMove(wxMouseEvent& event) { event.Skip(); }
-    virtual void OnDumpGrabEnd(wxMouseEvent& event) { event.Skip(); }
+    virtual void OnZoomPanelDown(wxMouseEvent& event) { event.Skip(); }
+    virtual void OnZoomPanelUp(wxMouseEvent& event) { event.Skip(); }
+    virtual void OnZoomPanelMove(wxMouseEvent& event) { event.Skip(); }
+    virtual void OnZoomPanelZoom(wxMouseEvent& event) { event.Skip(); }
     virtual void OnAbout(wxCommandEvent& event) { event.Skip(); }
     virtual void OnExit(wxCommandEvent& event) { event.Skip(); }
     virtual void OnSystemColorPicker(wxCommandEvent& event) { event.Skip(); }

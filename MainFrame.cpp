@@ -18,7 +18,6 @@
 MainFrame::MainFrame(wxWindow* parent)
     : MainFrameBaseClass(parent)
 {
-    magnification = 4;
     dragPicker = true;
     capturing = false;
     format = "#%02x%02x%02x";
@@ -64,43 +63,7 @@ wxBitmap GetScreenShot()
 
 void MainFrame::UpdateZoomArea()
 {
-    wxPoint mouse = wxGetMousePosition();
-    wxSize screenSize = wxGetDisplaySize();
-    wxSize zoomArea(128 / magnification, 128 / magnification);
-    int x = 0, y = 0;
-    if (mouse.x > zoomArea.x / 2) {
-        if (mouse.x > screenSize.x - zoomArea.x / 2)
-            x = screenSize.x - zoomArea.x;
-        else
-            x = mouse.x - zoomArea.x / 2;
-    }
-    if (mouse.y > zoomArea.y / 2) {
-        if (mouse.y > screenSize.y - zoomArea.y / 2)
-            y = screenSize.y - zoomArea.y;
-        else
-            y = mouse.y - zoomArea.y / 2;
-    }
-    int relX = mouse.x - x, relY = mouse.y - y;
-    wxBitmap bitmap(128, 128);
-    wxScreenDC dc;
-    wxMemoryDC memDC;
-    memDC.SelectObject(bitmap);
-    memDC.StretchBlit(0, 0, 128, 128, &dc, x, y, zoomArea.x, zoomArea.y);
-    memDC.SelectObject(wxNullBitmap);
-    wxGraphicsContext* gc = wxGraphicsContext::Create( bitmap );
-    if (gc) {
-        gc->SetPen(*wxWHITE_PEN);
-        gc->SetBrush(wxNullBrush);
-        wxGraphicsPath path = gc->CreatePath();
-        path.AddCircle(relX * (double)magnification + magnification / 2, relY * (double)magnification + magnification / 2, 5);
-        gc->StrokePath(path);
-        path = gc->CreatePath();
-        path.AddCircle(relX * (double)magnification + magnification / 2, relY * (double)magnification + magnification / 2, 4);
-        gc->SetPen(*wxBLACK_PEN);
-        gc->StrokePath(path);
-        delete gc;
-    }
-    m_dumpImage->SetImage(bitmap);
+    m_zoomPanel->SetPoi(wxGetMousePosition());
 }
 
 void MainFrame::SetColorFromMouse()
@@ -134,18 +97,6 @@ void MainFrame::SetColor(const wxColor& color, bool updateInputs)
         m_blueCtrl->ChangeValue(wxString::Format("%d", color.Blue()));
     }
     m_formatText->ChangeValue(wxString::Format(format, color.Red(), color.Green(), color.Blue()));
-}
-
-
-void MainFrame::OnGrabClick(wxCommandEvent& event)
-{
-    wxBitmap bmp = GetScreenShot();
-    m_dumpImage->SetImage(bmp);
-    wxFrame* frame = new GrabFrame(this);
-    ImagePanel* p = new ImagePanel(frame);
-    p->SetImage(bmp);
-    frame->Show(true);
-    frame->ShowFullScreen(true);
 }
 
 long getColorValue(wxTextCtrl* ctrl)
@@ -234,35 +185,38 @@ void MainFrame::OnFormatChoose(wxMenuEvent& event)
 void MainFrame::OnFormatClick(wxCommandEvent& event)
 {
 }
-void MainFrame::OnDumpGrabEnd(wxMouseEvent& event)
-{
-    SetColorFromMouse();
-    capturing = false;
-}
-void MainFrame::OnDumpGrabMove(wxMouseEvent& event)
-{
-    if (capturing)
-        SetColorFromMouse();
-}
-void MainFrame::OnDumpGrabStart(wxMouseEvent& event)
-{
-    
-    SetColorFromMouse();
-    capturing = true;
-}
 void MainFrame::OnCaptureZoom(wxMouseEvent& event)
 {
     if (capturing)
-    {
-        if (event.GetWheelRotation() > 0 && magnification < 64)
-            magnification *= 2;
-        else if (event.GetWheelRotation() < 0 && magnification > 1)
-            magnification /= 2;
-        UpdateZoomArea();
-    }
+        OnZoomPanelZoom(event);
 }
 
 void MainFrame::OnZoomSelect(wxCommandEvent& event)
 {
-    magnification = 2;
+    m_zoomPanel->SetZoom(2);
+}
+void MainFrame::OnZoomPanelDown(wxMouseEvent& event)
+{
+    m_zoomPanel->ShowPoi(false);
+    SetColorFromMouse();
+    capturing = true;
+}
+void MainFrame::OnZoomPanelMove(wxMouseEvent& event)
+{
+    if (capturing)
+        SetColorFromMouse();
+}
+void MainFrame::OnZoomPanelUp(wxMouseEvent& event)
+{
+    SetColorFromMouse();
+    capturing = false;
+}
+void MainFrame::OnZoomPanelZoom(wxMouseEvent& event)
+{
+    int zoom = m_zoomPanel->GetZoom();
+    if (event.GetWheelRotation() > 0 && zoom < 64)
+        zoom *= 2;
+    else if (event.GetWheelRotation() < 0 && zoom > 1)
+        zoom /= 2;
+    m_zoomPanel->SetZoom(zoom);
 }

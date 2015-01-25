@@ -113,7 +113,7 @@ MainFrameBaseClass::MainFrameBaseClass(wxWindow* parent, wxWindowID id, const wx
     
     m_panel47 = new wxPanel(m_mainPanel, wxID_ANY, wxDefaultPosition, wxSize(-1,-1), wxTAB_TRAVERSAL);
     
-    flexGridSizer68->Add(m_panel47, 0, wxALL, 5);
+    flexGridSizer68->Add(m_panel47, 0, wxRIGHT|wxTOP|wxBOTTOM, 5);
     
     wxBoxSizer* boxSizer51 = new wxBoxSizer(wxVERTICAL);
     m_panel47->SetSizer(boxSizer51);
@@ -121,7 +121,7 @@ MainFrameBaseClass::MainFrameBaseClass(wxWindow* parent, wxWindowID id, const wx
     m_colorButton = new wxPanel(m_panel47, wxID_ANY, wxDefaultPosition, wxSize(70,70), wxTAB_TRAVERSAL|wxBORDER_THEME);
     m_colorButton->SetBackgroundColour(wxColour(wxT("rgb(0,0,0)")));
     
-    boxSizer51->Add(m_colorButton, 0, wxALL|wxALIGN_LEFT, 1);
+    boxSizer51->Add(m_colorButton, 0, wxRIGHT|wxTOP|wxBOTTOM|wxALIGN_LEFT, 1);
     
     m_panel112 = new wxPanel(m_panel47, wxID_ANY, wxDefaultPosition, wxSize(-1,-1), wxTAB_TRAVERSAL);
     
@@ -135,7 +135,7 @@ MainFrameBaseClass::MainFrameBaseClass(wxWindow* parent, wxWindowID id, const wx
     m_formatText->SetHint(wxT(""));
     #endif
     
-    boxSizer114->Add(m_formatText, 0, wxALL|wxALIGN_CENTER_HORIZONTAL, 2);
+    boxSizer114->Add(m_formatText, 0, wxRIGHT|wxTOP|wxBOTTOM|wxALIGN_CENTER_HORIZONTAL, 2);
     
     m_formatMenuButton = new wxButton(m_panel112, wxID_ANY, _("F"), wxDefaultPosition, wxSize(20,20), 0);
     
@@ -163,9 +163,10 @@ MainFrameBaseClass::MainFrameBaseClass(wxWindow* parent, wxWindowID id, const wx
     wxBoxSizer* boxSizer74 = new wxBoxSizer(wxVERTICAL);
     m_panel72->SetSizer(boxSizer74);
     
-    m_dumpImage = new ImagePanel(m_panel72);
-    boxSizer74->Add(m_dumpImage, 0, wxALL, 0);
-    m_dumpImage->SetMinSize(wxSize(128,128));
+    m_zoomPanel = new ZoomPanel(m_panel72, wxID_ANY, wxDefaultPosition, wxSize(128,128), wxTAB_TRAVERSAL);
+    
+    boxSizer74->Add(m_zoomPanel, 0, wxALL, 0);
+    m_zoomPanel->SetMinSize(wxSize(128,128));
     
     m_menuBar = new wxMenuBar(0);
     this->SetMenuBar(m_menuBar);
@@ -210,9 +211,10 @@ MainFrameBaseClass::MainFrameBaseClass(wxWindow* parent, wxWindowID id, const wx
     m_formatMenuButton->Connect(wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler(MainFrameBaseClass::OnFormatClick), NULL, this);
     m_colourPicker->Connect(wxEVT_COMMAND_COLOURPICKER_CHANGED, wxColourPickerEventHandler(MainFrameBaseClass::OnColorPick), NULL, this);
     m_pickerButton->Connect(wxEVT_LEFT_DOWN, wxMouseEventHandler(MainFrameBaseClass::OnCaptureStart), NULL, this);
-    m_dumpImage->Connect(wxEVT_LEFT_DOWN, wxMouseEventHandler(MainFrameBaseClass::OnDumpGrabStart), NULL, this);
-    m_dumpImage->Connect(wxEVT_MOTION, wxMouseEventHandler(MainFrameBaseClass::OnDumpGrabMove), NULL, this);
-    m_dumpImage->Connect(wxEVT_LEFT_UP, wxMouseEventHandler(MainFrameBaseClass::OnDumpGrabEnd), NULL, this);
+    m_zoomPanel->Connect(wxEVT_LEFT_DOWN, wxMouseEventHandler(MainFrameBaseClass::OnZoomPanelDown), NULL, this);
+    m_zoomPanel->Connect(wxEVT_LEFT_UP, wxMouseEventHandler(MainFrameBaseClass::OnZoomPanelUp), NULL, this);
+    m_zoomPanel->Connect(wxEVT_MOTION, wxMouseEventHandler(MainFrameBaseClass::OnZoomPanelMove), NULL, this);
+    m_zoomPanel->Connect(wxEVT_MOUSEWHEEL, wxMouseEventHandler(MainFrameBaseClass::OnZoomPanelZoom), NULL, this);
     this->Connect(m_menuItem9->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(MainFrameBaseClass::OnAbout), NULL, this);
     this->Connect(m_menuItem7->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(MainFrameBaseClass::OnExit), NULL, this);
     this->Connect(m_menuItem79->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(MainFrameBaseClass::OnSystemColorPicker), NULL, this);
@@ -231,9 +233,10 @@ MainFrameBaseClass::~MainFrameBaseClass()
     m_formatMenuButton->Disconnect(wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler(MainFrameBaseClass::OnFormatClick), NULL, this);
     m_colourPicker->Disconnect(wxEVT_COMMAND_COLOURPICKER_CHANGED, wxColourPickerEventHandler(MainFrameBaseClass::OnColorPick), NULL, this);
     m_pickerButton->Disconnect(wxEVT_LEFT_DOWN, wxMouseEventHandler(MainFrameBaseClass::OnCaptureStart), NULL, this);
-    m_dumpImage->Disconnect(wxEVT_LEFT_DOWN, wxMouseEventHandler(MainFrameBaseClass::OnDumpGrabStart), NULL, this);
-    m_dumpImage->Disconnect(wxEVT_MOTION, wxMouseEventHandler(MainFrameBaseClass::OnDumpGrabMove), NULL, this);
-    m_dumpImage->Disconnect(wxEVT_LEFT_UP, wxMouseEventHandler(MainFrameBaseClass::OnDumpGrabEnd), NULL, this);
+    m_zoomPanel->Disconnect(wxEVT_LEFT_DOWN, wxMouseEventHandler(MainFrameBaseClass::OnZoomPanelDown), NULL, this);
+    m_zoomPanel->Disconnect(wxEVT_LEFT_UP, wxMouseEventHandler(MainFrameBaseClass::OnZoomPanelUp), NULL, this);
+    m_zoomPanel->Disconnect(wxEVT_MOTION, wxMouseEventHandler(MainFrameBaseClass::OnZoomPanelMove), NULL, this);
+    m_zoomPanel->Disconnect(wxEVT_MOUSEWHEEL, wxMouseEventHandler(MainFrameBaseClass::OnZoomPanelZoom), NULL, this);
     this->Disconnect(m_menuItem9->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(MainFrameBaseClass::OnAbout), NULL, this);
     this->Disconnect(m_menuItem7->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(MainFrameBaseClass::OnExit), NULL, this);
     this->Disconnect(m_menuItem79->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(MainFrameBaseClass::OnSystemColorPicker), NULL, this);

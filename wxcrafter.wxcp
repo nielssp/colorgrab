@@ -1,7 +1,7 @@
 {
  "metadata": {
   "m_generatedFilesDir": ".",
-  "m_objCounter": 114,
+  "m_objCounter": 116,
   "m_includeFiles": [],
   "m_bitmapFunction": "wxC9ED9InitBitmapResources",
   "m_bitmapsFile": "wxcrafter_bitmaps.cpp",
@@ -9,13 +9,7 @@
   "m_outputFileName": "",
   "m_firstWindowId": 1000,
   "m_useEnum": true,
-  "m_templateClasses": [{
-    "m_includeFile": "#include \"ImagePanel.h\"",
-    "m_allocationLine": "$name = new ImagePanel($parent)",
-    "m_className": "ImagePanel",
-    "m_xrcPreviewClass": "",
-    "m_events": []
-   }]
+  "m_templateClasses": []
  },
  "windows": [{
    "m_type": 4402,
@@ -905,7 +899,7 @@
            "gbSpan": "1,1",
            "gbPosition": "0,0",
            "m_styles": ["wxTAB_TRAVERSAL"],
-           "m_sizerFlags": ["wxALL", "wxLEFT", "wxRIGHT", "wxTOP", "wxBOTTOM"],
+           "m_sizerFlags": ["wxRIGHT", "wxTOP", "wxBOTTOM"],
            "m_properties": [{
              "type": "winid",
              "m_label": "ID:",
@@ -994,7 +988,7 @@
                "gbSpan": "1,1",
                "gbPosition": "0,0",
                "m_styles": ["wxTAB_TRAVERSAL", "wxBORDER_THEME"],
-               "m_sizerFlags": ["wxALL", "wxLEFT", "wxRIGHT", "wxTOP", "wxBOTTOM", "wxALIGN_LEFT"],
+               "m_sizerFlags": ["wxRIGHT", "wxTOP", "wxBOTTOM", "wxALIGN_LEFT"],
                "m_properties": [{
                  "type": "winid",
                  "m_label": "ID:",
@@ -1150,7 +1144,7 @@
                    "gbSpan": "1,1",
                    "gbPosition": "0,0",
                    "m_styles": ["wxTE_CENTRE"],
-                   "m_sizerFlags": ["wxALL", "wxLEFT", "wxRIGHT", "wxTOP", "wxBOTTOM", "wxALIGN_CENTER_HORIZONTAL"],
+                   "m_sizerFlags": ["wxRIGHT", "wxTOP", "wxBOTTOM", "wxALIGN_CENTER_HORIZONTAL"],
                    "m_properties": [{
                      "type": "winid",
                      "m_label": "ID:",
@@ -1683,12 +1677,12 @@
               }],
              "m_events": [],
              "m_children": [{
-               "m_type": 4465,
+               "m_type": 4408,
                "proportion": 0,
                "border": 0,
                "gbSpan": "1,1",
                "gbPosition": "0,0",
-               "m_styles": ["wxBORDER_THEME"],
+               "m_styles": ["wxTAB_TRAVERSAL"],
                "m_sizerFlags": ["wxALL", "wxLEFT", "wxRIGHT", "wxTOP", "wxBOTTOM"],
                "m_properties": [{
                  "type": "winid",
@@ -1705,7 +1699,7 @@
                 }, {
                  "type": "string",
                  "m_label": "Name:",
-                 "m_value": "m_dumpImage"
+                 "m_value": "m_zoomPanel"
                 }, {
                  "type": "multi-string",
                  "m_label": "Tooltip:",
@@ -1737,11 +1731,11 @@
                 }, {
                  "type": "string",
                  "m_label": "Class Name:",
-                 "m_value": ""
+                 "m_value": "ZoomPanel"
                 }, {
                  "type": "string",
                  "m_label": "Include File:",
-                 "m_value": ""
+                 "m_value": "ZoomPanel.h"
                 }, {
                  "type": "string",
                  "m_label": "Style:",
@@ -1751,26 +1745,32 @@
                  "m_eventName": "wxEVT_LEFT_DOWN",
                  "m_eventClass": "wxMouseEvent",
                  "m_eventHandler": "wxMouseEventHandler",
-                 "m_functionNameAndSignature": "OnDumpGrabStart(wxMouseEvent& event)",
+                 "m_functionNameAndSignature": "OnZoomPanelDown(wxMouseEvent& event)",
                  "m_description": "Process a wxEVT_LEFT_DOWN event. The handler of this event should normally call event.Skip() to allow the default processing to take place as otherwise the window under mouse wouldn't get the focus.",
-                 "m_noBody": false
-                }, {
-                 "m_eventName": "wxEVT_MOTION",
-                 "m_eventClass": "wxMouseEvent",
-                 "m_eventHandler": "wxMouseEventHandler",
-                 "m_functionNameAndSignature": "OnDumpGrabMove(wxMouseEvent& event)",
-                 "m_description": "Process a wxEVT_MOTION event",
                  "m_noBody": false
                 }, {
                  "m_eventName": "wxEVT_LEFT_UP",
                  "m_eventClass": "wxMouseEvent",
                  "m_eventHandler": "wxMouseEventHandler",
-                 "m_functionNameAndSignature": "OnDumpGrabEnd(wxMouseEvent& event)",
+                 "m_functionNameAndSignature": "OnZoomPanelUp(wxMouseEvent& event)",
                  "m_description": "Process a wxEVT_LEFT_UP event.",
                  "m_noBody": false
+                }, {
+                 "m_eventName": "wxEVT_MOTION",
+                 "m_eventClass": "wxMouseEvent",
+                 "m_eventHandler": "wxMouseEventHandler",
+                 "m_functionNameAndSignature": "OnZoomPanelMove(wxMouseEvent& event)",
+                 "m_description": "Process a wxEVT_MOTION event",
+                 "m_noBody": false
+                }, {
+                 "m_eventName": "wxEVT_MOUSEWHEEL",
+                 "m_eventClass": "wxMouseEvent",
+                 "m_eventHandler": "wxMouseEventHandler",
+                 "m_functionNameAndSignature": "OnZoomPanelZoom(wxMouseEvent& event)",
+                 "m_description": "Process a wxEVT_MOUSEWHEEL event",
+                 "m_noBody": false
                 }],
-               "m_children": [],
-               "m_templInfoName": "ImagePanel"
+               "m_children": []
               }]
             }]
           }]
