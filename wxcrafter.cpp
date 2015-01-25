@@ -78,46 +78,44 @@ MainFrameBaseClass::MainFrameBaseClass(wxWindow* parent, wxWindowID id, const wx
     flexGridSizer33->SetNonFlexibleGrowMode( wxFLEX_GROWMODE_SPECIFIED );
     m_panel31->SetSizer(flexGridSizer33);
     
-    m_redLabel = new wxStaticText(m_panel31, wxID_ANY, _("R:"), wxDefaultPosition, wxSize(-1,-1), 0);
+    m_firstLabel = new wxStaticText(m_panel31, wxID_ANY, _("R:"), wxDefaultPosition, wxSize(-1,-1), 0);
     
-    flexGridSizer33->Add(m_redLabel, 0, wxLEFT|wxRIGHT|wxTOP, 5);
+    flexGridSizer33->Add(m_firstLabel, 0, wxLEFT|wxRIGHT|wxTOP, 5);
     
-    m_redCtrl = new wxTextCtrl(m_panel31, wxID_ANY, wxT("0"), wxDefaultPosition, wxSize(50,20), wxTE_CENTRE);
+    m_firstCtrl = new wxTextCtrl(m_panel31, wxID_ANY, wxT("0"), wxDefaultPosition, wxSize(50,20), wxTE_CENTRE);
     #if wxVERSION_NUMBER >= 3000
-    m_redCtrl->SetHint(wxT(""));
+    m_firstCtrl->SetHint(wxT(""));
     #endif
     
-    flexGridSizer33->Add(m_redCtrl, 0, wxALL, 2);
+    flexGridSizer33->Add(m_firstCtrl, 0, wxALL, 2);
     
-    m_greenLabel = new wxStaticText(m_panel31, wxID_ANY, _("G:"), wxDefaultPosition, wxSize(-1,-1), 0);
+    m_secondLabel = new wxStaticText(m_panel31, wxID_ANY, _("G:"), wxDefaultPosition, wxSize(-1,-1), 0);
     
-    flexGridSizer33->Add(m_greenLabel, 0, wxLEFT|wxRIGHT|wxTOP, 5);
+    flexGridSizer33->Add(m_secondLabel, 0, wxLEFT|wxRIGHT|wxTOP, 5);
     
-    m_greenCtrl = new wxTextCtrl(m_panel31, wxID_ANY, wxT("0"), wxDefaultPosition, wxSize(50,20), wxTE_CENTRE);
+    m_secondCtrl = new wxTextCtrl(m_panel31, wxID_ANY, wxT("0"), wxDefaultPosition, wxSize(50,20), wxTE_CENTRE);
     #if wxVERSION_NUMBER >= 3000
-    m_greenCtrl->SetHint(wxT(""));
+    m_secondCtrl->SetHint(wxT(""));
     #endif
     
-    flexGridSizer33->Add(m_greenCtrl, 0, wxALL, 2);
+    flexGridSizer33->Add(m_secondCtrl, 0, wxALL, 2);
     
-    m_blueLabel = new wxStaticText(m_panel31, wxID_ANY, _("B:"), wxDefaultPosition, wxSize(-1,-1), 0);
+    m_thirdLabel = new wxStaticText(m_panel31, wxID_ANY, _("B:"), wxDefaultPosition, wxSize(-1,-1), 0);
     
-    flexGridSizer33->Add(m_blueLabel, 0, wxLEFT|wxRIGHT|wxTOP, 5);
+    flexGridSizer33->Add(m_thirdLabel, 0, wxLEFT|wxRIGHT|wxTOP, 5);
     
-    m_blueCtrl = new wxTextCtrl(m_panel31, wxID_ANY, wxT("0"), wxDefaultPosition, wxSize(50,20), wxTE_CENTRE);
+    m_thirdCtrl = new wxTextCtrl(m_panel31, wxID_ANY, wxT("0"), wxDefaultPosition, wxSize(50,20), wxTE_CENTRE);
     #if wxVERSION_NUMBER >= 3000
-    m_blueCtrl->SetHint(wxT(""));
+    m_thirdCtrl->SetHint(wxT(""));
     #endif
     
-    flexGridSizer33->Add(m_blueCtrl, 0, wxALL, 2);
+    flexGridSizer33->Add(m_thirdCtrl, 0, wxALL, 2);
     
     m_fourthLabel = new wxStaticText(m_panel31, wxID_ANY, _("K:"), wxDefaultPosition, wxSize(-1,-1), 0);
-    m_fourthLabel->Hide();
     
     flexGridSizer33->Add(m_fourthLabel, 0, wxLEFT|wxRIGHT|wxTOP, 5);
     
     m_fourthCtrl = new wxTextCtrl(m_panel31, wxID_ANY, wxT("0"), wxDefaultPosition, wxSize(50,20), wxTE_CENTRE);
-    m_fourthCtrl->Hide();
     #if wxVERSION_NUMBER >= 3000
     m_fourthCtrl->SetHint(wxT(""));
     #endif
@@ -228,9 +226,9 @@ MainFrameBaseClass::MainFrameBaseClass(wxWindow* parent, wxWindowID id, const wx
     this->Connect(wxEVT_LEFT_UP, wxMouseEventHandler(MainFrameBaseClass::OnCaptureEnd), NULL, this);
     this->Connect(wxEVT_MOTION, wxMouseEventHandler(MainFrameBaseClass::OnCaptureMove), NULL, this);
     this->Connect(wxEVT_MOUSEWHEEL, wxMouseEventHandler(MainFrameBaseClass::OnCaptureZoom), NULL, this);
-    m_redCtrl->Connect(wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler(MainFrameBaseClass::OnColorChange), NULL, this);
-    m_greenCtrl->Connect(wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler(MainFrameBaseClass::OnColorChange), NULL, this);
-    m_blueCtrl->Connect(wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler(MainFrameBaseClass::OnColorChange), NULL, this);
+    m_firstCtrl->Connect(wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler(MainFrameBaseClass::OnColorChange), NULL, this);
+    m_secondCtrl->Connect(wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler(MainFrameBaseClass::OnColorChange), NULL, this);
+    m_thirdCtrl->Connect(wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler(MainFrameBaseClass::OnColorChange), NULL, this);
     m_formatMenuButton->Connect(wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler(MainFrameBaseClass::OnFormatClick), NULL, this);
     m_colourPicker->Connect(wxEVT_COMMAND_COLOURPICKER_CHANGED, wxColourPickerEventHandler(MainFrameBaseClass::OnColorPick), NULL, this);
     m_pickerButton->Connect(wxEVT_LEFT_DOWN, wxMouseEventHandler(MainFrameBaseClass::OnCaptureStart), NULL, this);
@@ -251,9 +249,9 @@ MainFrameBaseClass::~MainFrameBaseClass()
     this->Disconnect(wxEVT_LEFT_UP, wxMouseEventHandler(MainFrameBaseClass::OnCaptureEnd), NULL, this);
     this->Disconnect(wxEVT_MOTION, wxMouseEventHandler(MainFrameBaseClass::OnCaptureMove), NULL, this);
     this->Disconnect(wxEVT_MOUSEWHEEL, wxMouseEventHandler(MainFrameBaseClass::OnCaptureZoom), NULL, this);
-    m_redCtrl->Disconnect(wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler(MainFrameBaseClass::OnColorChange), NULL, this);
-    m_greenCtrl->Disconnect(wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler(MainFrameBaseClass::OnColorChange), NULL, this);
-    m_blueCtrl->Disconnect(wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler(MainFrameBaseClass::OnColorChange), NULL, this);
+    m_firstCtrl->Disconnect(wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler(MainFrameBaseClass::OnColorChange), NULL, this);
+    m_secondCtrl->Disconnect(wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler(MainFrameBaseClass::OnColorChange), NULL, this);
+    m_thirdCtrl->Disconnect(wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler(MainFrameBaseClass::OnColorChange), NULL, this);
     m_formatMenuButton->Disconnect(wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler(MainFrameBaseClass::OnFormatClick), NULL, this);
     m_colourPicker->Disconnect(wxEVT_COMMAND_COLOURPICKER_CHANGED, wxColourPickerEventHandler(MainFrameBaseClass::OnColorPick), NULL, this);
     m_pickerButton->Disconnect(wxEVT_LEFT_DOWN, wxMouseEventHandler(MainFrameBaseClass::OnCaptureStart), NULL, this);

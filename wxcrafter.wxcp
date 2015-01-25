@@ -406,7 +406,7 @@
                 }, {
                  "type": "string",
                  "m_label": "Name:",
-                 "m_value": "m_redLabel"
+                 "m_value": "m_firstLabel"
                 }, {
                  "type": "multi-string",
                  "m_label": "Tooltip:",
@@ -481,7 +481,7 @@
                 }, {
                  "type": "string",
                  "m_label": "Name:",
-                 "m_value": "m_redCtrl"
+                 "m_value": "m_firstCtrl"
                 }, {
                  "type": "multi-string",
                  "m_label": "Tooltip:",
@@ -575,7 +575,7 @@
                 }, {
                  "type": "string",
                  "m_label": "Name:",
-                 "m_value": "m_greenLabel"
+                 "m_value": "m_secondLabel"
                 }, {
                  "type": "multi-string",
                  "m_label": "Tooltip:",
@@ -650,7 +650,7 @@
                 }, {
                  "type": "string",
                  "m_label": "Name:",
-                 "m_value": "m_greenCtrl"
+                 "m_value": "m_secondCtrl"
                 }, {
                  "type": "multi-string",
                  "m_label": "Tooltip:",
@@ -702,7 +702,7 @@
                 }, {
                  "type": "string",
                  "m_label": "Max Length:",
-                 "m_value": "3"
+                 "m_value": ""
                 }, {
                  "type": "bool",
                  "m_label": "Auto Complete Directories:",
@@ -744,7 +744,7 @@
                 }, {
                  "type": "string",
                  "m_label": "Name:",
-                 "m_value": "m_blueLabel"
+                 "m_value": "m_thirdLabel"
                 }, {
                  "type": "multi-string",
                  "m_label": "Tooltip:",
@@ -819,7 +819,7 @@
                 }, {
                  "type": "string",
                  "m_label": "Name:",
-                 "m_value": "m_blueCtrl"
+                 "m_value": "m_thirdCtrl"
                 }, {
                  "type": "multi-string",
                  "m_label": "Tooltip:",
@@ -871,7 +871,7 @@
                 }, {
                  "type": "string",
                  "m_label": "Max Length:",
-                 "m_value": "3"
+                 "m_value": ""
                 }, {
                  "type": "bool",
                  "m_label": "Auto Complete Directories:",
@@ -933,7 +933,7 @@
                 }, {
                  "type": "bool",
                  "m_label": "Hidden",
-                 "m_value": true
+                 "m_value": false
                 }, {
                  "type": "bool",
                  "m_label": "Disabled",
@@ -1008,7 +1008,7 @@
                 }, {
                  "type": "bool",
                  "m_label": "Hidden",
-                 "m_value": true
+                 "m_value": false
                 }, {
                  "type": "bool",
                  "m_label": "Disabled",
@@ -1040,7 +1040,7 @@
                 }, {
                  "type": "string",
                  "m_label": "Max Length:",
-                 "m_value": "3"
+                 "m_value": ""
                 }, {
                  "type": "bool",
                  "m_label": "Auto Complete Directories:",
@@ -1050,7 +1050,14 @@
                  "m_label": "Auto Complete Files:",
                  "m_value": false
                 }],
-               "m_events": [],
+               "m_events": [{
+                 "m_eventName": "wxEVT_COMMAND_TEXT_UPDATED",
+                 "m_eventClass": "wxCommandEvent",
+                 "m_eventHandler": "wxCommandEventHandler",
+                 "m_functionNameAndSignature": "OnColorChange(wxCommandEvent& event)",
+                 "m_description": "Respond to a wxEVT_COMMAND_TEXT_UPDATED event, generated when the text changes.\nNotice that this event will be sent when the text controls contents changes\n - whether this is due to user input or comes from the program itself\n(for example, if SetValue() is called); see ChangeValue() for a function which does not send this event.",
+                 "m_noBody": false
+                }],
                "m_children": []
               }]
             }]

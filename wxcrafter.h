@@ -27,12 +27,12 @@ class MainFrameBaseClass : public wxFrame
 protected:
     wxPanel* m_mainPanel;
     wxPanel* m_panel31;
-    wxStaticText* m_redLabel;
-    wxTextCtrl* m_redCtrl;
-    wxStaticText* m_greenLabel;
-    wxTextCtrl* m_greenCtrl;
-    wxStaticText* m_blueLabel;
-    wxTextCtrl* m_blueCtrl;
+    wxStaticText* m_firstLabel;
+    wxTextCtrl* m_firstCtrl;
+    wxStaticText* m_secondLabel;
+    wxTextCtrl* m_secondCtrl;
+    wxStaticText* m_thirdLabel;
+    wxTextCtrl* m_thirdCtrl;
     wxStaticText* m_fourthLabel;
     wxTextCtrl* m_fourthCtrl;
     wxPanel* m_panel47;

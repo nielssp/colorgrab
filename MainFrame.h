@@ -1,19 +1,24 @@
 #ifndef MAINFRAME_H
 #define MAINFRAME_H
+#include "IColorModel.h"
 #include "wxcrafter.h"
 
 class MainFrame : public MainFrameBaseClass
 {
 private:
     bool dragPicker;
-	 bool capturing;
+    bool capturing;
     wxString format;
+    IColorModel* colorModel;
 public:
     MainFrame(wxWindow* parent);
     virtual ~MainFrame();
 
     void OnExit(wxCommandEvent& event);
     void OnAbout(wxCommandEvent& event);
+    
+    void SetColorModel(IColorModel* colorModel);
+    void UpdateColorModel();
 	 
     wxColour GetColor() const;
 	 void SetColor(const wxColor& color, bool updateInputs = true);

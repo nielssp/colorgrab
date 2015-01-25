@@ -1,5 +1,6 @@
 #include "MainFrame.h"
 
+#include "RGBModel.h"
 #include "GrabFrame.h"
 #include "GrabDropSource.h"
 
@@ -28,6 +29,8 @@ struct ZoomMenuFunctor
 MainFrame::MainFrame(wxWindow* parent)
     : MainFrameBaseClass(parent)
 {
+    colorModel = new RGBModel();
+    UpdateColorModel();
     dragPicker = true;
     capturing = false;
     format = "#%02X%02X%02X";
@@ -41,6 +44,37 @@ MainFrame::MainFrame(wxWindow* parent)
 
 MainFrame::~MainFrame()
 {
+}
+
+void MainFrame::SetColorModel(IColorModel* colorModel)
+{
+    this->colorModel = colorModel;
+    UpdateColorModel();
+}
+
+void update_label_and_ctrl(int i, IColorModel* colorModel, wxStaticText* label, wxTextCtrl* ctrl)
+{
+    if (colorModel->getNumComponents() > i) {
+        label->Show(true);
+        ctrl->Show(true);
+        std::string labelStr = colorModel->getLabel(i);
+        label->SetLabel(labelStr.substr(0, 1).append(":"));
+        label->SetToolTip(labelStr);
+        ctrl->SetToolTip(labelStr);
+    }
+    else {
+        label->Show(false);
+        ctrl->Show(false);
+    }
+}
+
+void MainFrame::UpdateColorModel()
+{
+    update_label_and_ctrl(0, colorModel, m_firstLabel, m_firstCtrl);
+    update_label_and_ctrl(1, colorModel, m_secondLabel, m_secondCtrl);
+    update_label_and_ctrl(2, colorModel, m_thirdLabel, m_thirdCtrl);
+    update_label_and_ctrl(3, colorModel, m_fourthLabel, m_fourthCtrl);
+    SetColor(GetColor());
 }
 
 void MainFrame::OnExit(wxCommandEvent& event)
@@ -100,11 +134,13 @@ void MainFrame::SetColor(const wxColor& color, bool updateInputs)
 {
     m_colourPicker->SetColour(color);
     m_colorButton->SetBackgroundColour(color);
+    colorModel->setColor(color);
     if (updateInputs)
     {
-        m_redCtrl->ChangeValue(wxString::Format("%d", color.Red()));
-        m_greenCtrl->ChangeValue(wxString::Format("%d", color.Green()));
-        m_blueCtrl->ChangeValue(wxString::Format("%d", color.Blue()));
+        m_firstCtrl->ChangeValue(wxString::Format("%d", colorModel->getValue(0)));
+        m_secondCtrl->ChangeValue(wxString::Format("%d", colorModel->getValue(1)));
+        m_thirdCtrl->ChangeValue(wxString::Format("%d", colorModel->getValue(2)));
+        m_fourthCtrl->ChangeValue(wxString::Format("%d", colorModel->getValue(3)));
     }
     m_formatText->ChangeValue(wxString::Format(format, color.Red(), color.Green(), color.Blue()));
 }
@@ -113,19 +149,16 @@ long getColorValue(wxTextCtrl* ctrl)
 {
     long val = 0;
     ctrl->GetValue().ToLong(&val);
-    if (val < 0)
-        val = 0;
-    else if (val > 255)
-        val = 255;
     return val;
 }
 
 void MainFrame::OnColorChange(wxCommandEvent& event)
 {
-    long red = getColorValue(m_redCtrl);
-    long green = getColorValue(m_greenCtrl);
-    long blue = getColorValue(m_blueCtrl);
-    SetColor(wxColour(red, green, blue), false);
+    colorModel->setValue(0, getColorValue(m_firstCtrl));
+    colorModel->setValue(1, getColorValue(m_secondCtrl));
+    colorModel->setValue(2, getColorValue(m_thirdCtrl));
+    colorModel->setValue(3, getColorValue(m_fourthCtrl));
+    SetColor(colorModel->getColor(), false);
 }
 void MainFrame::OnColorPick(wxColourPickerEvent& event)
 {
