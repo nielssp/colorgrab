@@ -8,6 +8,8 @@ class IColorModel
 public:
    virtual ~IColorModel() {};
    
+   virtual std::string getName() const = 0;
+   
    virtual int getNumComponents() const = 0;
    
    virtual std::string getLabel(int i) const = 0;

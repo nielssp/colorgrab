@@ -3,12 +3,15 @@
 #include "IColorModel.h"
 #include "wxcrafter.h"
 
+#include <vector>
+
 class MainFrame : public MainFrameBaseClass
 {
 private:
     bool dragPicker;
     bool capturing;
     wxString format;
+	std::vector<IColorModel*> colorModels;
     IColorModel* colorModel;
 public:
     MainFrame(wxWindow* parent);
@@ -42,5 +45,6 @@ protected:
     virtual void OnColorPick(wxColourPickerEvent& event);
     virtual void OnColorChange(wxCommandEvent& event);
     virtual void OnZoomSelect(wxCommandEvent& event);
+    virtual void OnSelectColorModel(wxCommandEvent& event);
 };
 #endif // MAINFRAME_H

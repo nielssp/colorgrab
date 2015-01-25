@@ -55,8 +55,7 @@ protected:
     wxMenu* m_menu65;
     wxMenuItem* m_dragMenuItem;
     wxMenu* m_zoomMenu;
-    wxMenu* m_menu122;
-    wxMenuItem* m_menuItem124;
+    wxMenu* m_colorModelMenu;
 
 protected:
     virtual void OnCaptureEnd(wxMouseEvent& event) { event.Skip(); }
@@ -77,7 +76,7 @@ protected:
     virtual void OnSettingDrag(wxCommandEvent& event) { event.Skip(); }
 
 public:
-    MainFrameBaseClass(wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = _("ColorGrab"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize(-1,-1), long style = wxCAPTION|wxRESIZE_BORDER|wxMINIMIZE_BOX|wxSYSTEM_MENU|wxCLOSE_BOX|wxSTAY_ON_TOP);
+    MainFrameBaseClass(wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = _("ColorGrab"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize(-1,-1), long style = wxCAPTION|wxMINIMIZE_BOX|wxSYSTEM_MENU|wxCLOSE_BOX|wxSTAY_ON_TOP);
     virtual ~MainFrameBaseClass();
 };
 

@@ -2,6 +2,11 @@
 
 #include <cmath>
 
+std::string HSLModel::getName() const
+{
+    return "HSL";
+}
+
 wxColor HSLModel::getColor() const
 {
     return wxColour();

@@ -211,11 +211,8 @@ MainFrameBaseClass::MainFrameBaseClass(wxWindow* parent, wxWindowID id, const wx
     m_zoomMenu = new wxMenu();
     m_menu65->AppendSubMenu(m_zoomMenu, _("Zoom"));
     
-    m_menu122 = new wxMenu();
-    m_menu65->AppendSubMenu(m_menu122, _("Color model"));
-    
-    m_menuItem124 = new wxMenuItem(m_menu122, wxID_ANY, _("RGB"), wxT(""), wxITEM_RADIO);
-    m_menu122->Append(m_menuItem124);
+    m_colorModelMenu = new wxMenu();
+    m_menu65->AppendSubMenu(m_colorModelMenu, _("Color model"));
     
     SetSizeHints(-1,-1);
     if ( GetSizer() ) {
@@ -229,6 +226,7 @@ MainFrameBaseClass::MainFrameBaseClass(wxWindow* parent, wxWindowID id, const wx
     m_firstCtrl->Connect(wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler(MainFrameBaseClass::OnColorChange), NULL, this);
     m_secondCtrl->Connect(wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler(MainFrameBaseClass::OnColorChange), NULL, this);
     m_thirdCtrl->Connect(wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler(MainFrameBaseClass::OnColorChange), NULL, this);
+    m_fourthCtrl->Connect(wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler(MainFrameBaseClass::OnColorChange), NULL, this);
     m_formatMenuButton->Connect(wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler(MainFrameBaseClass::OnFormatClick), NULL, this);
     m_colourPicker->Connect(wxEVT_COMMAND_COLOURPICKER_CHANGED, wxColourPickerEventHandler(MainFrameBaseClass::OnColorPick), NULL, this);
     m_pickerButton->Connect(wxEVT_LEFT_DOWN, wxMouseEventHandler(MainFrameBaseClass::OnCaptureStart), NULL, this);
@@ -252,6 +250,7 @@ MainFrameBaseClass::~MainFrameBaseClass()
     m_firstCtrl->Disconnect(wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler(MainFrameBaseClass::OnColorChange), NULL, this);
     m_secondCtrl->Disconnect(wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler(MainFrameBaseClass::OnColorChange), NULL, this);
     m_thirdCtrl->Disconnect(wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler(MainFrameBaseClass::OnColorChange), NULL, this);
+    m_fourthCtrl->Disconnect(wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler(MainFrameBaseClass::OnColorChange), NULL, this);
     m_formatMenuButton->Disconnect(wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler(MainFrameBaseClass::OnFormatClick), NULL, this);
     m_colourPicker->Disconnect(wxEVT_COMMAND_COLOURPICKER_CHANGED, wxColourPickerEventHandler(MainFrameBaseClass::OnColorPick), NULL, this);
     m_pickerButton->Disconnect(wxEVT_LEFT_DOWN, wxMouseEventHandler(MainFrameBaseClass::OnCaptureStart), NULL, this);

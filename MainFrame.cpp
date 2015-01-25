@@ -28,16 +28,26 @@ struct ZoomMenuFunctor
 MainFrame::MainFrame(wxWindow* parent)
     : MainFrameBaseClass(parent)
 {
-    colorModel = new HSLModel();
+	colorModels.push_back(new RGBModel());
+	colorModels.push_back(new HSLModel());
+    colorModel = colorModels[0];
+	
+	for (int i = 0; i < colorModels.size(); i++)
+	{
+        wxMenuItem* menuItem = new wxMenuItem(m_colorModelMenu, i, colorModels[i]->getName(), wxT(""), wxITEM_RADIO);
+        m_colorModelMenu->Append(menuItem);
+        m_colorModelMenu->Bind(wxEVT_COMMAND_MENU_SELECTED, &MainFrame::OnSelectColorModel, this, menuItem->GetId());
+	}
+	
     UpdateColorModel();
     dragPicker = true;
     capturing = false;
     format = "#%02X%02X%02X";
     
     for (int i = 1; i <= 64; i *= 2) {
-        wxMenuItem* menuItem= new wxMenuItem(m_zoomMenu, wxID_ANY, wxString::Format("%d times", i), wxT(""), wxITEM_RADIO);
+        wxMenuItem* menuItem = new wxMenuItem(m_zoomMenu, wxID_ANY, wxString::Format("%d times", i), wxT(""), wxITEM_RADIO);
         m_zoomMenu->Append(menuItem);
-        Bind(wxEVT_COMMAND_MENU_SELECTED, ZoomMenuFunctor(m_zoomPanel, i), menuItem->GetId());
+        m_zoomMenu->Bind(wxEVT_COMMAND_MENU_SELECTED, ZoomMenuFunctor(m_zoomPanel, i), menuItem->GetId());
     }
 }
 
@@ -133,6 +143,7 @@ void MainFrame::SetColor(const wxColor& color, bool updateInputs)
 {
     m_colourPicker->SetColour(color);
     m_colorButton->SetBackgroundColour(color);
+	m_colorButton->Refresh();
     colorModel->setColor(color);
     if (updateInputs)
     {
@@ -264,4 +275,9 @@ void MainFrame::OnGrabClick(wxCommandEvent& event)
         SetCursor(*wxCROSS_CURSOR);
         capturing = true;        
     }
+}
+
+void MainFrame::OnSelectColorModel(wxCommandEvent& event)
+{
+    SetColorModel(colorModels[event.GetId()]);
 }

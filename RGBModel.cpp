@@ -1,5 +1,10 @@
 #include "RGBModel.h"
 
+std::string RGBModel::getName() const
+{
+    return "RGB";
+}
+
 wxColor RGBModel::getColor() const
 {
     return color;
