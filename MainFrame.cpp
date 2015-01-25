@@ -14,18 +14,28 @@
 #include <wx/colordlg.h>
 #include <wx/colourdata.h>
 
+struct ZoomMenuFunctor
+{
+    ZoomPanel* panel;
+    int zoom;
+    ZoomMenuFunctor(ZoomPanel* p, int z) : panel(p), zoom(z) { }
+    void operator()(wxCommandEvent& event)
+    {
+        panel->SetZoom(zoom);
+    }
+};
 
 MainFrame::MainFrame(wxWindow* parent)
     : MainFrameBaseClass(parent)
 {
     dragPicker = true;
     capturing = false;
-    format = "#%02x%02x%02x";
+    format = "#%02X%02X%02X";
     
     for (int i = 2; i <= 64; i *= 2) {
         wxMenuItem* menuItem= new wxMenuItem(m_zoomMenu, wxID_ANY, wxString::Format("%d times", i), wxT(""), wxITEM_RADIO);
         m_zoomMenu->Append(menuItem);
-        this->Connect(menuItem->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(MainFrame::OnZoomSelect), NULL, this);
+        Bind(wxEVT_COMMAND_MENU_SELECTED, ZoomMenuFunctor(m_zoomPanel, i), menuItem->GetId());
     }
 }
 

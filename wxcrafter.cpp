@@ -196,7 +196,7 @@ MainFrameBaseClass::MainFrameBaseClass(wxWindow* parent, wxWindowID id, const wx
     m_zoomMenu = new wxMenu();
     m_menu65->AppendSubMenu(m_zoomMenu, _("Zoom"));
     
-    SetSizeHints(240,300);
+    SetSizeHints(-1,-1);
     if ( GetSizer() ) {
          GetSizer()->Fit(this);
     }
