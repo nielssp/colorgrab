@@ -1,11 +1,6 @@
 #include "RGBModel.h"
 
-RGBModel::RGBModel()
-{
-}
-
-
-const wxColor& RGBModel::getColor() const
+wxColor RGBModel::getColor() const
 {
     return color;
 }

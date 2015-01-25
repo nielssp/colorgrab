@@ -1,13 +1,15 @@
-#ifndef RGBMODEL_H
-#define RGBMODEL_H
+#ifndef HSLMODEL_H
+#define HSLMODEL_H
 
 #include "IColorModel.h" // Base class: IColorModel
 
-class RGBModel : public IColorModel
+class HSLModel : public IColorModel
 {
 private:
-    wxColour color;
-    
+    int h;
+    int s;
+    int l;
+
 public:
     virtual wxColor getColor() const;
     virtual std::string getLabel(int i) const;
@@ -17,4 +19,4 @@ public:
     virtual void setValue(int i, int value);
 };
 
-#endif // RGBMODEL_H
+#endif // HSLMODEL_H

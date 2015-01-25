@@ -15,7 +15,7 @@ public:
    virtual int getValue(int i) const = 0;
    virtual void setValue(int i, int value) = 0;
    
-   virtual const wxColor& getColor() const = 0;
+   virtual wxColor getColor() const = 0;
    virtual void setColor(const wxColour& color) = 0;
 };
 

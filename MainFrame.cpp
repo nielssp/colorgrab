@@ -1,6 +1,7 @@
 #include "MainFrame.h"
 
 #include "RGBModel.h"
+#include "HSLModel.h"
 
 #include <wx/aboutdlg.h>
 #include <wx/dcscreen.h>
@@ -27,7 +28,7 @@ struct ZoomMenuFunctor
 MainFrame::MainFrame(wxWindow* parent)
     : MainFrameBaseClass(parent)
 {
-    colorModel = new RGBModel();
+    colorModel = new HSLModel();
     UpdateColorModel();
     dragPicker = true;
     capturing = false;
