@@ -106,8 +106,8 @@ void HSLModel::setColor(const wxColour& color)
     h = 60 * H;
     if (h < 0) h += 360;
     if (h >= 360) h -= 360;
-    s = S * 100;
-    l = L * 100;
+    s = round(S * 100);
+    l = round(L * 100);
 }
 void HSLModel::setValue(int i, int value)
 {
