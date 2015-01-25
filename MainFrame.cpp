@@ -32,7 +32,7 @@ MainFrame::MainFrame(wxWindow* parent)
     capturing = false;
     format = "#%02X%02X%02X";
     
-    for (int i = 2; i <= 64; i *= 2) {
+    for (int i = 1; i <= 64; i *= 2) {
         wxMenuItem* menuItem= new wxMenuItem(m_zoomMenu, wxID_ANY, wxString::Format("%d times", i), wxT(""), wxITEM_RADIO);
         m_zoomMenu->Append(menuItem);
         Bind(wxEVT_COMMAND_MENU_SELECTED, ZoomMenuFunctor(m_zoomPanel, i), menuItem->GetId());
@@ -229,4 +229,15 @@ void MainFrame::OnZoomPanelZoom(wxMouseEvent& event)
     else if (event.GetWheelRotation() < 0 && zoom > 1)
         zoom /= 2;
     m_zoomPanel->SetZoom(zoom);
+}
+void MainFrame::OnGrabClick(wxCommandEvent& event)
+{
+    if (!capturing)
+    {
+        SetColorFromMouse();
+        UpdateZoomArea();
+        CaptureMouse();
+        SetCursor(*wxCROSS_CURSOR);
+        capturing = true;        
+    }
 }

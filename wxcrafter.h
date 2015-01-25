@@ -27,12 +27,14 @@ class MainFrameBaseClass : public wxFrame
 protected:
     wxPanel* m_mainPanel;
     wxPanel* m_panel31;
-    wxStaticText* m_staticText35;
+    wxStaticText* m_redLabel;
     wxTextCtrl* m_redCtrl;
-    wxStaticText* m_staticText39;
+    wxStaticText* m_greenLabel;
     wxTextCtrl* m_greenCtrl;
-    wxStaticText* m_staticText392;
+    wxStaticText* m_blueLabel;
     wxTextCtrl* m_blueCtrl;
+    wxStaticText* m_fourthLabel;
+    wxTextCtrl* m_fourthCtrl;
     wxPanel* m_panel47;
     wxPanel* m_colorButton;
     wxPanel* m_panel112;
@@ -41,6 +43,7 @@ protected:
     wxColourPickerCtrl* m_colourPicker;
     wxPanel* m_panel55;
     wxButton* m_pickerButton;
+    wxButton* m_button118;
     wxPanel* m_panel72;
     ZoomPanel* m_zoomPanel;
     wxMenuBar* m_menuBar;
@@ -52,6 +55,8 @@ protected:
     wxMenu* m_menu65;
     wxMenuItem* m_dragMenuItem;
     wxMenu* m_zoomMenu;
+    wxMenu* m_menu122;
+    wxMenuItem* m_menuItem124;
 
 protected:
     virtual void OnCaptureEnd(wxMouseEvent& event) { event.Skip(); }
@@ -61,6 +66,7 @@ protected:
     virtual void OnFormatClick(wxCommandEvent& event) { event.Skip(); }
     virtual void OnColorPick(wxColourPickerEvent& event) { event.Skip(); }
     virtual void OnCaptureStart(wxMouseEvent& event) { event.Skip(); }
+    virtual void OnGrabClick(wxCommandEvent& event) { event.Skip(); }
     virtual void OnZoomPanelDown(wxMouseEvent& event) { event.Skip(); }
     virtual void OnZoomPanelUp(wxMouseEvent& event) { event.Skip(); }
     virtual void OnZoomPanelMove(wxMouseEvent& event) { event.Skip(); }

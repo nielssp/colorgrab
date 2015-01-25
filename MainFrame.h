@@ -21,6 +21,7 @@ public:
 	 void SetColorFromPixel(wxCoord x, wxCoord y);
 	 void UpdateZoomArea();
 protected:
+    virtual void OnGrabClick(wxCommandEvent& event);
     virtual void OnZoomPanelDown(wxMouseEvent& event);
     virtual void OnZoomPanelMove(wxMouseEvent& event);
     virtual void OnZoomPanelUp(wxMouseEvent& event);
