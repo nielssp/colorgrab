@@ -39,7 +39,6 @@ protected:
     virtual void OnCaptureMove(wxMouseEvent& event);
     virtual void OnCaptureEnd(wxMouseEvent& event);
     virtual void OnCaptureStart(wxMouseEvent& event);
-    virtual void OnLeftDown(wxMouseEvent& event);
     virtual void OnColorPick(wxColourPickerEvent& event);
     virtual void OnColorChange(wxCommandEvent& event);
     virtual void OnZoomSelect(wxCommandEvent& event);

@@ -1,8 +1,6 @@
 #include "MainFrame.h"
 
 #include "RGBModel.h"
-#include "GrabFrame.h"
-#include "GrabDropSource.h"
 
 #include <wx/aboutdlg.h>
 #include <wx/dcscreen.h>
@@ -165,14 +163,6 @@ void MainFrame::OnColorPick(wxColourPickerEvent& event)
     SetColor(m_colourPicker->GetColour());
 }
 
-void MainFrame::OnLeftDown(wxMouseEvent& event)
-{
-    wxTextDataObject my_data("test data");
-    GrabDropSource dragSource( this );
-    dragSource.SetData( my_data );
-    wxDragResult result = dragSource.DoDragDrop(true);
-    dragSource.SetCursor(result, *wxCROSS_CURSOR);
-}
 void MainFrame::OnCaptureStart(wxMouseEvent& event)
 {
     if (dragPicker)
