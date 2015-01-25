@@ -1,16 +1,52 @@
 #include "HSLModel.h"
 
 #include <cmath>
+#include <algorithm>
 
 std::string HSLModel::getName() const
 {
     return "HSL";
 }
 
+int hueToRgb(double m1, double m2, double hue)
+{
+    double v;
+	if (6.0 * hue < 1.0)
+		v = m1 + (m2 - m1) * hue * 6.0;
+	else if (2.0 * hue < 1.0)
+		v = m2;
+	else if (3.0 * hue < 2.0)
+		v = m1 + (m2 - m1) * (2.0 / 3.0 - hue) * 6.0;
+	else
+		v = m1;
+	return 255 * v;
+}
+
 wxColor HSLModel::getColor() const
 {
-    return wxColour();
+    double S = s / 100.0;
+    double L = l / 100.0;
+    int r, g, b;
+    if (s == 0)
+    {
+        r = g = b = L * 255;
+    }
+    else
+    {
+        double m2;
+        if (L <= 0.5)
+            m2 = L * (S + 1);
+        else
+            m2 = L + S - L * S;
+        double m1 = L * 2 - m2;
+        double H = h / 360.0;
+        r = hueToRgb(m1, m2, H + 1.0 / 3.0);
+        g = hueToRgb(m1, m2, H);
+        b = hueToRgb(m1, m2, H - 1.0 / 3.0);
+    }
+    return wxColour(r, g, b);
 }
+
 std::string HSLModel::getLabel(int i) const
 {
     switch (i) {
@@ -35,38 +71,37 @@ int HSLModel::getValue(int i) const
 }
 void HSLModel::setColor(const wxColour& color)
 {
-    double r = color.Red();
-    double g = color.Green();
-    double b = color.Blue();
-    double M = g > b ? r > g ? r : g : b;
-    double m = g < b ? r < g ? r : g : b;
+    double r = color.Red() / 255.0;
+    double g = color.Green() / 255.0;
+    double b = color.Blue() / 255.0;
+    double M = std::max(std::max(r, g), std::max(g, b));
+    double m = std::min(std::min(r, g), std::min(g, b));
     double C = M - m;
-    double H1 = 0;
+    double H = 0;
     if (C != 0)
     {
         if (M == r)
         {
-            H1 = std::fmod((g - b) / C, 6);
+            H = std::fmod((g - b) / C, 6);
         }
         if (M == g)
         {
-            H1 = (b - r) / C + 2;
+            H = (b - r) / C + 2;
         }
         if (M == b)
         {
-            H1 = (r - g) / C + 4;
+            H = (r - g) / C + 4;
         }
     }
-    h = 60 * H1;
-    l = 0.5 * (M + m);
-    if (l == 0 || l == 100)
+    double L = 0.5 * (M + m);
+    double S = 0;
+    if (L != 0 && L != 1)
     {
-        s = 0;
+        S = C / (1 - std::abs(2 * L - 1));
     }
-    else
-    {
-        s = C / (1 - std::abs(2 * (l / 100.0) - 1));
-    }
+    h = 60 * H;
+    s = S * 100;
+    l = L * 100;
 }
 void HSLModel::setValue(int i, int value)
 {
