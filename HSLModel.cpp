@@ -11,6 +11,10 @@ std::string HSLModel::getName() const
 int hueToRgb(double m1, double m2, double hue)
 {
     double v;
+	if (hue < 0)
+		hue += 1;
+	else if (hue > 1)
+		hue -= 1;
 	if (6.0 * hue < 1.0)
 		v = m1 + (m2 - m1) * hue * 6.0;
 	else if (2.0 * hue < 1.0)
@@ -77,12 +81,14 @@ void HSLModel::setColor(const wxColour& color)
     double M = std::max(std::max(r, g), std::max(g, b));
     double m = std::min(std::min(r, g), std::min(g, b));
     double C = M - m;
+    double L = 0.5 * (M + m);
     double H = 0;
+    double S = 0;
     if (C != 0)
     {
         if (M == r)
         {
-            H = std::fmod((g - b) / C, 6);
+            H = (g - b) / C;
         }
         if (M == g)
         {
@@ -93,13 +99,13 @@ void HSLModel::setColor(const wxColour& color)
             H = (r - g) / C + 4;
         }
     }
-    double L = 0.5 * (M + m);
-    double S = 0;
     if (L != 0 && L != 1)
     {
         S = C / (1 - std::abs(2 * L - 1));
     }
     h = 60 * H;
+    if (h < 0) h += 360;
+    if (h >= 360) h -= 360;
     s = S * 100;
     l = L * 100;
 }
