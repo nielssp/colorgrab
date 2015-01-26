@@ -16,6 +16,7 @@ private:
     IColorModel* colorModel;
     std::vector<IColorOutput*> colorOutputs;
     IColorOutput* colorOutput;
+    void RestorePosition();
 public:
     MainFrame(wxWindow* parent);
     virtual ~MainFrame();

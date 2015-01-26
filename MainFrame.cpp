@@ -30,10 +30,8 @@ struct ZoomMenuFunctor
 MainFrame::MainFrame(wxWindow* parent)
     : MainFrameBaseClass(parent), capturing(false)
 {
-    SetPosition(wxPoint(
-        config.ReadLong("Main/Position/X", GetPosition().x),
-        config.ReadLong("Main/Position/Y", GetPosition().y)
-    ));
+    
+    RestorePosition();
     
     colorOutputs.push_back(new HtmlHexOutput());
     colorOutput = colorOutputs[0];
@@ -78,6 +76,19 @@ MainFrame::~MainFrame()
     config.Write("Main/Color/R", col.Red());
     config.Write("Main/Color/G", col.Green());
     config.Write("Main/Color/B", col.Blue());
+}
+
+void MainFrame::RestorePosition()
+{
+    int x = config.ReadLong("Main/Position/X", GetPosition().x);
+    int y = config.ReadLong("Main/Position/Y", GetPosition().y);
+    wxSize screenSize = wxGetDisplaySize();
+    wxSize windowSize = GetSize();
+    if (x < 0) x = 0;
+    if (y < 0) y = 0;
+    if (x > (screenSize.x - windowSize.x)) x = screenSize.x - windowSize.x;
+    if (y > (screenSize.y - windowSize.y)) y = screenSize.y - windowSize.y;
+    SetPosition(wxPoint(x, y));
 }
 
 void MainFrame::SetColorModel(IColorModel* colorModel)
