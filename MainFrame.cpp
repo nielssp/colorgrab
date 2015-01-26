@@ -28,9 +28,10 @@ struct ZoomMenuFunctor
 MainFrame::MainFrame(wxWindow* parent)
     : MainFrameBaseClass(parent)
 {
-    long x = config.ReadLong("x", GetPosition().x);
-    long y = config.ReadLong("y", GetPosition().y);
-    SetPosition(wxPoint(x, y));
+    SetPosition(wxPoint(
+        config.ReadLong("Main/Position/X", GetPosition().x),
+        config.ReadLong("Main/Position/Y", GetPosition().y)
+    ));
     
 	colorModels.push_back(new RGBModel());
 	colorModels.push_back(new HSLModel());
@@ -53,13 +54,23 @@ MainFrame::MainFrame(wxWindow* parent)
         m_zoomMenu->Append(menuItem);
         m_zoomMenu->Bind(wxEVT_COMMAND_MENU_SELECTED, ZoomMenuFunctor(m_zoomPanel, i), menuItem->GetId());
     }
+    
+    SetColor(wxColour(
+        config.ReadLong("Main/Color/R", 0),
+        config.ReadLong("Main/Color/G", 0),
+        config.ReadLong("Main/Color/B", 0)
+    ));
 }
 
 MainFrame::~MainFrame()
 {
     wxPoint pos = GetPosition();
-    config.Write("x", pos.x);
-    config.Write("y", pos.y);
+    config.Write("Main/Position/X", pos.x);
+    config.Write("Main/Position/Y", pos.y);
+    wxColour col = GetColor();
+    config.Write("Main/Color/R", col.Red());
+    config.Write("Main/Color/G", col.Green());
+    config.Write("Main/Color/B", col.Blue());
 }
 
 void MainFrame::SetColorModel(IColorModel* colorModel)
