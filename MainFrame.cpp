@@ -45,7 +45,6 @@ MainFrame::MainFrame(wxWindow* parent)
 	}
 	
     UpdateColorModel();
-    dragPicker = true;
     capturing = false;
     format = "#%02X%02X%02X";
     
@@ -198,14 +197,11 @@ void MainFrame::OnColorPick(wxColourPickerEvent& event)
 
 void MainFrame::OnCaptureStart(wxMouseEvent& event)
 {
-    if (dragPicker)
-    {
-        SetColorFromMouse();
-        UpdateZoomArea();
-        CaptureMouse();
-        SetCursor(*wxCROSS_CURSOR);
-        capturing = true;
-    }
+    SetColorFromMouse();
+    UpdateZoomArea();
+    CaptureMouse();
+    SetCursor(*wxCROSS_CURSOR);
+    capturing = true;
 }
 void MainFrame::OnCaptureEnd(wxMouseEvent& event)
 {
@@ -217,14 +213,6 @@ void MainFrame::OnCaptureEnd(wxMouseEvent& event)
         capturing = false;
         SetCursor(wxNullCursor);
     }
-    else if (!dragPicker)
-    {
-        SetColorFromMouse();
-        UpdateZoomArea();
-        CaptureMouse();
-        SetCursor(*wxCROSS_CURSOR);
-        capturing = true;
-    }
 }
 void MainFrame::OnCaptureMove(wxMouseEvent& event)
 {
@@ -232,10 +220,6 @@ void MainFrame::OnCaptureMove(wxMouseEvent& event)
         SetColorFromMouse();
         UpdateZoomArea();
     }
-}
-void MainFrame::OnSettingDrag(wxCommandEvent& event)
-{
-    dragPicker = m_dragMenuItem->IsChecked();
 }
 
 void MainFrame::OnSystemColorPicker(wxCommandEvent& event)
@@ -286,19 +270,11 @@ void MainFrame::OnZoomPanelZoom(wxMouseEvent& event)
         zoom /= 2;
     m_zoomPanel->SetZoom(zoom);
 }
-void MainFrame::OnGrabClick(wxCommandEvent& event)
-{
-    if (!capturing)
-    {
-        SetColorFromMouse();
-        UpdateZoomArea();
-        CaptureMouse();
-        SetCursor(*wxCROSS_CURSOR);
-        capturing = true;        
-    }
-}
 
 void MainFrame::OnSelectColorModel(wxCommandEvent& event)
 {
     SetColorModel(colorModels[event.GetId()]);
+}
+void MainFrame::OnSettingDrag(wxCommandEvent& event)
+{
 }

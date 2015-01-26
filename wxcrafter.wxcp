@@ -1,7 +1,7 @@
 {
  "metadata": {
   "m_generatedFilesDir": ".",
-  "m_objCounter": 126,
+  "m_objCounter": 128,
   "m_includeFiles": [],
   "m_bitmapFunction": "wxC9ED9InitBitmapResources",
   "m_bitmapsFile": "wxcrafter_bitmaps.cpp",
@@ -1769,7 +1769,7 @@
                 }, {
                  "type": "string",
                  "m_label": "Size:",
-                 "m_value": "50,-1"
+                 "m_value": "20,20"
                 }, {
                  "type": "string",
                  "m_label": "Minimum Size:",
@@ -1777,7 +1777,7 @@
                 }, {
                  "type": "string",
                  "m_label": "Name:",
-                 "m_value": "m_button118"
+                 "m_value": "m_button128"
                 }, {
                  "type": "multi-string",
                  "m_label": "Tooltip:",
@@ -1821,7 +1821,7 @@
                 }, {
                  "type": "string",
                  "m_label": "Label:",
-                 "m_value": "Grab"
+                 "m_value": "R"
                 }, {
                  "type": "bool",
                  "m_label": "Default Button",
@@ -1840,14 +1840,7 @@
                  "m_label": "Margins:",
                  "m_value": "2,2"
                 }],
-               "m_events": [{
-                 "m_eventName": "wxEVT_COMMAND_BUTTON_CLICKED",
-                 "m_eventClass": "wxCommandEvent",
-                 "m_eventHandler": "wxCommandEventHandler",
-                 "m_functionNameAndSignature": "OnGrabClick(wxCommandEvent& event)",
-                 "m_description": "Process a wxEVT_COMMAND_BUTTON_CLICKED event, when the button is clicked.",
-                 "m_noBody": false
-                }],
+               "m_events": [],
                "m_children": []
               }]
             }]
@@ -2121,7 +2114,7 @@
         }, {
          "type": "string",
          "m_label": "Label:",
-         "m_value": "File"
+         "m_value": "&File"
         }],
        "m_events": [],
        "m_children": [{
@@ -2143,7 +2136,7 @@
           }, {
            "type": "string",
            "m_label": "Label:",
-           "m_value": "About..."
+           "m_value": "&About..."
           }, {
            "type": "string",
            "m_label": "Shortcut:",
@@ -2194,11 +2187,11 @@
           }, {
            "type": "string",
            "m_label": "Label:",
-           "m_value": "Exit"
+           "m_value": "E&xit"
           }, {
            "type": "string",
            "m_label": "Shortcut:",
-           "m_value": "Alt-X"
+           "m_value": "Ctrl-Q"
           }, {
            "type": "string",
            "m_label": "Help String:",
@@ -2242,7 +2235,7 @@
         }, {
          "type": "string",
          "m_label": "Label:",
-         "m_value": "Tools"
+         "m_value": "&Tools"
         }],
        "m_events": [],
        "m_children": [{
@@ -2264,11 +2257,11 @@
           }, {
            "type": "string",
            "m_label": "Label:",
-           "m_value": "System Color Picker"
+           "m_value": "&System Color Picker"
           }, {
            "type": "string",
            "m_label": "Shortcut:",
-           "m_value": ""
+           "m_value": "Ctrl-P"
           }, {
            "type": "string",
            "m_label": "Help String:",
@@ -2312,61 +2305,10 @@
         }, {
          "type": "string",
          "m_label": "Label:",
-         "m_value": "Settings"
+         "m_value": "&Settings"
         }],
        "m_events": [],
        "m_children": [{
-         "m_type": 4459,
-         "proportion": 0,
-         "border": 5,
-         "gbSpan": "1,1",
-         "gbPosition": "0,0",
-         "m_styles": [],
-         "m_sizerFlags": [],
-         "m_properties": [{
-           "type": "winid",
-           "m_label": "ID:",
-           "m_winid": "wxID_ANY"
-          }, {
-           "type": "string",
-           "m_label": "Name:",
-           "m_value": "m_dragMenuItem"
-          }, {
-           "type": "string",
-           "m_label": "Label:",
-           "m_value": "Drag color picker"
-          }, {
-           "type": "string",
-           "m_label": "Shortcut:",
-           "m_value": ""
-          }, {
-           "type": "string",
-           "m_label": "Help String:",
-           "m_value": ""
-          }, {
-           "type": "bitmapPicker",
-           "m_label": "Bitmap File:",
-           "m_path": ""
-          }, {
-           "type": "choice",
-           "m_label": "Kind:",
-           "m_selection": 1,
-           "m_options": ["normal", "checkable", "radio", "separator"]
-          }, {
-           "type": "bool",
-           "m_label": "Checked",
-           "m_value": true
-          }],
-         "m_events": [{
-           "m_eventName": "wxEVT_COMMAND_MENU_SELECTED",
-           "m_eventClass": "wxCommandEvent",
-           "m_eventHandler": "wxCommandEventHandler",
-           "m_functionNameAndSignature": "OnSettingDrag(wxCommandEvent& event)",
-           "m_description": "Menu item has been clicked",
-           "m_noBody": false
-          }],
-         "m_children": []
-        }, {
          "m_type": 4460,
          "proportion": 0,
          "border": 5,
@@ -2381,7 +2323,7 @@
           }, {
            "type": "string",
            "m_label": "Label:",
-           "m_value": "Zoom"
+           "m_value": "&Zoom"
           }],
          "m_events": [],
          "m_children": []
@@ -2400,7 +2342,7 @@
           }, {
            "type": "string",
            "m_label": "Label:",
-           "m_value": "Color model"
+           "m_value": "&Color model"
           }],
          "m_events": [],
          "m_children": []

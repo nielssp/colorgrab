@@ -10,7 +10,6 @@ class MainFrame : public MainFrameBaseClass
 {
 private:
     wxConfig config;
-    bool dragPicker;
     bool capturing;
     wxString format;
 	std::vector<IColorModel*> colorModels;
@@ -31,7 +30,7 @@ public:
 	 void SetColorFromPixel(wxCoord x, wxCoord y);
 	 void UpdateZoomArea();
 protected:
-    virtual void OnGrabClick(wxCommandEvent& event);
+    virtual void OnSettingDrag(wxCommandEvent& event);
     virtual void OnZoomPanelDown(wxMouseEvent& event);
     virtual void OnZoomPanelMove(wxMouseEvent& event);
     virtual void OnZoomPanelUp(wxMouseEvent& event);
@@ -39,7 +38,6 @@ protected:
     virtual void OnCaptureZoom(wxMouseEvent& event);
     virtual void OnFormatChoose(wxMenuEvent& event);
     virtual void OnFormatClick(wxCommandEvent& event);
-    virtual void OnSettingDrag(wxCommandEvent& event);
     virtual void OnSystemColorPicker(wxCommandEvent& event);
     virtual void OnCaptureMove(wxMouseEvent& event);
     virtual void OnCaptureEnd(wxMouseEvent& event);
