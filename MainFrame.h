@@ -3,11 +3,13 @@
 #include "IColorModel.h"
 #include "wxcrafter.h"
 
+#include <wx/config.h>
 #include <vector>
 
 class MainFrame : public MainFrameBaseClass
 {
 private:
+    wxConfig config;
     bool dragPicker;
     bool capturing;
     wxString format;

@@ -28,11 +28,15 @@ struct ZoomMenuFunctor
 MainFrame::MainFrame(wxWindow* parent)
     : MainFrameBaseClass(parent)
 {
+    long x = config.ReadLong("x", GetPosition().x);
+    long y = config.ReadLong("y", GetPosition().y);
+    SetPosition(wxPoint(x, y));
+    
 	colorModels.push_back(new RGBModel());
 	colorModels.push_back(new HSLModel());
     colorModel = colorModels[0];
 	
-	for (int i = 0; i < colorModels.size(); i++)
+	for (unsigned int i = 0; i < colorModels.size(); i++)
 	{
         wxMenuItem* menuItem = new wxMenuItem(m_colorModelMenu, i, colorModels[i]->getName(), wxT(""), wxITEM_RADIO);
         m_colorModelMenu->Append(menuItem);
@@ -44,7 +48,7 @@ MainFrame::MainFrame(wxWindow* parent)
     capturing = false;
     format = "#%02X%02X%02X";
     
-    for (int i = 1; i <= 64; i *= 2) {
+    for (unsigned int i = 1; i <= 64; i *= 2) {
         wxMenuItem* menuItem = new wxMenuItem(m_zoomMenu, wxID_ANY, wxString::Format("%d times", i), wxT(""), wxITEM_RADIO);
         m_zoomMenu->Append(menuItem);
         m_zoomMenu->Bind(wxEVT_COMMAND_MENU_SELECTED, ZoomMenuFunctor(m_zoomPanel, i), menuItem->GetId());
@@ -53,6 +57,9 @@ MainFrame::MainFrame(wxWindow* parent)
 
 MainFrame::~MainFrame()
 {
+    wxPoint pos = GetPosition();
+    config.Write("x", pos.x);
+    config.Write("y", pos.y);
 }
 
 void MainFrame::SetColorModel(IColorModel* colorModel)
@@ -96,9 +103,12 @@ void MainFrame::OnAbout(wxCommandEvent& event)
 {
     wxUnusedVar(event);
     wxAboutDialogInfo info;
-    info.SetCopyright(_("Copyright 2015 Niels Sonnich Poulsen"));
+    info.SetName("ColorGrab");
+    info.SetVersion("0.1-dev");
+    info.SetWebSite("http://nielssp.dk");
+    info.SetCopyright(_("(C) 2015 Niels Sonnich Poulsen"));
     info.SetLicence(_("MIT License"));
-    info.SetDescription(_("Short description goes here"));
+    info.SetDescription(_("Free color picker tool."));
     ::wxAboutBox(info);
 }
 
