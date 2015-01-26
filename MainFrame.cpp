@@ -3,6 +3,8 @@
 #include "RGBModel.h"
 #include "HSLModel.h"
 
+#include "HtmlHexOutput.h"
+
 #include <wx/aboutdlg.h>
 #include <wx/dcscreen.h>
 #include <wx/graphics.h>
@@ -26,29 +28,35 @@ struct ZoomMenuFunctor
 };
 
 MainFrame::MainFrame(wxWindow* parent)
-    : MainFrameBaseClass(parent)
+    : MainFrameBaseClass(parent), capturing(false)
 {
     SetPosition(wxPoint(
         config.ReadLong("Main/Position/X", GetPosition().x),
         config.ReadLong("Main/Position/Y", GetPosition().y)
     ));
     
+    colorOutputs.push_back(new HtmlHexOutput());
+    colorOutput = colorOutputs[0];
+	for (unsigned int i = 0; i < colorOutputs.size(); i++)
+	{
+        wxMenuItem* menuItem = new wxMenuItem(m_colorOutputMenu, wxID_ANY, colorOutputs[i]->getName(), wxT(""), wxITEM_RADIO);
+        m_colorOutputMenu->Append(menuItem);
+        m_colorOutputMenu->Bind(wxEVT_COMMAND_MENU_SELECTED, &MainFrame::OnSelectColorOutput, this, menuItem->GetId());
+	}
+    
 	colorModels.push_back(new RGBModel());
 	colorModels.push_back(new HSLModel());
     colorModel = colorModels[0];
-	
 	for (unsigned int i = 0; i < colorModels.size(); i++)
 	{
         wxMenuItem* menuItem = new wxMenuItem(m_colorModelMenu, i, colorModels[i]->getName(), wxT(""), wxITEM_RADIO);
         m_colorModelMenu->Append(menuItem);
         m_colorModelMenu->Bind(wxEVT_COMMAND_MENU_SELECTED, &MainFrame::OnSelectColorModel, this, menuItem->GetId());
 	}
-	
     UpdateColorModel();
-    capturing = false;
-    format = "#%02X%02X%02X";
     
-    for (unsigned int i = 1; i <= 64; i *= 2) {
+    for (unsigned int i = 1; i <= 64; i *= 2)
+    {
         wxMenuItem* menuItem = new wxMenuItem(m_zoomMenu, wxID_ANY, wxString::Format("%d times", i), wxT(""), wxITEM_RADIO);
         m_zoomMenu->Append(menuItem);
         m_zoomMenu->Bind(wxEVT_COMMAND_MENU_SELECTED, ZoomMenuFunctor(m_zoomPanel, i), menuItem->GetId());
@@ -76,6 +84,11 @@ void MainFrame::SetColorModel(IColorModel* colorModel)
 {
     this->colorModel = colorModel;
     UpdateColorModel();
+}
+
+void MainFrame::SetColorOutput(IColorOutput* colorOutput)
+{
+    this->colorOutput = colorOutput;
 }
 
 void update_label_and_ctrl(int i, IColorModel* colorModel, wxStaticText* label, wxTextCtrl* ctrl)
@@ -159,7 +172,7 @@ wxColor MainFrame::GetColor() const
     return m_colorButton->GetBackgroundColour();
 }
 
-void MainFrame::SetColor(const wxColor& color, bool updateInputs)
+void MainFrame::SetColor(const wxColor& color, bool updateInputs, bool updateOutput)
 {
     m_colourPicker->SetColour(color);
     m_colorButton->SetBackgroundColour(color);
@@ -172,7 +185,9 @@ void MainFrame::SetColor(const wxColor& color, bool updateInputs)
         m_thirdCtrl->ChangeValue(wxString::Format("%d", colorModel->getValue(2)));
         m_fourthCtrl->ChangeValue(wxString::Format("%d", colorModel->getValue(3)));
     }
-    m_formatText->ChangeValue(wxString::Format(format, color.Red(), color.Green(), color.Blue()));
+    colorOutput->setColor(color);
+    if (updateOutput)
+        m_formatText->ChangeValue(colorOutput->getOutput());
 }
 
 long getColorValue(wxTextCtrl* ctrl)
@@ -275,6 +290,22 @@ void MainFrame::OnSelectColorModel(wxCommandEvent& event)
 {
     SetColorModel(colorModels[event.GetId()]);
 }
-void MainFrame::OnSettingDrag(wxCommandEvent& event)
+
+void MainFrame::OnSelectColorOutput(wxCommandEvent& event)
 {
+    SetColorOutput(colorOutputs[event.GetId()]);
+}
+void MainFrame::OnColorOutputChange(wxCommandEvent& event)
+{
+    colorOutput->setOutput(m_formatText->GetValue().ToStdString());
+    SetColor(colorOutput->getColor(), true, false);
+}
+void MainFrame::OnInputOutputBlur(wxFocusEvent& event)
+{
+    SetColor(GetColor());
+    event.Skip();
+}
+void MainFrame::OnInputOutputEnter(wxCommandEvent& event)
+{
+    SetColor(GetColor());
 }

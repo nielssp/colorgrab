@@ -1,6 +1,7 @@
 #ifndef MAINFRAME_H
 #define MAINFRAME_H
 #include "IColorModel.h"
+#include "IColorOutput.h"
 #include "wxcrafter.h"
 
 #include <wx/config.h>
@@ -11,9 +12,10 @@ class MainFrame : public MainFrameBaseClass
 private:
     wxConfig config;
     bool capturing;
-    wxString format;
 	std::vector<IColorModel*> colorModels;
     IColorModel* colorModel;
+    std::vector<IColorOutput*> colorOutputs;
+    IColorOutput* colorOutput;
 public:
     MainFrame(wxWindow* parent);
     virtual ~MainFrame();
@@ -23,14 +25,18 @@ public:
     
     void SetColorModel(IColorModel* colorModel);
     void UpdateColorModel();
+    
+    void SetColorOutput(IColorOutput* colorOutput);
 	 
     wxColour GetColor() const;
-	 void SetColor(const wxColor& color, bool updateInputs = true);
+	 void SetColor(const wxColor& color, bool updateInputs = true, bool updateOutput = true);
 	 void SetColorFromMouse();
 	 void SetColorFromPixel(wxCoord x, wxCoord y);
 	 void UpdateZoomArea();
 protected:
-    virtual void OnSettingDrag(wxCommandEvent& event);
+    virtual void OnInputOutputEnter(wxCommandEvent& event);
+    virtual void OnInputOutputBlur(wxFocusEvent& event);
+    virtual void OnColorOutputChange(wxCommandEvent& event);
     virtual void OnZoomPanelDown(wxMouseEvent& event);
     virtual void OnZoomPanelMove(wxMouseEvent& event);
     virtual void OnZoomPanelUp(wxMouseEvent& event);
@@ -46,5 +52,6 @@ protected:
     virtual void OnColorChange(wxCommandEvent& event);
     virtual void OnZoomSelect(wxCommandEvent& event);
     virtual void OnSelectColorModel(wxCommandEvent& event);
+    virtual void OnSelectColorOutput(wxCommandEvent& event);
 };
 #endif // MAINFRAME_H
