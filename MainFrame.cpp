@@ -65,6 +65,12 @@ MainFrame::MainFrame(wxWindow* parent)
         config.ReadLong("Main/Color/G", 0),
         config.ReadLong("Main/Color/B", 0)
     ));
+    
+    m_zoomPanel->SetPoi(wxPoint(
+        config.ReadLong("Main/ZoomPanel/X", 0),
+        config.ReadLong("Main/ZoomPanel/Y", 0)
+    ));
+    m_zoomPanel->SetZoom(config.ReadLong("Main/ZoomPanel/Zoom", 4));
 }
 
 MainFrame::~MainFrame()
@@ -76,6 +82,10 @@ MainFrame::~MainFrame()
     config.Write("Main/Color/R", col.Red());
     config.Write("Main/Color/G", col.Green());
     config.Write("Main/Color/B", col.Blue());
+    wxPoint poi = m_zoomPanel->GetPoi();
+    config.Write("Main/ZoomPanel/X", poi.x);
+    config.Write("Main/ZoomPanel/Y", poi.y);
+    config.Write("Main/ZoomPanel/Zoom", m_zoomPanel->GetZoom());
 }
 
 void MainFrame::RestorePosition()

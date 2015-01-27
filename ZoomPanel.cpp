@@ -59,6 +59,12 @@ void ZoomPanel::render(wxPaintDC& dc)
     }
 }
 
+wxPoint ZoomPanel::GetPoi() const
+{
+    return poi;
+}
+
+
 void ZoomPanel::SetPoi(const wxPoint& point)
 {
     poi = point;

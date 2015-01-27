@@ -27,7 +27,9 @@ public:
 
     void render(wxPaintDC& dc);
 
+    wxPoint GetPoi() const;
     void SetPoi(const wxPoint& point);
+    
     void SetZoom(int zoom);
     
     void ShowPoi(bool show);
