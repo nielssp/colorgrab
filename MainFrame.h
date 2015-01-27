@@ -5,16 +5,16 @@
 #include "wxcrafter.h"
 
 #include <wx/config.h>
-#include <vector>
+#include <map>
 
 class MainFrame : public MainFrameBaseClass
 {
 private:
     wxConfig config;
     bool capturing;
-	std::vector<IColorModel*> colorModels;
+	std::map<int, IColorModel*> colorModels;
     IColorModel* colorModel;
-    std::vector<IColorOutput*> colorOutputs;
+    std::map<int, IColorOutput*> colorOutputs;
     IColorOutput* colorOutput;
     void RestorePosition();
 public:
@@ -24,9 +24,11 @@ public:
     void OnExit(wxCommandEvent& event);
     void OnAbout(wxCommandEvent& event);
     
+    void AddColorModel(IColorModel* colorModel);
     void SetColorModel(IColorModel* colorModel);
     void UpdateColorModel();
     
+    void AddColorOutput(IColorOutput* colorOutput);
     void SetColorOutput(IColorOutput* colorOutput);
 	 
     wxColour GetColor() const;

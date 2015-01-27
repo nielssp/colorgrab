@@ -2116,25 +2116,6 @@
          "m_properties": [{
            "type": "string",
            "m_label": "Name:",
-           "m_value": "m_zoomMenu"
-          }, {
-           "type": "string",
-           "m_label": "Label:",
-           "m_value": "&Zoom"
-          }],
-         "m_events": [],
-         "m_children": []
-        }, {
-         "m_type": 4460,
-         "proportion": 0,
-         "border": 5,
-         "gbSpan": "1,1",
-         "gbPosition": "0,0",
-         "m_styles": [],
-         "m_sizerFlags": ["wxALL", "wxLEFT", "wxRIGHT", "wxTOP", "wxBOTTOM"],
-         "m_properties": [{
-           "type": "string",
-           "m_label": "Name:",
            "m_value": "m_colorModelMenu"
           }, {
            "type": "string",

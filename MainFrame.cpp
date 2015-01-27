@@ -33,32 +33,13 @@ MainFrame::MainFrame(wxWindow* parent)
     
     RestorePosition();
     
-    colorOutputs.push_back(new HtmlHexOutput());
-    colorOutput = colorOutputs[0];
-	for (unsigned int i = 0; i < colorOutputs.size(); i++)
-	{
-        wxMenuItem* menuItem = new wxMenuItem(m_colorOutputMenu, wxID_ANY, colorOutputs[i]->getName(), wxT(""), wxITEM_RADIO);
-        m_colorOutputMenu->Append(menuItem);
-        m_colorOutputMenu->Bind(wxEVT_COMMAND_MENU_SELECTED, &MainFrame::OnSelectColorOutput, this, menuItem->GetId());
-	}
+    colorOutput = new HtmlHexOutput;
+    AddColorOutput(colorOutput);
     
-	colorModels.push_back(new RGBModel());
-	colorModels.push_back(new HSLModel());
-    colorModel = colorModels[0];
-	for (unsigned int i = 0; i < colorModels.size(); i++)
-	{
-        wxMenuItem* menuItem = new wxMenuItem(m_colorModelMenu, i, colorModels[i]->getName(), wxT(""), wxITEM_RADIO);
-        m_colorModelMenu->Append(menuItem);
-        m_colorModelMenu->Bind(wxEVT_COMMAND_MENU_SELECTED, &MainFrame::OnSelectColorModel, this, menuItem->GetId());
-	}
+    colorModel = new RGBModel;
+    AddColorModel(colorModel);
+    AddColorModel(new HSLModel);
     UpdateColorModel();
-    
-    for (unsigned int i = 1; i <= 64; i *= 2)
-    {
-        wxMenuItem* menuItem = new wxMenuItem(m_zoomMenu, wxID_ANY, wxString::Format("%d times", i), wxT(""), wxITEM_RADIO);
-        m_zoomMenu->Append(menuItem);
-        m_zoomMenu->Bind(wxEVT_COMMAND_MENU_SELECTED, ZoomMenuFunctor(m_zoomPanel, i), menuItem->GetId());
-    }
     
     SetColor(wxColour(
         config.ReadLong("Main/Color/R", 0),
@@ -99,6 +80,24 @@ void MainFrame::RestorePosition()
     if (x > (screenSize.x - windowSize.x)) x = screenSize.x - windowSize.x;
     if (y > (screenSize.y - windowSize.y)) y = screenSize.y - windowSize.y;
     SetPosition(wxPoint(x, y));
+}
+
+void MainFrame::AddColorModel(IColorModel* colorModel)
+{
+    wxWindowID id = wxIdManager::ReserveId();
+    colorModels[id] = colorModel;
+    wxMenuItem* menuItem = new wxMenuItem(m_colorModelMenu, id, colorModel->getName(), wxT(""), wxITEM_RADIO);
+    m_colorModelMenu->Append(menuItem);
+    m_colorModelMenu->Bind(wxEVT_COMMAND_MENU_SELECTED, &MainFrame::OnSelectColorModel, this, menuItem->GetId());
+}
+
+void MainFrame::AddColorOutput(IColorOutput* colorOutput)
+{
+    wxWindowID id = wxIdManager::ReserveId();
+    colorOutputs[id] = colorOutput;
+    wxMenuItem* menuItem = new wxMenuItem(m_colorOutputMenu, id, colorOutput->getName(), wxT(""), wxITEM_RADIO);
+    m_colorOutputMenu->Append(menuItem);
+    m_colorOutputMenu->Bind(wxEVT_COMMAND_MENU_SELECTED, &MainFrame::OnSelectColorOutput, this, menuItem->GetId());
 }
 
 void MainFrame::SetColorModel(IColorModel* colorModel)

@@ -209,9 +209,6 @@ MainFrameBaseClass::MainFrameBaseClass(wxWindow* parent, wxWindowID id, const wx
     m_menu65 = new wxMenu();
     m_menuBar->Append(m_menu65, _("&Settings"));
     
-    m_zoomMenu = new wxMenu();
-    m_menu65->AppendSubMenu(m_zoomMenu, _("&Zoom"));
-    
     m_colorModelMenu = new wxMenu();
     m_menu65->AppendSubMenu(m_colorModelMenu, _("&Color model"));
     

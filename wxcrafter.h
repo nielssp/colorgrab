@@ -48,7 +48,6 @@ protected:
     wxMenu* m_name8;
     wxMenuItem* m_menuItem79;
     wxMenu* m_menu65;
-    wxMenu* m_zoomMenu;
     wxMenu* m_colorModelMenu;
     wxMenu* m_colorOutputMenu;
 
