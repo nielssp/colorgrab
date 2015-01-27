@@ -330,3 +330,17 @@ void MainFrame::OnInputOutputEnter(wxCommandEvent& event)
 {
     SetColor(GetColor());
 }
+void MainFrame::OnZoomIn(wxCommandEvent& event)
+{
+    int zoom = m_zoomPanel->GetZoom();
+    if (zoom < 64)
+        zoom *= 2;
+    m_zoomPanel->SetZoom(zoom);
+}
+void MainFrame::OnZoomOut(wxCommandEvent& event)
+{
+    int zoom = m_zoomPanel->GetZoom();
+    if (zoom > 1)
+        zoom /= 2;
+    m_zoomPanel->SetZoom(zoom);
+}

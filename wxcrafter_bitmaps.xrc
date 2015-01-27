@@ -5,4 +5,5 @@
   <object class="wxBitmap" name="256x256">Icons\256x256.png</object>
   <object class="wxBitmap" name="32x32">Icons\32x32.png</object>
   <object class="wxBitmap" name="64x64">Icons\64x64.png</object>
+  <object class="wxBitmap" name="Cross">Icons\Cross.png</object>
 </resource>

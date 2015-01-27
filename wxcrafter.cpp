@@ -69,123 +69,121 @@ MainFrameBaseClass::MainFrameBaseClass(wxWindow* parent, wxWindowID id, const wx
     flexGridSizer68->SetNonFlexibleGrowMode( wxFLEX_GROWMODE_SPECIFIED );
     m_mainPanel->SetSizer(flexGridSizer68);
     
-    m_panel31 = new wxPanel(m_mainPanel, wxID_ANY, wxDefaultPosition, wxSize(-1,-1), wxTAB_TRAVERSAL);
-    
-    flexGridSizer68->Add(m_panel31, 0, wxALL, 5);
-    
     wxFlexGridSizer* flexGridSizer33 = new wxFlexGridSizer(0, 2, 0, 0);
     flexGridSizer33->SetFlexibleDirection( wxBOTH );
     flexGridSizer33->SetNonFlexibleGrowMode( wxFLEX_GROWMODE_SPECIFIED );
-    m_panel31->SetSizer(flexGridSizer33);
     
-    m_firstLabel = new wxStaticText(m_panel31, wxID_ANY, _("R:"), wxDefaultPosition, wxSize(-1,-1), 0);
+    flexGridSizer68->Add(flexGridSizer33, 1, wxLEFT|wxTOP|wxEXPAND, 5);
     
-    flexGridSizer33->Add(m_firstLabel, 0, wxLEFT|wxRIGHT|wxTOP, 5);
+    m_firstLabel = new wxStaticText(m_mainPanel, wxID_ANY, _("R:"), wxDefaultPosition, wxSize(-1,-1), 0);
     
-    m_firstCtrl = new wxTextCtrl(m_panel31, wxID_ANY, wxT("0"), wxDefaultPosition, wxSize(50,20), wxTE_PROCESS_ENTER|wxTE_CENTRE);
+    flexGridSizer33->Add(m_firstLabel, 0, wxRIGHT|wxTOP, 5);
+    
+    m_firstCtrl = new wxTextCtrl(m_mainPanel, wxID_ANY, wxT("0"), wxDefaultPosition, wxSize(50,20), wxTE_PROCESS_ENTER|wxTE_CENTRE);
     #if wxVERSION_NUMBER >= 3000
     m_firstCtrl->SetHint(wxT(""));
     #endif
     
     flexGridSizer33->Add(m_firstCtrl, 0, wxALL, 2);
     
-    m_secondLabel = new wxStaticText(m_panel31, wxID_ANY, _("G:"), wxDefaultPosition, wxSize(-1,-1), 0);
+    m_secondLabel = new wxStaticText(m_mainPanel, wxID_ANY, _("G:"), wxDefaultPosition, wxSize(-1,-1), 0);
     
-    flexGridSizer33->Add(m_secondLabel, 0, wxLEFT|wxRIGHT|wxTOP, 5);
+    flexGridSizer33->Add(m_secondLabel, 0, wxRIGHT|wxTOP, 5);
     
-    m_secondCtrl = new wxTextCtrl(m_panel31, wxID_ANY, wxT("0"), wxDefaultPosition, wxSize(50,20), wxTE_PROCESS_ENTER|wxTE_CENTRE);
+    m_secondCtrl = new wxTextCtrl(m_mainPanel, wxID_ANY, wxT("0"), wxDefaultPosition, wxSize(50,20), wxTE_PROCESS_ENTER|wxTE_CENTRE);
     #if wxVERSION_NUMBER >= 3000
     m_secondCtrl->SetHint(wxT(""));
     #endif
     
     flexGridSizer33->Add(m_secondCtrl, 0, wxALL, 2);
     
-    m_thirdLabel = new wxStaticText(m_panel31, wxID_ANY, _("B:"), wxDefaultPosition, wxSize(-1,-1), 0);
+    m_thirdLabel = new wxStaticText(m_mainPanel, wxID_ANY, _("B:"), wxDefaultPosition, wxSize(-1,-1), 0);
     
-    flexGridSizer33->Add(m_thirdLabel, 0, wxLEFT|wxRIGHT|wxTOP, 5);
+    flexGridSizer33->Add(m_thirdLabel, 0, wxRIGHT|wxTOP, 5);
     
-    m_thirdCtrl = new wxTextCtrl(m_panel31, wxID_ANY, wxT("0"), wxDefaultPosition, wxSize(50,20), wxTE_PROCESS_ENTER|wxTE_CENTRE);
+    m_thirdCtrl = new wxTextCtrl(m_mainPanel, wxID_ANY, wxT("0"), wxDefaultPosition, wxSize(50,20), wxTE_PROCESS_ENTER|wxTE_CENTRE);
     #if wxVERSION_NUMBER >= 3000
     m_thirdCtrl->SetHint(wxT(""));
     #endif
     
     flexGridSizer33->Add(m_thirdCtrl, 0, wxALL, 2);
     
-    m_fourthLabel = new wxStaticText(m_panel31, wxID_ANY, _("K:"), wxDefaultPosition, wxSize(-1,-1), 0);
+    m_fourthLabel = new wxStaticText(m_mainPanel, wxID_ANY, _("K:"), wxDefaultPosition, wxSize(-1,-1), 0);
     
-    flexGridSizer33->Add(m_fourthLabel, 0, wxLEFT|wxRIGHT|wxTOP, 5);
+    flexGridSizer33->Add(m_fourthLabel, 0, wxRIGHT|wxTOP, 5);
     
-    m_fourthCtrl = new wxTextCtrl(m_panel31, wxID_ANY, wxT("0"), wxDefaultPosition, wxSize(50,20), wxTE_PROCESS_ENTER|wxTE_CENTRE);
+    m_fourthCtrl = new wxTextCtrl(m_mainPanel, wxID_ANY, wxT("0"), wxDefaultPosition, wxSize(50,20), wxTE_PROCESS_ENTER|wxTE_CENTRE);
     #if wxVERSION_NUMBER >= 3000
     m_fourthCtrl->SetHint(wxT(""));
     #endif
     
     flexGridSizer33->Add(m_fourthCtrl, 0, wxALL, 2);
     
-    m_panel47 = new wxPanel(m_mainPanel, wxID_ANY, wxDefaultPosition, wxSize(-1,-1), wxTAB_TRAVERSAL);
-    
-    flexGridSizer68->Add(m_panel47, 0, wxRIGHT|wxTOP|wxBOTTOM, 5);
-    
     wxBoxSizer* boxSizer51 = new wxBoxSizer(wxVERTICAL);
-    m_panel47->SetSizer(boxSizer51);
     
-    m_colorButton = new wxPanel(m_panel47, wxID_ANY, wxDefaultPosition, wxSize(70,70), wxBORDER_THEME);
+    flexGridSizer68->Add(boxSizer51, 1, wxLEFT|wxRIGHT|wxTOP|wxEXPAND, 5);
+    
+    m_colorButton = new wxPanel(m_mainPanel, wxID_ANY, wxDefaultPosition, wxSize(70,70), wxBORDER_THEME);
     m_colorButton->SetBackgroundColour(wxColour(wxT("rgb(0,0,0)")));
     
     boxSizer51->Add(m_colorButton, 0, wxRIGHT|wxTOP|wxBOTTOM|wxALIGN_LEFT, 1);
     
-    m_panel112 = new wxPanel(m_panel47, wxID_ANY, wxDefaultPosition, wxSize(-1,-1), wxTAB_TRAVERSAL);
-    
-    boxSizer51->Add(m_panel112, 0, wxALL, 0);
-    
     wxBoxSizer* boxSizer114 = new wxBoxSizer(wxHORIZONTAL);
-    m_panel112->SetSizer(boxSizer114);
     
-    m_formatText = new wxTextCtrl(m_panel112, wxID_ANY, wxT("#000000"), wxDefaultPosition, wxSize(132,20), wxTE_PROCESS_ENTER|wxTE_CENTRE);
+    boxSizer51->Add(boxSizer114, 1, wxBOTTOM|wxEXPAND, 5);
+    
+    m_formatText = new wxTextCtrl(m_mainPanel, wxID_ANY, wxT("#000000"), wxDefaultPosition, wxSize(128,20), wxTE_PROCESS_ENTER|wxTE_CENTRE);
     #if wxVERSION_NUMBER >= 3000
     m_formatText->SetHint(wxT(""));
     #endif
     
     boxSizer114->Add(m_formatText, 0, wxTOP|wxBOTTOM|wxALIGN_CENTER_HORIZONTAL, 2);
     
-    m_panel55 = new wxPanel(m_mainPanel, wxID_ANY, wxDefaultPosition, wxSize(-1,-1), wxTAB_TRAVERSAL);
-    
-    flexGridSizer68->Add(m_panel55, 0, wxALL|wxALIGN_CENTER_HORIZONTAL, 0);
-    
     wxBoxSizer* boxSizer57 = new wxBoxSizer(wxVERTICAL);
-    m_panel55->SetSizer(boxSizer57);
     
-    m_pickerButton = new wxButton(m_panel55, wxID_ANY, _("Drag"), wxDefaultPosition, wxSize(50,-1), 0);
+    flexGridSizer68->Add(boxSizer57, 1, wxALL|wxEXPAND, 5);
+    
+    m_pickerButton = new wxButton(m_mainPanel, wxID_ANY, wxT(""), wxDefaultPosition, wxSize(50,50), 0);
+    #if wxVERSION_NUMBER >= 2904
+    m_pickerButton->SetBitmap(wxXmlResource::Get()->LoadBitmap(wxT("Cross")), wxLEFT);
+    m_pickerButton->SetBitmapMargins(2,2);
+    #endif
     
     boxSizer57->Add(m_pickerButton, 0, wxALL|wxALIGN_CENTER|wxALIGN_CENTER_HORIZONTAL, 0);
     
-    m_panel130 = new wxPanel(m_panel55, wxID_ANY, wxDefaultPosition, wxSize(-1,-1), wxTAB_TRAVERSAL);
-    
-    boxSizer57->Add(m_panel130, 0, wxALL, 5);
-    
     wxBoxSizer* boxSizer132 = new wxBoxSizer(wxHORIZONTAL);
-    m_panel130->SetSizer(boxSizer132);
     
-    m_button128 = new wxButton(m_panel130, wxID_ANY, wxT(""), wxDefaultPosition, wxSize(24,24), 0);
+    boxSizer57->Add(boxSizer132, 1, wxTOP|wxBOTTOM|wxALIGN_CENTER|wxALIGN_CENTER_HORIZONTAL, 5);
+    
+    m_button1281 = new wxButton(m_mainPanel, wxID_ANY, wxT(""), wxDefaultPosition, wxSize(24,24), 0);
     #if wxVERSION_NUMBER >= 2904
-    m_button128->SetBitmap(wxArtProvider::GetBitmap(wxART_PLUS, wxART_BUTTON, wxSize(16, 16)), wxLEFT);
+    m_button1281->SetBitmap(wxArtProvider::GetBitmap(wxART_PLUS, wxART_BUTTON, wxSize(16, 16)), wxLEFT);
+    m_button1281->SetBitmapMargins(2,2);
+    #endif
+    
+    boxSizer132->Add(m_button1281, 0, wxRIGHT|wxTOP|wxBOTTOM, 1);
+    
+    m_button128 = new wxButton(m_mainPanel, wxID_ANY, wxT(""), wxDefaultPosition, wxSize(24,24), 0);
+    #if wxVERSION_NUMBER >= 2904
+    m_button128->SetBitmap(wxArtProvider::GetBitmap(wxART_MINUS, wxART_BUTTON, wxSize(16, 16)), wxLEFT);
     m_button128->SetBitmapMargins(2,2);
     #endif
     
-    boxSizer132->Add(m_button128, 0, wxALL, 5);
+    boxSizer132->Add(m_button128, 0, wxLEFT|wxTOP|wxBOTTOM, 1);
     
-    m_colourPicker = new wxColourPickerCtrl(m_panel130, wxID_ANY, *wxBLACK, wxDefaultPosition, wxSize(24,24), wxCLRP_DEFAULT_STYLE);
+    wxBoxSizer* boxSizer137 = new wxBoxSizer(wxHORIZONTAL);
     
-    boxSizer132->Add(m_colourPicker, 0, wxALL|wxALIGN_CENTER_HORIZONTAL, 5);
+    boxSizer57->Add(boxSizer137, 1, wxALL|wxEXPAND, 5);
     
-    m_panel72 = new wxPanel(m_mainPanel, wxID_ANY, wxDefaultPosition, wxSize(-1,-1), wxTAB_TRAVERSAL|wxBORDER_THEME);
+    m_colourPicker = new wxColourPickerCtrl(m_mainPanel, wxID_ANY, *wxBLACK, wxDefaultPosition, wxSize(24,24), wxCLRP_DEFAULT_STYLE);
     
-    flexGridSizer68->Add(m_panel72, 0, wxRIGHT|wxBOTTOM, 5);
+    boxSizer137->Add(m_colourPicker, 0, wxALL|wxALIGN_CENTER_HORIZONTAL, 1);
     
     wxBoxSizer* boxSizer74 = new wxBoxSizer(wxVERTICAL);
-    m_panel72->SetSizer(boxSizer74);
     
-    m_zoomPanel = new ZoomPanel(m_panel72, wxID_ANY, wxDefaultPosition, wxSize(128,128), wxTAB_TRAVERSAL);
+    flexGridSizer68->Add(boxSizer74, 1, wxALL|wxEXPAND, 5);
+    
+    m_zoomPanel = new ZoomPanel(m_mainPanel, wxID_ANY, wxDefaultPosition, wxSize(128,128), wxTAB_TRAVERSAL|wxBORDER_THEME);
     
     boxSizer74->Add(m_zoomPanel, 0, wxALL, 0);
     m_zoomPanel->SetMinSize(wxSize(128,128));
@@ -245,6 +243,8 @@ MainFrameBaseClass::MainFrameBaseClass(wxWindow* parent, wxWindowID id, const wx
     m_formatText->Connect(wxEVT_KILL_FOCUS, wxFocusEventHandler(MainFrameBaseClass::OnInputOutputBlur), NULL, this);
     m_formatText->Connect(wxEVT_COMMAND_TEXT_ENTER, wxCommandEventHandler(MainFrameBaseClass::OnInputOutputEnter), NULL, this);
     m_pickerButton->Connect(wxEVT_LEFT_DOWN, wxMouseEventHandler(MainFrameBaseClass::OnCaptureStart), NULL, this);
+    m_button1281->Connect(wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler(MainFrameBaseClass::OnZoomIn), NULL, this);
+    m_button128->Connect(wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler(MainFrameBaseClass::OnZoomOut), NULL, this);
     m_colourPicker->Connect(wxEVT_COMMAND_COLOURPICKER_CHANGED, wxColourPickerEventHandler(MainFrameBaseClass::OnColorPick), NULL, this);
     m_zoomPanel->Connect(wxEVT_LEFT_DOWN, wxMouseEventHandler(MainFrameBaseClass::OnZoomPanelDown), NULL, this);
     m_zoomPanel->Connect(wxEVT_LEFT_UP, wxMouseEventHandler(MainFrameBaseClass::OnZoomPanelUp), NULL, this);
@@ -277,6 +277,8 @@ MainFrameBaseClass::~MainFrameBaseClass()
     m_formatText->Disconnect(wxEVT_KILL_FOCUS, wxFocusEventHandler(MainFrameBaseClass::OnInputOutputBlur), NULL, this);
     m_formatText->Disconnect(wxEVT_COMMAND_TEXT_ENTER, wxCommandEventHandler(MainFrameBaseClass::OnInputOutputEnter), NULL, this);
     m_pickerButton->Disconnect(wxEVT_LEFT_DOWN, wxMouseEventHandler(MainFrameBaseClass::OnCaptureStart), NULL, this);
+    m_button1281->Disconnect(wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler(MainFrameBaseClass::OnZoomIn), NULL, this);
+    m_button128->Disconnect(wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler(MainFrameBaseClass::OnZoomOut), NULL, this);
     m_colourPicker->Disconnect(wxEVT_COMMAND_COLOURPICKER_CHANGED, wxColourPickerEventHandler(MainFrameBaseClass::OnColorPick), NULL, this);
     m_zoomPanel->Disconnect(wxEVT_LEFT_DOWN, wxMouseEventHandler(MainFrameBaseClass::OnZoomPanelDown), NULL, this);
     m_zoomPanel->Disconnect(wxEVT_LEFT_UP, wxMouseEventHandler(MainFrameBaseClass::OnZoomPanelUp), NULL, this);

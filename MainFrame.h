@@ -35,6 +35,8 @@ public:
 	 void SetColorFromPixel(wxCoord x, wxCoord y);
 	 void UpdateZoomArea();
 protected:
+    virtual void OnZoomIn(wxCommandEvent& event);
+    virtual void OnZoomOut(wxCommandEvent& event);
     virtual void OnInputOutputEnter(wxCommandEvent& event);
     virtual void OnInputOutputBlur(wxFocusEvent& event);
     virtual void OnColorOutputChange(wxCommandEvent& event);
