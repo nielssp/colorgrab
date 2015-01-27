@@ -78,8 +78,8 @@ void HSLModel::setColor(const wxColour& color)
     double r = color.Red() / 255.0;
     double g = color.Green() / 255.0;
     double b = color.Blue() / 255.0;
-    double M = std::max(std::max(r, g), std::max(g, b));
-    double m = std::min(std::min(r, g), std::min(g, b));
+    double M = std::max(std::max(r, g), b);
+    double m = std::min(std::min(r, g), b);
     double C = M - m;
     double L = 0.5 * (M + m);
     double H = 0;

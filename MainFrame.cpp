@@ -2,6 +2,7 @@
 
 #include "RGBModel.h"
 #include "HSLModel.h"
+#include "CMYKModel.h"
 
 #include "HtmlHexOutput.h"
 
@@ -39,6 +40,7 @@ MainFrame::MainFrame(wxWindow* parent)
     colorModel = new RGBModel;
     AddColorModel(colorModel);
     AddColorModel(new HSLModel);
+    AddColorModel(new CMYKModel);
     UpdateColorModel();
     
     SetColor(wxColour(
