@@ -79,10 +79,9 @@ MainFrameBaseClass::MainFrameBaseClass(wxWindow* parent, wxWindowID id, const wx
     
     flexGridSizer33->Add(m_firstLabel, 0, wxRIGHT|wxTOP, 5);
     
-    m_firstCtrl = new wxTextCtrl(m_mainPanel, wxID_ANY, wxT("0"), wxDefaultPosition, wxSize(50,20), wxTE_PROCESS_ENTER|wxTE_CENTRE);
-    #if wxVERSION_NUMBER >= 3000
-    m_firstCtrl->SetHint(wxT(""));
-    #endif
+    m_firstCtrl = new wxSpinCtrl(m_mainPanel, wxID_ANY, wxT("0"), wxDefaultPosition, wxSize(50,20), wxSP_ARROW_KEYS);
+    m_firstCtrl->SetRange(0, 100);
+    m_firstCtrl->SetValue(0);
     
     flexGridSizer33->Add(m_firstCtrl, 0, wxALL, 2);
     
@@ -90,10 +89,9 @@ MainFrameBaseClass::MainFrameBaseClass(wxWindow* parent, wxWindowID id, const wx
     
     flexGridSizer33->Add(m_secondLabel, 0, wxRIGHT|wxTOP, 5);
     
-    m_secondCtrl = new wxTextCtrl(m_mainPanel, wxID_ANY, wxT("0"), wxDefaultPosition, wxSize(50,20), wxTE_PROCESS_ENTER|wxTE_CENTRE);
-    #if wxVERSION_NUMBER >= 3000
-    m_secondCtrl->SetHint(wxT(""));
-    #endif
+    m_secondCtrl = new wxSpinCtrl(m_mainPanel, wxID_ANY, wxT("0"), wxDefaultPosition, wxSize(50,20), wxSP_ARROW_KEYS);
+    m_secondCtrl->SetRange(0, 100);
+    m_secondCtrl->SetValue(0);
     
     flexGridSizer33->Add(m_secondCtrl, 0, wxALL, 2);
     
@@ -101,10 +99,9 @@ MainFrameBaseClass::MainFrameBaseClass(wxWindow* parent, wxWindowID id, const wx
     
     flexGridSizer33->Add(m_thirdLabel, 0, wxRIGHT|wxTOP, 5);
     
-    m_thirdCtrl = new wxTextCtrl(m_mainPanel, wxID_ANY, wxT("0"), wxDefaultPosition, wxSize(50,20), wxTE_PROCESS_ENTER|wxTE_CENTRE);
-    #if wxVERSION_NUMBER >= 3000
-    m_thirdCtrl->SetHint(wxT(""));
-    #endif
+    m_thirdCtrl = new wxSpinCtrl(m_mainPanel, wxID_ANY, wxT("0"), wxDefaultPosition, wxSize(50,20), wxSP_ARROW_KEYS);
+    m_thirdCtrl->SetRange(0, 100);
+    m_thirdCtrl->SetValue(0);
     
     flexGridSizer33->Add(m_thirdCtrl, 0, wxALL, 2);
     
@@ -112,10 +109,9 @@ MainFrameBaseClass::MainFrameBaseClass(wxWindow* parent, wxWindowID id, const wx
     
     flexGridSizer33->Add(m_fourthLabel, 0, wxRIGHT|wxTOP, 5);
     
-    m_fourthCtrl = new wxTextCtrl(m_mainPanel, wxID_ANY, wxT("0"), wxDefaultPosition, wxSize(50,20), wxTE_PROCESS_ENTER|wxTE_CENTRE);
-    #if wxVERSION_NUMBER >= 3000
-    m_fourthCtrl->SetHint(wxT(""));
-    #endif
+    m_fourthCtrl = new wxSpinCtrl(m_mainPanel, wxID_ANY, wxT("0"), wxDefaultPosition, wxSize(50,20), wxSP_ARROW_KEYS);
+    m_fourthCtrl->SetRange(0, 100);
+    m_fourthCtrl->SetValue(0);
     
     flexGridSizer33->Add(m_fourthCtrl, 0, wxALL, 2);
     
@@ -225,17 +221,13 @@ MainFrameBaseClass::MainFrameBaseClass(wxWindow* parent, wxWindowID id, const wx
     this->Connect(wxEVT_MOTION, wxMouseEventHandler(MainFrameBaseClass::OnCaptureMove), NULL, this);
     this->Connect(wxEVT_MOUSEWHEEL, wxMouseEventHandler(MainFrameBaseClass::OnCaptureZoom), NULL, this);
     m_firstCtrl->Connect(wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler(MainFrameBaseClass::OnColorChange), NULL, this);
-    m_firstCtrl->Connect(wxEVT_KILL_FOCUS, wxFocusEventHandler(MainFrameBaseClass::OnInputOutputBlur), NULL, this);
-    m_firstCtrl->Connect(wxEVT_COMMAND_TEXT_ENTER, wxCommandEventHandler(MainFrameBaseClass::OnInputOutputEnter), NULL, this);
+    m_firstCtrl->Connect(wxEVT_COMMAND_SPINCTRL_UPDATED, wxSpinEventHandler(MainFrameBaseClass::OnColorChange), NULL, this);
+    m_secondCtrl->Connect(wxEVT_COMMAND_SPINCTRL_UPDATED, wxSpinEventHandler(MainFrameBaseClass::OnColorChange), NULL, this);
     m_secondCtrl->Connect(wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler(MainFrameBaseClass::OnColorChange), NULL, this);
-    m_secondCtrl->Connect(wxEVT_KILL_FOCUS, wxFocusEventHandler(MainFrameBaseClass::OnInputOutputBlur), NULL, this);
-    m_secondCtrl->Connect(wxEVT_COMMAND_TEXT_ENTER, wxCommandEventHandler(MainFrameBaseClass::OnInputOutputEnter), NULL, this);
+    m_thirdCtrl->Connect(wxEVT_COMMAND_SPINCTRL_UPDATED, wxSpinEventHandler(MainFrameBaseClass::OnColorChange), NULL, this);
     m_thirdCtrl->Connect(wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler(MainFrameBaseClass::OnColorChange), NULL, this);
-    m_thirdCtrl->Connect(wxEVT_KILL_FOCUS, wxFocusEventHandler(MainFrameBaseClass::OnInputOutputBlur), NULL, this);
-    m_thirdCtrl->Connect(wxEVT_COMMAND_TEXT_ENTER, wxCommandEventHandler(MainFrameBaseClass::OnInputOutputEnter), NULL, this);
+    m_fourthCtrl->Connect(wxEVT_COMMAND_SPINCTRL_UPDATED, wxSpinEventHandler(MainFrameBaseClass::OnColorChange), NULL, this);
     m_fourthCtrl->Connect(wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler(MainFrameBaseClass::OnColorChange), NULL, this);
-    m_fourthCtrl->Connect(wxEVT_COMMAND_TEXT_ENTER, wxCommandEventHandler(MainFrameBaseClass::OnInputOutputEnter), NULL, this);
-    m_fourthCtrl->Connect(wxEVT_KILL_FOCUS, wxFocusEventHandler(MainFrameBaseClass::OnInputOutputBlur), NULL, this);
     m_formatText->Connect(wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler(MainFrameBaseClass::OnColorOutputChange), NULL, this);
     m_formatText->Connect(wxEVT_KILL_FOCUS, wxFocusEventHandler(MainFrameBaseClass::OnInputOutputBlur), NULL, this);
     m_formatText->Connect(wxEVT_COMMAND_TEXT_ENTER, wxCommandEventHandler(MainFrameBaseClass::OnInputOutputEnter), NULL, this);
@@ -259,17 +251,13 @@ MainFrameBaseClass::~MainFrameBaseClass()
     this->Disconnect(wxEVT_MOTION, wxMouseEventHandler(MainFrameBaseClass::OnCaptureMove), NULL, this);
     this->Disconnect(wxEVT_MOUSEWHEEL, wxMouseEventHandler(MainFrameBaseClass::OnCaptureZoom), NULL, this);
     m_firstCtrl->Disconnect(wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler(MainFrameBaseClass::OnColorChange), NULL, this);
-    m_firstCtrl->Disconnect(wxEVT_KILL_FOCUS, wxFocusEventHandler(MainFrameBaseClass::OnInputOutputBlur), NULL, this);
-    m_firstCtrl->Disconnect(wxEVT_COMMAND_TEXT_ENTER, wxCommandEventHandler(MainFrameBaseClass::OnInputOutputEnter), NULL, this);
+    m_firstCtrl->Disconnect(wxEVT_COMMAND_SPINCTRL_UPDATED, wxSpinEventHandler(MainFrameBaseClass::OnColorChange), NULL, this);
+    m_secondCtrl->Disconnect(wxEVT_COMMAND_SPINCTRL_UPDATED, wxSpinEventHandler(MainFrameBaseClass::OnColorChange), NULL, this);
     m_secondCtrl->Disconnect(wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler(MainFrameBaseClass::OnColorChange), NULL, this);
-    m_secondCtrl->Disconnect(wxEVT_KILL_FOCUS, wxFocusEventHandler(MainFrameBaseClass::OnInputOutputBlur), NULL, this);
-    m_secondCtrl->Disconnect(wxEVT_COMMAND_TEXT_ENTER, wxCommandEventHandler(MainFrameBaseClass::OnInputOutputEnter), NULL, this);
+    m_thirdCtrl->Disconnect(wxEVT_COMMAND_SPINCTRL_UPDATED, wxSpinEventHandler(MainFrameBaseClass::OnColorChange), NULL, this);
     m_thirdCtrl->Disconnect(wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler(MainFrameBaseClass::OnColorChange), NULL, this);
-    m_thirdCtrl->Disconnect(wxEVT_KILL_FOCUS, wxFocusEventHandler(MainFrameBaseClass::OnInputOutputBlur), NULL, this);
-    m_thirdCtrl->Disconnect(wxEVT_COMMAND_TEXT_ENTER, wxCommandEventHandler(MainFrameBaseClass::OnInputOutputEnter), NULL, this);
+    m_fourthCtrl->Disconnect(wxEVT_COMMAND_SPINCTRL_UPDATED, wxSpinEventHandler(MainFrameBaseClass::OnColorChange), NULL, this);
     m_fourthCtrl->Disconnect(wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler(MainFrameBaseClass::OnColorChange), NULL, this);
-    m_fourthCtrl->Disconnect(wxEVT_COMMAND_TEXT_ENTER, wxCommandEventHandler(MainFrameBaseClass::OnInputOutputEnter), NULL, this);
-    m_fourthCtrl->Disconnect(wxEVT_KILL_FOCUS, wxFocusEventHandler(MainFrameBaseClass::OnInputOutputBlur), NULL, this);
     m_formatText->Disconnect(wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler(MainFrameBaseClass::OnColorOutputChange), NULL, this);
     m_formatText->Disconnect(wxEVT_KILL_FOCUS, wxFocusEventHandler(MainFrameBaseClass::OnInputOutputBlur), NULL, this);
     m_formatText->Disconnect(wxEVT_COMMAND_TEXT_ENTER, wxCommandEventHandler(MainFrameBaseClass::OnInputOutputEnter), NULL, this);

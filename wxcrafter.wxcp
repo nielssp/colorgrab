@@ -1,7 +1,7 @@
 {
  "metadata": {
   "m_generatedFilesDir": ".",
-  "m_objCounter": 139,
+  "m_objCounter": 144,
   "m_includeFiles": [],
   "m_bitmapFunction": "wxC9ED9InitBitmapResources",
   "m_bitmapsFile": "wxcrafter_bitmaps.cpp",
@@ -393,12 +393,12 @@
              "m_events": [],
              "m_children": []
             }, {
-             "m_type": 4406,
+             "m_type": 4436,
              "proportion": 0,
              "border": 2,
              "gbSpan": "1,1",
              "gbPosition": "0,0",
-             "m_styles": ["wxTE_PROCESS_ENTER", "wxTE_CENTRE"],
+             "m_styles": ["wxSP_ARROW_KEYS"],
              "m_sizerFlags": ["wxALL", "wxLEFT", "wxRIGHT", "wxTOP", "wxBOTTOM"],
              "m_properties": [{
                "type": "winid",
@@ -462,41 +462,26 @@
                "m_value": "0"
               }, {
                "type": "string",
-               "m_label": "Text Hint",
-               "m_value": ""
+               "m_label": "Min value:",
+               "m_value": "0"
               }, {
                "type": "string",
-               "m_label": "Max Length:",
-               "m_value": "3"
-              }, {
-               "type": "bool",
-               "m_label": "Auto Complete Directories:",
-               "m_value": false
-              }, {
-               "type": "bool",
-               "m_label": "Auto Complete Files:",
-               "m_value": false
+               "m_label": "Max value:",
+               "m_value": "100"
               }],
              "m_events": [{
                "m_eventName": "wxEVT_COMMAND_TEXT_UPDATED",
                "m_eventClass": "wxCommandEvent",
                "m_eventHandler": "wxCommandEventHandler",
                "m_functionNameAndSignature": "OnColorChange(wxCommandEvent& event)",
-               "m_description": "Respond to a wxEVT_COMMAND_TEXT_UPDATED event, generated when the text changes.\nNotice that this event will be sent when the text controls contents changes\n - whether this is due to user input or comes from the program itself\n(for example, if SetValue() is called); see ChangeValue() for a function which does not send this event.",
+               "m_description": "Process a wxEVT_COMMAND_TEXT_UPDATED event, when the combobox text changes.",
                "m_noBody": false
               }, {
-               "m_eventName": "wxEVT_KILL_FOCUS",
-               "m_eventClass": "wxFocusEvent",
-               "m_eventHandler": "wxFocusEventHandler",
-               "m_functionNameAndSignature": "OnInputOutputBlur(wxFocusEvent& event)",
-               "m_description": "Process a wxEVT_KILL_FOCUS event",
-               "m_noBody": false
-              }, {
-               "m_eventName": "wxEVT_COMMAND_TEXT_ENTER",
-               "m_eventClass": "wxCommandEvent",
-               "m_eventHandler": "wxCommandEventHandler",
-               "m_functionNameAndSignature": "OnInputOutputEnter(wxCommandEvent& event)",
-               "m_description": "Respond to a wxEVT_COMMAND_TEXT_ENTER event, generated when enter is pressed in a text control\n(which must have wxTE_PROCESS_ENTER style for this event to be generated).",
+               "m_eventName": "wxEVT_COMMAND_SPINCTRL_UPDATED",
+               "m_eventClass": "wxSpinEvent",
+               "m_eventHandler": "wxSpinEventHandler",
+               "m_functionNameAndSignature": "OnColorChange(wxSpinEvent& event)",
+               "m_description": "Generated whenever the numeric value of the spinctrl is updated",
                "m_noBody": false
               }],
              "m_children": []
@@ -576,12 +561,12 @@
              "m_events": [],
              "m_children": []
             }, {
-             "m_type": 4406,
+             "m_type": 4436,
              "proportion": 0,
              "border": 2,
              "gbSpan": "1,1",
              "gbPosition": "0,0",
-             "m_styles": ["wxTE_PROCESS_ENTER", "wxTE_CENTRE"],
+             "m_styles": ["wxSP_ARROW_KEYS"],
              "m_sizerFlags": ["wxALL", "wxLEFT", "wxRIGHT", "wxTOP", "wxBOTTOM"],
              "m_properties": [{
                "type": "winid",
@@ -645,41 +630,26 @@
                "m_value": "0"
               }, {
                "type": "string",
-               "m_label": "Text Hint",
-               "m_value": ""
+               "m_label": "Min value:",
+               "m_value": "0"
               }, {
                "type": "string",
-               "m_label": "Max Length:",
-               "m_value": ""
-              }, {
-               "type": "bool",
-               "m_label": "Auto Complete Directories:",
-               "m_value": false
-              }, {
-               "type": "bool",
-               "m_label": "Auto Complete Files:",
-               "m_value": false
+               "m_label": "Max value:",
+               "m_value": "100"
               }],
              "m_events": [{
+               "m_eventName": "wxEVT_COMMAND_SPINCTRL_UPDATED",
+               "m_eventClass": "wxSpinEvent",
+               "m_eventHandler": "wxSpinEventHandler",
+               "m_functionNameAndSignature": "OnColorChange(wxSpinEvent& event)",
+               "m_description": "Generated whenever the numeric value of the spinctrl is updated",
+               "m_noBody": false
+              }, {
                "m_eventName": "wxEVT_COMMAND_TEXT_UPDATED",
                "m_eventClass": "wxCommandEvent",
                "m_eventHandler": "wxCommandEventHandler",
                "m_functionNameAndSignature": "OnColorChange(wxCommandEvent& event)",
-               "m_description": "Respond to a wxEVT_COMMAND_TEXT_UPDATED event, generated when the text changes.\nNotice that this event will be sent when the text controls contents changes\n - whether this is due to user input or comes from the program itself\n(for example, if SetValue() is called); see ChangeValue() for a function which does not send this event.",
-               "m_noBody": false
-              }, {
-               "m_eventName": "wxEVT_KILL_FOCUS",
-               "m_eventClass": "wxFocusEvent",
-               "m_eventHandler": "wxFocusEventHandler",
-               "m_functionNameAndSignature": "OnInputOutputBlur(wxFocusEvent& event)",
-               "m_description": "Process a wxEVT_KILL_FOCUS event",
-               "m_noBody": false
-              }, {
-               "m_eventName": "wxEVT_COMMAND_TEXT_ENTER",
-               "m_eventClass": "wxCommandEvent",
-               "m_eventHandler": "wxCommandEventHandler",
-               "m_functionNameAndSignature": "OnInputOutputEnter(wxCommandEvent& event)",
-               "m_description": "Respond to a wxEVT_COMMAND_TEXT_ENTER event, generated when enter is pressed in a text control\n(which must have wxTE_PROCESS_ENTER style for this event to be generated).",
+               "m_description": "Process a wxEVT_COMMAND_TEXT_UPDATED event, when the combobox text changes.",
                "m_noBody": false
               }],
              "m_children": []
@@ -759,12 +729,12 @@
              "m_events": [],
              "m_children": []
             }, {
-             "m_type": 4406,
+             "m_type": 4436,
              "proportion": 0,
              "border": 2,
              "gbSpan": "1,1",
              "gbPosition": "0,0",
-             "m_styles": ["wxTE_PROCESS_ENTER", "wxTE_CENTRE"],
+             "m_styles": ["wxSP_ARROW_KEYS"],
              "m_sizerFlags": ["wxALL", "wxLEFT", "wxRIGHT", "wxTOP", "wxBOTTOM"],
              "m_properties": [{
                "type": "winid",
@@ -828,41 +798,26 @@
                "m_value": "0"
               }, {
                "type": "string",
-               "m_label": "Text Hint",
-               "m_value": ""
+               "m_label": "Min value:",
+               "m_value": "0"
               }, {
                "type": "string",
-               "m_label": "Max Length:",
-               "m_value": ""
-              }, {
-               "type": "bool",
-               "m_label": "Auto Complete Directories:",
-               "m_value": false
-              }, {
-               "type": "bool",
-               "m_label": "Auto Complete Files:",
-               "m_value": false
+               "m_label": "Max value:",
+               "m_value": "100"
               }],
              "m_events": [{
+               "m_eventName": "wxEVT_COMMAND_SPINCTRL_UPDATED",
+               "m_eventClass": "wxSpinEvent",
+               "m_eventHandler": "wxSpinEventHandler",
+               "m_functionNameAndSignature": "OnColorChange(wxSpinEvent& event)",
+               "m_description": "Generated whenever the numeric value of the spinctrl is updated",
+               "m_noBody": false
+              }, {
                "m_eventName": "wxEVT_COMMAND_TEXT_UPDATED",
                "m_eventClass": "wxCommandEvent",
                "m_eventHandler": "wxCommandEventHandler",
                "m_functionNameAndSignature": "OnColorChange(wxCommandEvent& event)",
-               "m_description": "Respond to a wxEVT_COMMAND_TEXT_UPDATED event, generated when the text changes.\nNotice that this event will be sent when the text controls contents changes\n - whether this is due to user input or comes from the program itself\n(for example, if SetValue() is called); see ChangeValue() for a function which does not send this event.",
-               "m_noBody": false
-              }, {
-               "m_eventName": "wxEVT_KILL_FOCUS",
-               "m_eventClass": "wxFocusEvent",
-               "m_eventHandler": "wxFocusEventHandler",
-               "m_functionNameAndSignature": "OnInputOutputBlur(wxFocusEvent& event)",
-               "m_description": "Process a wxEVT_KILL_FOCUS event",
-               "m_noBody": false
-              }, {
-               "m_eventName": "wxEVT_COMMAND_TEXT_ENTER",
-               "m_eventClass": "wxCommandEvent",
-               "m_eventHandler": "wxCommandEventHandler",
-               "m_functionNameAndSignature": "OnInputOutputEnter(wxCommandEvent& event)",
-               "m_description": "Respond to a wxEVT_COMMAND_TEXT_ENTER event, generated when enter is pressed in a text control\n(which must have wxTE_PROCESS_ENTER style for this event to be generated).",
+               "m_description": "Process a wxEVT_COMMAND_TEXT_UPDATED event, when the combobox text changes.",
                "m_noBody": false
               }],
              "m_children": []
@@ -942,12 +897,12 @@
              "m_events": [],
              "m_children": []
             }, {
-             "m_type": 4406,
+             "m_type": 4436,
              "proportion": 0,
              "border": 2,
              "gbSpan": "1,1",
              "gbPosition": "0,0",
-             "m_styles": ["wxTE_PROCESS_ENTER", "wxTE_CENTRE"],
+             "m_styles": ["wxSP_ARROW_KEYS"],
              "m_sizerFlags": ["wxALL", "wxLEFT", "wxRIGHT", "wxTOP", "wxBOTTOM"],
              "m_properties": [{
                "type": "winid",
@@ -1011,41 +966,26 @@
                "m_value": "0"
               }, {
                "type": "string",
-               "m_label": "Text Hint",
-               "m_value": ""
+               "m_label": "Min value:",
+               "m_value": "0"
               }, {
                "type": "string",
-               "m_label": "Max Length:",
-               "m_value": ""
-              }, {
-               "type": "bool",
-               "m_label": "Auto Complete Directories:",
-               "m_value": false
-              }, {
-               "type": "bool",
-               "m_label": "Auto Complete Files:",
-               "m_value": false
+               "m_label": "Max value:",
+               "m_value": "100"
               }],
              "m_events": [{
+               "m_eventName": "wxEVT_COMMAND_SPINCTRL_UPDATED",
+               "m_eventClass": "wxSpinEvent",
+               "m_eventHandler": "wxSpinEventHandler",
+               "m_functionNameAndSignature": "OnColorChange(wxSpinEvent& event)",
+               "m_description": "Generated whenever the numeric value of the spinctrl is updated",
+               "m_noBody": false
+              }, {
                "m_eventName": "wxEVT_COMMAND_TEXT_UPDATED",
                "m_eventClass": "wxCommandEvent",
                "m_eventHandler": "wxCommandEventHandler",
                "m_functionNameAndSignature": "OnColorChange(wxCommandEvent& event)",
-               "m_description": "Respond to a wxEVT_COMMAND_TEXT_UPDATED event, generated when the text changes.\nNotice that this event will be sent when the text controls contents changes\n - whether this is due to user input or comes from the program itself\n(for example, if SetValue() is called); see ChangeValue() for a function which does not send this event.",
-               "m_noBody": false
-              }, {
-               "m_eventName": "wxEVT_COMMAND_TEXT_ENTER",
-               "m_eventClass": "wxCommandEvent",
-               "m_eventHandler": "wxCommandEventHandler",
-               "m_functionNameAndSignature": "OnInputOutputEnter(wxCommandEvent& event)",
-               "m_description": "Respond to a wxEVT_COMMAND_TEXT_ENTER event, generated when enter is pressed in a text control\n(which must have wxTE_PROCESS_ENTER style for this event to be generated).",
-               "m_noBody": false
-              }, {
-               "m_eventName": "wxEVT_KILL_FOCUS",
-               "m_eventClass": "wxFocusEvent",
-               "m_eventHandler": "wxFocusEventHandler",
-               "m_functionNameAndSignature": "OnInputOutputBlur(wxFocusEvent& event)",
-               "m_description": "Process a wxEVT_KILL_FOCUS event",
+               "m_description": "Process a wxEVT_COMMAND_TEXT_UPDATED event, when the combobox text changes.",
                "m_noBody": false
               }],
              "m_children": []

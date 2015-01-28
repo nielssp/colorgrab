@@ -16,6 +16,7 @@
 #include <wx/sizer.h>
 #include <wx/panel.h>
 #include <wx/stattext.h>
+#include <wx/spinctrl.h>
 #include <wx/textctrl.h>
 #include <wx/button.h>
 #include <wx/clrpicker.h>
@@ -27,13 +28,13 @@ class MainFrameBaseClass : public wxFrame
 protected:
     wxPanel* m_mainPanel;
     wxStaticText* m_firstLabel;
-    wxTextCtrl* m_firstCtrl;
+    wxSpinCtrl* m_firstCtrl;
     wxStaticText* m_secondLabel;
-    wxTextCtrl* m_secondCtrl;
+    wxSpinCtrl* m_secondCtrl;
     wxStaticText* m_thirdLabel;
-    wxTextCtrl* m_thirdCtrl;
+    wxSpinCtrl* m_thirdCtrl;
     wxStaticText* m_fourthLabel;
-    wxTextCtrl* m_fourthCtrl;
+    wxSpinCtrl* m_fourthCtrl;
     wxPanel* m_colorButton;
     wxTextCtrl* m_formatText;
     wxButton* m_pickerButton;
@@ -56,9 +57,10 @@ protected:
     virtual void OnCaptureMove(wxMouseEvent& event) { event.Skip(); }
     virtual void OnCaptureZoom(wxMouseEvent& event) { event.Skip(); }
     virtual void OnColorChange(wxCommandEvent& event) { event.Skip(); }
+    virtual void OnColorChange(wxSpinEvent& event) { event.Skip(); }
+    virtual void OnColorOutputChange(wxCommandEvent& event) { event.Skip(); }
     virtual void OnInputOutputBlur(wxFocusEvent& event) { event.Skip(); }
     virtual void OnInputOutputEnter(wxCommandEvent& event) { event.Skip(); }
-    virtual void OnColorOutputChange(wxCommandEvent& event) { event.Skip(); }
     virtual void OnCaptureStart(wxMouseEvent& event) { event.Skip(); }
     virtual void OnZoomIn(wxCommandEvent& event) { event.Skip(); }
     virtual void OnZoomOut(wxCommandEvent& event) { event.Skip(); }

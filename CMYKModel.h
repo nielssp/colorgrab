@@ -17,6 +17,8 @@ public:
     virtual std::string getLabel(int i) const;
     virtual int getNumComponents() const;
     virtual int getValue(int i) const;
+    virtual int getMin(int i) const;
+    virtual int getMax(int i) const;
     virtual void setColor(const wxColour& color);
     virtual void setValue(int i, int value);
 };

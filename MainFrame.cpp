@@ -113,7 +113,7 @@ void MainFrame::SetColorOutput(IColorOutput* colorOutput)
     this->colorOutput = colorOutput;
 }
 
-void update_label_and_ctrl(int i, IColorModel* colorModel, wxStaticText* label, wxTextCtrl* ctrl)
+void update_label_and_ctrl(int i, IColorModel* colorModel, wxStaticText* label, wxSpinCtrl* ctrl)
 {
     if (colorModel->getNumComponents() > i) {
         label->Show(true);
@@ -122,6 +122,8 @@ void update_label_and_ctrl(int i, IColorModel* colorModel, wxStaticText* label, 
         label->SetLabel(labelStr.substr(0, 1).append(":"));
         label->SetToolTip(labelStr);
         ctrl->SetToolTip(labelStr);
+        ctrl->SetMin(colorModel->getMin(i));
+        ctrl->SetMax(colorModel->getMax(i));
     }
     else {
         label->Show(false);
@@ -202,29 +204,22 @@ void MainFrame::SetColor(const wxColor& color, bool updateInputs, bool updateOut
     colorModel->setColor(color);
     if (updateInputs)
     {
-        m_firstCtrl->ChangeValue(wxString::Format("%d", colorModel->getValue(0)));
-        m_secondCtrl->ChangeValue(wxString::Format("%d", colorModel->getValue(1)));
-        m_thirdCtrl->ChangeValue(wxString::Format("%d", colorModel->getValue(2)));
-        m_fourthCtrl->ChangeValue(wxString::Format("%d", colorModel->getValue(3)));
+        m_firstCtrl->SetValue(colorModel->getValue(0));
+        m_secondCtrl->SetValue(colorModel->getValue(1));
+        m_thirdCtrl->SetValue(colorModel->getValue(2));
+        m_fourthCtrl->SetValue(colorModel->getValue(3));
     }
     colorOutput->setColor(color);
     if (updateOutput)
         m_formatText->ChangeValue(colorOutput->getOutput());
 }
 
-long getColorValue(wxTextCtrl* ctrl)
-{
-    long val = 0;
-    ctrl->GetValue().ToLong(&val);
-    return val;
-}
-
 void MainFrame::OnColorChange(wxCommandEvent& event)
 {
-    colorModel->setValue(0, getColorValue(m_firstCtrl));
-    colorModel->setValue(1, getColorValue(m_secondCtrl));
-    colorModel->setValue(2, getColorValue(m_thirdCtrl));
-    colorModel->setValue(3, getColorValue(m_fourthCtrl));
+    colorModel->setValue(0, m_firstCtrl->GetValue());
+    colorModel->setValue(1, m_secondCtrl->GetValue());
+    colorModel->setValue(2, m_thirdCtrl->GetValue());
+    colorModel->setValue(3, m_fourthCtrl->GetValue());
     SetColor(colorModel->getColor(), false);
 }
 void MainFrame::OnColorPick(wxColourPickerEvent& event)

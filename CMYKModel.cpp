@@ -40,6 +40,14 @@ int CMYKModel::getValue(int i) const
         default: return 0;
     }
 }
+int CMYKModel::getMin(int i) const
+{
+    return 0;
+}
+int CMYKModel::getMax(int i) const
+{
+    return 100;
+}
 void CMYKModel::setColor(const wxColour& color)
 {
     double r = color.Red() / 255.0;

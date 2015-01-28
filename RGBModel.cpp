@@ -32,6 +32,15 @@ int RGBModel::getValue(int i) const
         default: return 0;
     }
 }
+int RGBModel::getMin(int i) const
+{
+    return 0;
+}
+int RGBModel::getMax(int i) const
+{
+    return 255;
+}
+
 void RGBModel::setColor(const wxColour& color)
 {
     this->color = color;

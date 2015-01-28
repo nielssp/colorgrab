@@ -73,6 +73,19 @@ int HSLModel::getValue(int i) const
         default: return 0;
     }
 }
+int HSLModel::getMin(int i) const
+{
+    return 0;
+}
+int HSLModel::getMax(int i) const
+{
+    switch (i) {
+        case 0: return 360;
+        case 1: return 100;
+        case 2: return 100;
+        default: return 0;
+    }
+}
 void HSLModel::setColor(const wxColour& color)
 {
     double r = color.Red() / 255.0;
