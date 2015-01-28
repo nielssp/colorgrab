@@ -197,7 +197,7 @@ MainFrameBaseClass::MainFrameBaseClass(wxWindow* parent, wxWindowID id, const wx
     
     gridSizer153->Add(m_timerButton, 0, wxLEFT|wxTOP, 1);
     
-    m_zoomPanel = new ZoomPanel(m_mainPanel, wxID_ANY, wxDefaultPosition, wxSize(128,128), wxTAB_TRAVERSAL|wxBORDER_THEME);
+    m_zoomPanel = new ZoomPanel(m_mainPanel, wxID_ANY, wxDefaultPosition, wxSize(128,128), wxBORDER_THEME);
     
     flexGridSizer68->Add(m_zoomPanel, 0, wxALL, 5);
     m_zoomPanel->SetMinSize(wxSize(128,128));
@@ -224,10 +224,10 @@ MainFrameBaseClass::MainFrameBaseClass(wxWindow* parent, wxWindowID id, const wx
     m_menuBar->Append(m_menu65, _("&Settings"));
     
     m_colorModelMenu = new wxMenu();
-    m_menu65->AppendSubMenu(m_colorModelMenu, _("&Color model"));
+    m_menu65->AppendSubMenu(m_colorModelMenu, _("Color &Model"));
     
     m_colorOutputMenu = new wxMenu();
-    m_menu65->AppendSubMenu(m_colorOutputMenu, _("Color output"));
+    m_menu65->AppendSubMenu(m_colorOutputMenu, _("Color &Output"));
     
     SetSizeHints(-1,-1);
     if ( GetSizer() ) {

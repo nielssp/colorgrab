@@ -1863,7 +1863,7 @@
            "border": 5,
            "gbSpan": "1,1",
            "gbPosition": "0,0",
-           "m_styles": ["wxTAB_TRAVERSAL", "wxBORDER_THEME"],
+           "m_styles": ["wxBORDER_THEME"],
            "m_sizerFlags": ["wxALL", "wxLEFT", "wxRIGHT", "wxTOP", "wxBOTTOM"],
            "m_properties": [{
              "type": "winid",
@@ -2245,7 +2245,7 @@
           }, {
            "type": "string",
            "m_label": "Label:",
-           "m_value": "&Color model"
+           "m_value": "Color &Model"
           }],
          "m_events": [],
          "m_children": []
@@ -2264,7 +2264,7 @@
           }, {
            "type": "string",
            "m_label": "Label:",
-           "m_value": "Color output"
+           "m_value": "Color &Output"
           }],
          "m_events": [],
          "m_children": []
