@@ -373,7 +373,7 @@ void MainFrame::OnTimerRefreshImage(wxCommandEvent& event)
     int intervals [] = {1, 2, 5};
     for (int i = 0; i < 3; i++) {
         wxMenuItem* item;
-        if (i == 1)
+        if (intervals[i] == 1)
             item = menu.Append(wxID_ANY, wxString::Format(_("%d second"), intervals[i]));
         else
             item = menu.Append(wxID_ANY, wxString::Format(_("%d seconds"), intervals[i]));
