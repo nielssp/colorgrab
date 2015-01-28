@@ -143,6 +143,13 @@
      "m_functionNameAndSignature": "OnCaptureZoom(wxMouseEvent& event)",
      "m_description": "Process a wxEVT_MOUSEWHEEL event",
      "m_noBody": false
+    }, {
+     "m_eventName": "wxEVT_RIGHT_DOWN",
+     "m_eventClass": "wxMouseEvent",
+     "m_eventHandler": "wxMouseEventHandler",
+     "m_functionNameAndSignature": "OnCapturePush(wxMouseEvent& event)",
+     "m_description": "Process a wxEVT_RIGHT_DOWN event",
+     "m_noBody": false
     }],
    "m_children": [{
      "m_type": 4401,
@@ -1101,7 +1108,14 @@
                  "m_label": "Style:",
                  "m_value": ""
                 }],
-               "m_events": [],
+               "m_events": [{
+                 "m_eventName": "wxEVT_RIGHT_UP",
+                 "m_eventClass": "wxMouseEvent",
+                 "m_eventHandler": "wxMouseEventHandler",
+                 "m_functionNameAndSignature": "OnPushColor(wxMouseEvent& event)",
+                 "m_description": "Process a wxEVT_RIGHT_UP event",
+                 "m_noBody": false
+                }],
                "m_children": []
               }, {
                "m_type": 4408,
@@ -1118,7 +1132,7 @@
                 }, {
                  "type": "string",
                  "m_label": "Size:",
-                 "m_value": "51,70"
+                 "m_value": "52,70"
                 }, {
                  "type": "string",
                  "m_label": "Minimum Size:",
@@ -1204,7 +1218,7 @@
                   }, {
                    "type": "string",
                    "m_label": "Horizontal gap:",
-                   "m_value": "1"
+                   "m_value": "2"
                   }, {
                    "type": "string",
                    "m_label": "Vertical gap:",
@@ -1949,6 +1963,13 @@
              "m_eventHandler": "wxMouseEventHandler",
              "m_functionNameAndSignature": "OnZoomPanelZoom(wxMouseEvent& event)",
              "m_description": "Process a wxEVT_MOUSEWHEEL event",
+             "m_noBody": false
+            }, {
+             "m_eventName": "wxEVT_RIGHT_UP",
+             "m_eventClass": "wxMouseEvent",
+             "m_eventHandler": "wxMouseEventHandler",
+             "m_functionNameAndSignature": "OnPushColor(wxMouseEvent& event)",
+             "m_description": "Process a wxEVT_RIGHT_UP event",
              "m_noBody": false
             }],
            "m_children": []

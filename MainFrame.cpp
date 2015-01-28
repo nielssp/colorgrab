@@ -45,11 +45,7 @@ MainFrame::MainFrame(wxWindow* parent)
     AddColorModel(new CMYKModel);
     UpdateColorModel();
     
-    SetColor(wxColour(
-        config.ReadLong("Main/Color/R", 0),
-        config.ReadLong("Main/Color/G", 0),
-        config.ReadLong("Main/Color/B", 0)
-    ));
+    SetColor(config.ReadObject("Main/Color", wxColor(0, 0, 0)));
     
     m_zoomPanel->SetPoi(wxPoint(
         config.ReadLong("Main/ZoomPanel/X", 0),
@@ -57,11 +53,17 @@ MainFrame::MainFrame(wxWindow* parent)
     ));
     m_zoomPanel->SetZoom(config.ReadLong("Main/ZoomPanel/Zoom", 4));
     
-    for (int i = 0; i < 10; i++) {
-        wxPanel *stackColor = new wxPanel(m_colorStack, wxID_ANY, wxDefaultPosition, wxSize(24,13), wxBORDER_SIMPLE);
+    for (int i = 0; i < 10; i++)
+    {
+        wxPanel *stackColor = new wxPanel(m_colorStack, wxID_ANY, wxDefaultPosition, wxSize(25,13), wxBORDER_SIMPLE);
         stackColor->SetCursor(wxCursor(wxCURSOR_HAND));
-        stackColor->SetBackgroundColour(wxColour(255, 0, 0));
+        stackColor->SetBackgroundColour(
+            config.ReadObject(wxString::Format("Main/Stack/Color%d", i), wxColor(0, 0, 0))
+        );
         m_colorStack->GetSizer()->Add(stackColor, 0, 0, 0);
+        stackColors[stackColor->GetId()] = stackColor;
+        stackColor->Bind(wxEVT_LEFT_DOWN, &MainFrame::OnStackColorClick, this, stackColor->GetId());
+        stackColor->Bind(wxEVT_RIGHT_DOWN, &MainFrame::OnPushColor, this, stackColor->GetId());
     }
 }
 
@@ -70,16 +72,32 @@ MainFrame::~MainFrame()
     wxPoint pos = GetPosition();
     config.Write("Main/Position/X", pos.x);
     config.Write("Main/Position/Y", pos.y);
-    wxColour col = GetColor();
-    config.Write("Main/Color/R", col.Red());
-    config.Write("Main/Color/G", col.Green());
-    config.Write("Main/Color/B", col.Blue());
+    config.Write("Main/Color", GetColor());
     wxPoint poi = m_zoomPanel->GetPoi();
     config.Write("Main/ZoomPanel/X", poi.x);
     config.Write("Main/ZoomPanel/Y", poi.y);
     config.Write("Main/ZoomPanel/Zoom", m_zoomPanel->GetZoom());
     config.Write("Main/Model", wxString(colorModel->getName()));
     config.Write("Main/Output", wxString(colorOutput->getName()));
+    
+    for (size_t i = 0; i < 10; i++)
+    {
+        wxWindow* stackColor = m_colorStack->GetSizer()->GetItem(i)->GetWindow();
+        config.Write(wxString::Format("Main/Stack/Color%d", i), stackColor->GetBackgroundColour());
+    }
+}
+
+void MainFrame::PushColor(const wxColour& color)
+{
+    wxColour previous = color;
+    for (size_t i = 0; i < 10; i++)
+    {
+        wxWindow* stackColor = m_colorStack->GetSizer()->GetItem(i)->GetWindow();
+        wxColour color = stackColor->GetBackgroundColour();
+        stackColor->SetBackgroundColour(previous);
+        stackColor->Refresh();
+        previous = color;
+    }
 }
 
 void MainFrame::RestorePosition()
@@ -395,4 +413,20 @@ void MainFrame::OnRefreshTimerEvent(wxTimerEvent& event)
     m_zoomPanel->Update();
     m_timerButton->Enable();
     refreshTimer.Stop();
+}
+
+void MainFrame::OnStackColorClick(wxMouseEvent& event)
+{
+    SetColor(stackColors[event.GetId()]->GetBackgroundColour());
+}
+
+void MainFrame::OnPushColor(wxMouseEvent& event)
+{
+    SetColorFromMouse();
+    PushColor(GetColor());
+}
+void MainFrame::OnCapturePush(wxMouseEvent& event)
+{
+    if (capturing)
+        PushColor(GetColor());
 }

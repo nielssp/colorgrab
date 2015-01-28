@@ -57,8 +57,10 @@ protected:
     virtual void OnCaptureEnd(wxMouseEvent& event) { event.Skip(); }
     virtual void OnCaptureMove(wxMouseEvent& event) { event.Skip(); }
     virtual void OnCaptureZoom(wxMouseEvent& event) { event.Skip(); }
+    virtual void OnCapturePush(wxMouseEvent& event) { event.Skip(); }
     virtual void OnColorChange(wxCommandEvent& event) { event.Skip(); }
     virtual void OnColorChange(wxSpinEvent& event) { event.Skip(); }
+    virtual void OnPushColor(wxMouseEvent& event) { event.Skip(); }
     virtual void OnColorOutputChange(wxCommandEvent& event) { event.Skip(); }
     virtual void OnInputOutputBlur(wxFocusEvent& event) { event.Skip(); }
     virtual void OnInputOutputEnter(wxCommandEvent& event) { event.Skip(); }
