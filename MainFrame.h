@@ -59,8 +59,6 @@ protected:
     virtual void OnZoomPanelUp(wxMouseEvent& event);
     virtual void OnZoomPanelZoom(wxMouseEvent& event);
     virtual void OnCaptureZoom(wxMouseEvent& event);
-    virtual void OnFormatChoose(wxMenuEvent& event);
-    virtual void OnFormatClick(wxCommandEvent& event);
     virtual void OnSystemColorPicker(wxCommandEvent& event);
     virtual void OnCaptureMove(wxMouseEvent& event);
     virtual void OnCaptureEnd(wxMouseEvent& event);

@@ -300,12 +300,6 @@ void MainFrame::OnSystemColorPicker(wxCommandEvent& event)
     dialog.ShowModal();
     SetColor(dialog.GetColourData().GetColour());
 }
-void MainFrame::OnFormatChoose(wxMenuEvent& event)
-{
-}
-void MainFrame::OnFormatClick(wxCommandEvent& event)
-{
-}
 void MainFrame::OnCaptureZoom(wxMouseEvent& event)
 {
     if (capturing)
