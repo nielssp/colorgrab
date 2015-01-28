@@ -137,7 +137,7 @@ MainFrameBaseClass::MainFrameBaseClass(wxWindow* parent, wxWindowID id, const wx
     
     wxBoxSizer* boxSizer57 = new wxBoxSizer(wxVERTICAL);
     
-    flexGridSizer68->Add(boxSizer57, 1, wxALL|wxALIGN_CENTER_HORIZONTAL, 5);
+    flexGridSizer68->Add(boxSizer57, 1, wxLEFT|wxRIGHT|wxTOP|wxALIGN_CENTER_HORIZONTAL, 5);
     
     m_pickerButton = new wxButton(m_mainPanel, wxID_ANY, wxT(""), wxDefaultPosition, wxSize(50,50), 0);
     #if wxVERSION_NUMBER >= 2904
@@ -148,9 +148,9 @@ MainFrameBaseClass::MainFrameBaseClass(wxWindow* parent, wxWindowID id, const wx
     
     boxSizer57->Add(m_pickerButton, 0, wxALL|wxALIGN_CENTER_HORIZONTAL, 0);
     
-    wxBoxSizer* boxSizer132 = new wxBoxSizer(wxHORIZONTAL);
+    wxGridSizer* gridSizer153 = new wxGridSizer(0, 2, 0, 0);
     
-    boxSizer57->Add(boxSizer132, 1, wxTOP|wxALIGN_CENTER_HORIZONTAL, 5);
+    boxSizer57->Add(gridSizer153, 1, wxTOP|wxEXPAND, 27);
     
     m_button1281 = new wxButton(m_mainPanel, wxID_ANY, wxT(""), wxDefaultPosition, wxSize(24,24), 0);
     #if wxVERSION_NUMBER >= 2904
@@ -159,7 +159,7 @@ MainFrameBaseClass::MainFrameBaseClass(wxWindow* parent, wxWindowID id, const wx
     #endif
     m_button1281->SetToolTip(_("Zoom in"));
     
-    boxSizer132->Add(m_button1281, 0, wxRIGHT|wxTOP|wxBOTTOM, 1);
+    gridSizer153->Add(m_button1281, 0, wxRIGHT|wxTOP|wxBOTTOM, 1);
     
     m_button128 = new wxButton(m_mainPanel, wxID_ANY, wxT(""), wxDefaultPosition, wxSize(24,24), 0);
     #if wxVERSION_NUMBER >= 2904
@@ -168,11 +168,7 @@ MainFrameBaseClass::MainFrameBaseClass(wxWindow* parent, wxWindowID id, const wx
     #endif
     m_button128->SetToolTip(_("Zoom out"));
     
-    boxSizer132->Add(m_button128, 0, wxLEFT|wxTOP|wxBOTTOM, 1);
-    
-    wxBoxSizer* boxSizer146 = new wxBoxSizer(wxHORIZONTAL);
-    
-    boxSizer57->Add(boxSizer146, 1, wxTOP|wxALIGN_CENTER_HORIZONTAL, 5);
+    gridSizer153->Add(m_button128, 0, wxLEFT|wxTOP|wxBOTTOM, 1);
     
     m_button12845 = new wxButton(m_mainPanel, wxID_ANY, wxT(""), wxDefaultPosition, wxSize(24,24), 0);
     #if wxVERSION_NUMBER >= 2904
@@ -181,7 +177,7 @@ MainFrameBaseClass::MainFrameBaseClass(wxWindow* parent, wxWindowID id, const wx
     #endif
     m_button12845->SetToolTip(_("Refresh image"));
     
-    boxSizer146->Add(m_button12845, 0, wxRIGHT|wxTOP|wxBOTTOM, 1);
+    gridSizer153->Add(m_button12845, 0, wxRIGHT|wxTOP, 1);
     
     m_timerButton = new wxButton(m_mainPanel, wxID_ANY, wxT(""), wxDefaultPosition, wxSize(24,24), 0);
     #if wxVERSION_NUMBER >= 2904
@@ -190,15 +186,11 @@ MainFrameBaseClass::MainFrameBaseClass(wxWindow* parent, wxWindowID id, const wx
     #endif
     m_timerButton->SetToolTip(_("Refresh image in..."));
     
-    boxSizer146->Add(m_timerButton, 0, wxLEFT|wxTOP|wxBOTTOM, 1);
-    
-    wxBoxSizer* boxSizer74 = new wxBoxSizer(wxVERTICAL);
-    
-    flexGridSizer68->Add(boxSizer74, 1, wxALL|wxEXPAND, 5);
+    gridSizer153->Add(m_timerButton, 0, wxLEFT|wxTOP, 1);
     
     m_zoomPanel = new ZoomPanel(m_mainPanel, wxID_ANY, wxDefaultPosition, wxSize(128,128), wxTAB_TRAVERSAL|wxBORDER_THEME);
     
-    boxSizer74->Add(m_zoomPanel, 0, wxALL, 0);
+    flexGridSizer68->Add(m_zoomPanel, 0, wxALL, 5);
     m_zoomPanel->SetMinSize(wxSize(128,128));
     
     m_menuBar = new wxMenuBar(0);

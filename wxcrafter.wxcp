@@ -1,7 +1,7 @@
 {
  "metadata": {
   "m_generatedFilesDir": ".",
-  "m_objCounter": 151,
+  "m_objCounter": 153,
   "m_includeFiles": [],
   "m_bitmapFunction": "wxC9ED9InitBitmapResources",
   "m_bitmapsFile": "wxcrafter_bitmaps.cpp",
@@ -1220,7 +1220,7 @@
            "gbSpan": "1,1",
            "gbPosition": "0,0",
            "m_styles": [],
-           "m_sizerFlags": ["wxALL", "wxLEFT", "wxRIGHT", "wxTOP", "wxBOTTOM", "wxALIGN_CENTER_HORIZONTAL"],
+           "m_sizerFlags": ["wxLEFT", "wxRIGHT", "wxTOP", "wxALIGN_CENTER_HORIZONTAL"],
            "m_properties": [{
              "type": "string",
              "m_label": "Name:",
@@ -1332,26 +1332,37 @@
               }],
              "m_children": []
             }, {
-             "m_type": 4401,
+             "m_type": 4452,
              "proportion": 1,
-             "border": 5,
+             "border": 27,
              "gbSpan": "1,1",
              "gbPosition": "0,0",
              "m_styles": [],
-             "m_sizerFlags": ["wxTOP", "wxALIGN_CENTER_HORIZONTAL"],
+             "m_sizerFlags": ["wxTOP", "wxEXPAND"],
              "m_properties": [{
                "type": "string",
                "m_label": "Name:",
-               "m_value": "boxSizer132"
+               "m_value": "gridSizer153"
               }, {
                "type": "string",
                "m_label": "Style:",
                "m_value": ""
               }, {
-               "type": "choice",
-               "m_label": "Orientation:",
-               "m_selection": 1,
-               "m_options": ["wxVERTICAL", "wxHORIZONTAL"]
+               "type": "string",
+               "m_label": "# Columns:",
+               "m_value": "2"
+              }, {
+               "type": "string",
+               "m_label": "# Rows:",
+               "m_value": "0"
+              }, {
+               "type": "string",
+               "m_label": "Horizontal gap:",
+               "m_value": "0"
+              }, {
+               "type": "string",
+               "m_label": "Vertical gap:",
+               "m_value": "0"
               }],
              "m_events": [],
              "m_children": [{
@@ -1544,38 +1555,14 @@
                  "m_noBody": false
                 }],
                "m_children": []
-              }]
-            }, {
-             "m_type": 4401,
-             "proportion": 1,
-             "border": 5,
-             "gbSpan": "1,1",
-             "gbPosition": "0,0",
-             "m_styles": [],
-             "m_sizerFlags": ["wxTOP", "wxALIGN_CENTER_HORIZONTAL"],
-             "m_properties": [{
-               "type": "string",
-               "m_label": "Name:",
-               "m_value": "boxSizer146"
               }, {
-               "type": "string",
-               "m_label": "Style:",
-               "m_value": ""
-              }, {
-               "type": "choice",
-               "m_label": "Orientation:",
-               "m_selection": 1,
-               "m_options": ["wxVERTICAL", "wxHORIZONTAL"]
-              }],
-             "m_events": [],
-             "m_children": [{
                "m_type": 4400,
                "proportion": 0,
                "border": 1,
                "gbSpan": "1,1",
                "gbPosition": "0,0",
                "m_styles": [],
-               "m_sizerFlags": ["wxRIGHT", "wxTOP", "wxBOTTOM"],
+               "m_sizerFlags": ["wxRIGHT", "wxTOP"],
                "m_properties": [{
                  "type": "winid",
                  "m_label": "ID:",
@@ -1670,7 +1657,7 @@
                "gbSpan": "1,1",
                "gbPosition": "0,0",
                "m_styles": [],
-               "m_sizerFlags": ["wxLEFT", "wxTOP", "wxBOTTOM"],
+               "m_sizerFlags": ["wxLEFT", "wxTOP"],
                "m_properties": [{
                  "type": "winid",
                  "m_label": "ID:",
@@ -1761,124 +1748,100 @@
               }]
             }]
           }, {
-           "m_type": 4401,
-           "proportion": 1,
+           "m_type": 4408,
+           "proportion": 0,
            "border": 5,
            "gbSpan": "1,1",
            "gbPosition": "0,0",
-           "m_styles": [],
-           "m_sizerFlags": ["wxALL", "wxLEFT", "wxRIGHT", "wxTOP", "wxBOTTOM", "wxEXPAND"],
+           "m_styles": ["wxTAB_TRAVERSAL", "wxBORDER_THEME"],
+           "m_sizerFlags": ["wxALL", "wxLEFT", "wxRIGHT", "wxTOP", "wxBOTTOM"],
            "m_properties": [{
+             "type": "winid",
+             "m_label": "ID:",
+             "m_winid": "wxID_ANY"
+            }, {
+             "type": "string",
+             "m_label": "Size:",
+             "m_value": "128,128"
+            }, {
+             "type": "string",
+             "m_label": "Minimum Size:",
+             "m_value": "128,128"
+            }, {
              "type": "string",
              "m_label": "Name:",
-             "m_value": "boxSizer74"
+             "m_value": "m_zoomPanel"
+            }, {
+             "type": "multi-string",
+             "m_label": "Tooltip:",
+             "m_value": ""
+            }, {
+             "type": "colour",
+             "m_label": "Bg Colour:",
+             "colour": "<Default>"
+            }, {
+             "type": "colour",
+             "m_label": "Fg Colour:",
+             "colour": "<Default>"
+            }, {
+             "type": "font",
+             "m_label": "Font:",
+             "m_value": ""
+            }, {
+             "type": "bool",
+             "m_label": "Hidden",
+             "m_value": false
+            }, {
+             "type": "bool",
+             "m_label": "Disabled",
+             "m_value": false
+            }, {
+             "type": "bool",
+             "m_label": "Focused",
+             "m_value": false
+            }, {
+             "type": "string",
+             "m_label": "Class Name:",
+             "m_value": "ZoomPanel"
+            }, {
+             "type": "string",
+             "m_label": "Include File:",
+             "m_value": "ZoomPanel.h"
             }, {
              "type": "string",
              "m_label": "Style:",
              "m_value": ""
-            }, {
-             "type": "choice",
-             "m_label": "Orientation:",
-             "m_selection": 0,
-             "m_options": ["wxVERTICAL", "wxHORIZONTAL"]
             }],
-           "m_events": [],
-           "m_children": [{
-             "m_type": 4408,
-             "proportion": 0,
-             "border": 0,
-             "gbSpan": "1,1",
-             "gbPosition": "0,0",
-             "m_styles": ["wxTAB_TRAVERSAL", "wxBORDER_THEME"],
-             "m_sizerFlags": ["wxALL", "wxLEFT", "wxRIGHT", "wxTOP", "wxBOTTOM"],
-             "m_properties": [{
-               "type": "winid",
-               "m_label": "ID:",
-               "m_winid": "wxID_ANY"
-              }, {
-               "type": "string",
-               "m_label": "Size:",
-               "m_value": "128,128"
-              }, {
-               "type": "string",
-               "m_label": "Minimum Size:",
-               "m_value": "128,128"
-              }, {
-               "type": "string",
-               "m_label": "Name:",
-               "m_value": "m_zoomPanel"
-              }, {
-               "type": "multi-string",
-               "m_label": "Tooltip:",
-               "m_value": ""
-              }, {
-               "type": "colour",
-               "m_label": "Bg Colour:",
-               "colour": "<Default>"
-              }, {
-               "type": "colour",
-               "m_label": "Fg Colour:",
-               "colour": "<Default>"
-              }, {
-               "type": "font",
-               "m_label": "Font:",
-               "m_value": ""
-              }, {
-               "type": "bool",
-               "m_label": "Hidden",
-               "m_value": false
-              }, {
-               "type": "bool",
-               "m_label": "Disabled",
-               "m_value": false
-              }, {
-               "type": "bool",
-               "m_label": "Focused",
-               "m_value": false
-              }, {
-               "type": "string",
-               "m_label": "Class Name:",
-               "m_value": "ZoomPanel"
-              }, {
-               "type": "string",
-               "m_label": "Include File:",
-               "m_value": "ZoomPanel.h"
-              }, {
-               "type": "string",
-               "m_label": "Style:",
-               "m_value": ""
-              }],
-             "m_events": [{
-               "m_eventName": "wxEVT_LEFT_DOWN",
-               "m_eventClass": "wxMouseEvent",
-               "m_eventHandler": "wxMouseEventHandler",
-               "m_functionNameAndSignature": "OnZoomPanelDown(wxMouseEvent& event)",
-               "m_description": "Process a wxEVT_LEFT_DOWN event. The handler of this event should normally call event.Skip() to allow the default processing to take place as otherwise the window under mouse wouldn't get the focus.",
-               "m_noBody": false
-              }, {
-               "m_eventName": "wxEVT_LEFT_UP",
-               "m_eventClass": "wxMouseEvent",
-               "m_eventHandler": "wxMouseEventHandler",
-               "m_functionNameAndSignature": "OnZoomPanelUp(wxMouseEvent& event)",
-               "m_description": "Process a wxEVT_LEFT_UP event.",
-               "m_noBody": false
-              }, {
-               "m_eventName": "wxEVT_MOTION",
-               "m_eventClass": "wxMouseEvent",
-               "m_eventHandler": "wxMouseEventHandler",
-               "m_functionNameAndSignature": "OnZoomPanelMove(wxMouseEvent& event)",
-               "m_description": "Process a wxEVT_MOTION event",
-               "m_noBody": false
-              }, {
-               "m_eventName": "wxEVT_MOUSEWHEEL",
-               "m_eventClass": "wxMouseEvent",
-               "m_eventHandler": "wxMouseEventHandler",
-               "m_functionNameAndSignature": "OnZoomPanelZoom(wxMouseEvent& event)",
-               "m_description": "Process a wxEVT_MOUSEWHEEL event",
-               "m_noBody": false
-              }],
-             "m_children": []
-            }]
+           "m_events": [{
+             "m_eventName": "wxEVT_LEFT_DOWN",
+             "m_eventClass": "wxMouseEvent",
+             "m_eventHandler": "wxMouseEventHandler",
+             "m_functionNameAndSignature": "OnZoomPanelDown(wxMouseEvent& event)",
+             "m_description": "Process a wxEVT_LEFT_DOWN event. The handler of this event should normally call event.Skip() to allow the default processing to take place as otherwise the window under mouse wouldn't get the focus.",
+             "m_noBody": false
+            }, {
+             "m_eventName": "wxEVT_LEFT_UP",
+             "m_eventClass": "wxMouseEvent",
+             "m_eventHandler": "wxMouseEventHandler",
+             "m_functionNameAndSignature": "OnZoomPanelUp(wxMouseEvent& event)",
+             "m_description": "Process a wxEVT_LEFT_UP event.",
+             "m_noBody": false
+            }, {
+             "m_eventName": "wxEVT_MOTION",
+             "m_eventClass": "wxMouseEvent",
+             "m_eventHandler": "wxMouseEventHandler",
+             "m_functionNameAndSignature": "OnZoomPanelMove(wxMouseEvent& event)",
+             "m_description": "Process a wxEVT_MOTION event",
+             "m_noBody": false
+            }, {
+             "m_eventName": "wxEVT_MOUSEWHEEL",
+             "m_eventClass": "wxMouseEvent",
+             "m_eventHandler": "wxMouseEventHandler",
+             "m_functionNameAndSignature": "OnZoomPanelZoom(wxMouseEvent& event)",
+             "m_description": "Process a wxEVT_MOUSEWHEEL event",
+             "m_noBody": false
+            }],
+           "m_children": []
           }]
         }]
       }]
