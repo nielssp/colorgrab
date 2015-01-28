@@ -56,6 +56,13 @@ MainFrame::MainFrame(wxWindow* parent)
         config.ReadLong("Main/ZoomPanel/Y", 0)
     ));
     m_zoomPanel->SetZoom(config.ReadLong("Main/ZoomPanel/Zoom", 4));
+    
+    for (int i = 0; i < 10; i++) {
+        wxPanel *stackColor = new wxPanel(m_colorStack, wxID_ANY, wxDefaultPosition, wxSize(24,13), wxBORDER_SIMPLE);
+        stackColor->SetCursor(wxCursor(wxCURSOR_HAND));
+        stackColor->SetBackgroundColour(wxColour(255, 0, 0));
+        m_colorStack->GetSizer()->Add(stackColor, 0, 0, 0);
+    }
 }
 
 MainFrame::~MainFrame()

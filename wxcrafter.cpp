@@ -121,18 +121,18 @@ MainFrameBaseClass::MainFrameBaseClass(wxWindow* parent, wxWindowID id, const wx
     
     wxBoxSizer* boxSizer155 = new wxBoxSizer(wxHORIZONTAL);
     
-    boxSizer51->Add(boxSizer155, 1, wxEXPAND, 5);
+    boxSizer51->Add(boxSizer155, 1, wxTOP|wxBOTTOM|wxEXPAND, 1);
     
     m_colorButton = new wxPanel(m_mainPanel, wxID_ANY, wxDefaultPosition, wxSize(70,70), wxBORDER_THEME);
     m_colorButton->SetBackgroundColour(wxColour(wxT("rgb(0,0,0)")));
     
-    boxSizer155->Add(m_colorButton, 0, wxRIGHT|wxTOP|wxBOTTOM|wxALIGN_LEFT, 1);
+    boxSizer155->Add(m_colorButton, 0, wxRIGHT|wxALIGN_LEFT, 1);
     
     m_colorStack = new wxPanel(m_mainPanel, wxID_ANY, wxDefaultPosition, wxSize(51,70), wxTAB_TRAVERSAL);
     
     boxSizer155->Add(m_colorStack, 0, wxLEFT, 5);
     
-    wxFlexGridSizer* flexGridSizer159 = new wxFlexGridSizer(0, 2, 0, 0);
+    wxFlexGridSizer* flexGridSizer159 = new wxFlexGridSizer(0, 2, 1, 1);
     flexGridSizer159->SetFlexibleDirection( wxBOTH );
     flexGridSizer159->SetNonFlexibleGrowMode( wxFLEX_GROWMODE_SPECIFIED );
     m_colorStack->SetSizer(flexGridSizer159);
