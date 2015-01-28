@@ -71,6 +71,8 @@ MainFrame::~MainFrame()
     config.Write("Main/ZoomPanel/X", poi.x);
     config.Write("Main/ZoomPanel/Y", poi.y);
     config.Write("Main/ZoomPanel/Zoom", m_zoomPanel->GetZoom());
+    config.Write("Main/Model", wxString(colorModel->getName()));
+    config.Write("Main/Output", wxString(colorOutput->getName()));
 }
 
 void MainFrame::RestorePosition()
@@ -86,22 +88,34 @@ void MainFrame::RestorePosition()
     SetPosition(wxPoint(x, y));
 }
 
-void MainFrame::AddColorModel(IColorModel* colorModel)
+int MainFrame::AddColorModel(IColorModel* colorModel)
 {
     wxWindowID id = wxIdManager::ReserveId();
     colorModels[id] = colorModel;
     wxMenuItem* menuItem = new wxMenuItem(m_colorModelMenu, id, colorModel->getName(), wxT(""), wxITEM_RADIO);
     m_colorModelMenu->Append(menuItem);
     m_colorModelMenu->Bind(wxEVT_COMMAND_MENU_SELECTED, &MainFrame::OnSelectColorModel, this, menuItem->GetId());
+    if (colorModel->getName() == config.Read("Main/Model", "RGB"))
+    {
+        this->colorModel = colorModel;
+        menuItem->Check();
+    }
+    return id;
 }
 
-void MainFrame::AddColorOutput(IColorOutput* colorOutput)
+int MainFrame::AddColorOutput(IColorOutput* colorOutput)
 {
     wxWindowID id = wxIdManager::ReserveId();
     colorOutputs[id] = colorOutput;
     wxMenuItem* menuItem = new wxMenuItem(m_colorOutputMenu, id, colorOutput->getName(), wxT(""), wxITEM_RADIO);
     m_colorOutputMenu->Append(menuItem);
     m_colorOutputMenu->Bind(wxEVT_COMMAND_MENU_SELECTED, &MainFrame::OnSelectColorOutput, this, menuItem->GetId());
+    if (colorOutput->getName() == config.Read("Main/Output", "Hexadecimal (HTML/CSS)"))
+    {
+        this->colorOutput = colorOutput;
+        menuItem->Check();
+    }
+    return id;
 }
 
 void MainFrame::SetColorModel(IColorModel* colorModel)

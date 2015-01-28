@@ -27,11 +27,11 @@ public:
     void OnExit(wxCommandEvent& event);
     void OnAbout(wxCommandEvent& event);
     
-    void AddColorModel(IColorModel* colorModel);
-    void SetColorModel(IColorModel* colorModel);
+    int AddColorModel(IColorModel* colorModel);
+    void  SetColorModel(IColorModel* colorModel);
     void UpdateColorModel();
     
-    void AddColorOutput(IColorOutput* colorOutput);
+    int AddColorOutput(IColorOutput* colorOutput);
     void SetColorOutput(IColorOutput* colorOutput);
 	 
     wxColour GetColor() const;
