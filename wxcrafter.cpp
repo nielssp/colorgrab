@@ -137,43 +137,60 @@ MainFrameBaseClass::MainFrameBaseClass(wxWindow* parent, wxWindowID id, const wx
     
     wxBoxSizer* boxSizer57 = new wxBoxSizer(wxVERTICAL);
     
-    flexGridSizer68->Add(boxSizer57, 1, wxALL|wxEXPAND, 5);
+    flexGridSizer68->Add(boxSizer57, 1, wxALL|wxALIGN_CENTER_HORIZONTAL, 5);
     
     m_pickerButton = new wxButton(m_mainPanel, wxID_ANY, wxT(""), wxDefaultPosition, wxSize(50,50), 0);
     #if wxVERSION_NUMBER >= 2904
     m_pickerButton->SetBitmap(wxXmlResource::Get()->LoadBitmap(wxT("Cross")), wxLEFT);
     m_pickerButton->SetBitmapMargins(2,2);
     #endif
+    m_pickerButton->SetToolTip(_("Pick color."));
     
-    boxSizer57->Add(m_pickerButton, 0, wxALL|wxALIGN_CENTER|wxALIGN_CENTER_HORIZONTAL, 0);
+    boxSizer57->Add(m_pickerButton, 0, wxALL|wxALIGN_CENTER_HORIZONTAL, 0);
     
     wxBoxSizer* boxSizer132 = new wxBoxSizer(wxHORIZONTAL);
     
-    boxSizer57->Add(boxSizer132, 1, wxTOP|wxBOTTOM|wxALIGN_CENTER|wxALIGN_CENTER_HORIZONTAL, 5);
+    boxSizer57->Add(boxSizer132, 1, wxTOP|wxALIGN_CENTER_HORIZONTAL, 5);
     
     m_button1281 = new wxButton(m_mainPanel, wxID_ANY, wxT(""), wxDefaultPosition, wxSize(24,24), 0);
     #if wxVERSION_NUMBER >= 2904
-    m_button1281->SetBitmap(wxArtProvider::GetBitmap(wxART_PLUS, wxART_BUTTON, wxSize(16, 16)), wxLEFT);
+    m_button1281->SetBitmap(wxXmlResource::Get()->LoadBitmap(wxT("add")), wxLEFT);
     m_button1281->SetBitmapMargins(2,2);
     #endif
+    m_button1281->SetToolTip(_("Zoom in"));
     
     boxSizer132->Add(m_button1281, 0, wxRIGHT|wxTOP|wxBOTTOM, 1);
     
     m_button128 = new wxButton(m_mainPanel, wxID_ANY, wxT(""), wxDefaultPosition, wxSize(24,24), 0);
     #if wxVERSION_NUMBER >= 2904
-    m_button128->SetBitmap(wxArtProvider::GetBitmap(wxART_MINUS, wxART_BUTTON, wxSize(16, 16)), wxLEFT);
+    m_button128->SetBitmap(wxXmlResource::Get()->LoadBitmap(wxT("remove")), wxLEFT);
     m_button128->SetBitmapMargins(2,2);
     #endif
+    m_button128->SetToolTip(_("Zoom out"));
     
     boxSizer132->Add(m_button128, 0, wxLEFT|wxTOP|wxBOTTOM, 1);
     
-    wxBoxSizer* boxSizer137 = new wxBoxSizer(wxHORIZONTAL);
+    wxBoxSizer* boxSizer146 = new wxBoxSizer(wxHORIZONTAL);
     
-    boxSizer57->Add(boxSizer137, 1, wxALL|wxEXPAND, 5);
+    boxSizer57->Add(boxSizer146, 1, wxTOP|wxALIGN_CENTER_HORIZONTAL, 5);
     
-    m_colourPicker = new wxColourPickerCtrl(m_mainPanel, wxID_ANY, *wxBLACK, wxDefaultPosition, wxSize(24,24), wxCLRP_DEFAULT_STYLE);
+    m_button12845 = new wxButton(m_mainPanel, wxID_ANY, wxT(""), wxDefaultPosition, wxSize(24,24), 0);
+    #if wxVERSION_NUMBER >= 2904
+    m_button12845->SetBitmap(wxXmlResource::Get()->LoadBitmap(wxT("refresh")), wxLEFT);
+    m_button12845->SetBitmapMargins(2,2);
+    #endif
+    m_button12845->SetToolTip(_("Refresh image"));
     
-    boxSizer137->Add(m_colourPicker, 0, wxALL|wxALIGN_CENTER_HORIZONTAL, 1);
+    boxSizer146->Add(m_button12845, 0, wxRIGHT|wxTOP|wxBOTTOM, 1);
+    
+    m_timerButton = new wxButton(m_mainPanel, wxID_ANY, wxT(""), wxDefaultPosition, wxSize(24,24), 0);
+    #if wxVERSION_NUMBER >= 2904
+    m_timerButton->SetBitmap(wxXmlResource::Get()->LoadBitmap(wxT("timer")), wxLEFT);
+    m_timerButton->SetBitmapMargins(2,2);
+    #endif
+    m_timerButton->SetToolTip(_("Refresh image in..."));
+    
+    boxSizer146->Add(m_timerButton, 0, wxLEFT|wxTOP|wxBOTTOM, 1);
     
     wxBoxSizer* boxSizer74 = new wxBoxSizer(wxVERTICAL);
     
@@ -234,7 +251,8 @@ MainFrameBaseClass::MainFrameBaseClass(wxWindow* parent, wxWindowID id, const wx
     m_pickerButton->Connect(wxEVT_LEFT_DOWN, wxMouseEventHandler(MainFrameBaseClass::OnCaptureStart), NULL, this);
     m_button1281->Connect(wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler(MainFrameBaseClass::OnZoomIn), NULL, this);
     m_button128->Connect(wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler(MainFrameBaseClass::OnZoomOut), NULL, this);
-    m_colourPicker->Connect(wxEVT_COMMAND_COLOURPICKER_CHANGED, wxColourPickerEventHandler(MainFrameBaseClass::OnColorPick), NULL, this);
+    m_button12845->Connect(wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler(MainFrameBaseClass::OnRefreshImage), NULL, this);
+    m_timerButton->Connect(wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler(MainFrameBaseClass::OnTimerRefreshImage), NULL, this);
     m_zoomPanel->Connect(wxEVT_LEFT_DOWN, wxMouseEventHandler(MainFrameBaseClass::OnZoomPanelDown), NULL, this);
     m_zoomPanel->Connect(wxEVT_LEFT_UP, wxMouseEventHandler(MainFrameBaseClass::OnZoomPanelUp), NULL, this);
     m_zoomPanel->Connect(wxEVT_MOTION, wxMouseEventHandler(MainFrameBaseClass::OnZoomPanelMove), NULL, this);
@@ -264,7 +282,8 @@ MainFrameBaseClass::~MainFrameBaseClass()
     m_pickerButton->Disconnect(wxEVT_LEFT_DOWN, wxMouseEventHandler(MainFrameBaseClass::OnCaptureStart), NULL, this);
     m_button1281->Disconnect(wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler(MainFrameBaseClass::OnZoomIn), NULL, this);
     m_button128->Disconnect(wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler(MainFrameBaseClass::OnZoomOut), NULL, this);
-    m_colourPicker->Disconnect(wxEVT_COMMAND_COLOURPICKER_CHANGED, wxColourPickerEventHandler(MainFrameBaseClass::OnColorPick), NULL, this);
+    m_button12845->Disconnect(wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler(MainFrameBaseClass::OnRefreshImage), NULL, this);
+    m_timerButton->Disconnect(wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler(MainFrameBaseClass::OnTimerRefreshImage), NULL, this);
     m_zoomPanel->Disconnect(wxEVT_LEFT_DOWN, wxMouseEventHandler(MainFrameBaseClass::OnZoomPanelDown), NULL, this);
     m_zoomPanel->Disconnect(wxEVT_LEFT_UP, wxMouseEventHandler(MainFrameBaseClass::OnZoomPanelUp), NULL, this);
     m_zoomPanel->Disconnect(wxEVT_MOTION, wxMouseEventHandler(MainFrameBaseClass::OnZoomPanelMove), NULL, this);

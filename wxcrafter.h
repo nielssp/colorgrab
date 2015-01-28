@@ -19,7 +19,6 @@
 #include <wx/spinctrl.h>
 #include <wx/textctrl.h>
 #include <wx/button.h>
-#include <wx/clrpicker.h>
 #include "ZoomPanel.h"
 #include <wx/menu.h>
 
@@ -40,7 +39,8 @@ protected:
     wxButton* m_pickerButton;
     wxButton* m_button1281;
     wxButton* m_button128;
-    wxColourPickerCtrl* m_colourPicker;
+    wxButton* m_button12845;
+    wxButton* m_timerButton;
     ZoomPanel* m_zoomPanel;
     wxMenuBar* m_menuBar;
     wxMenu* m_name6;
@@ -64,7 +64,8 @@ protected:
     virtual void OnCaptureStart(wxMouseEvent& event) { event.Skip(); }
     virtual void OnZoomIn(wxCommandEvent& event) { event.Skip(); }
     virtual void OnZoomOut(wxCommandEvent& event) { event.Skip(); }
-    virtual void OnColorPick(wxColourPickerEvent& event) { event.Skip(); }
+    virtual void OnRefreshImage(wxCommandEvent& event) { event.Skip(); }
+    virtual void OnTimerRefreshImage(wxCommandEvent& event) { event.Skip(); }
     virtual void OnZoomPanelDown(wxMouseEvent& event) { event.Skip(); }
     virtual void OnZoomPanelUp(wxMouseEvent& event) { event.Skip(); }
     virtual void OnZoomPanelMove(wxMouseEvent& event) { event.Skip(); }

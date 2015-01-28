@@ -29,9 +29,9 @@ struct ZoomMenuFunctor
 };
 
 MainFrame::MainFrame(wxWindow* parent)
-    : MainFrameBaseClass(parent), capturing(false)
+    : MainFrameBaseClass(parent), capturing(false), refreshTimer(this)
 {
-    
+    Bind(wxEVT_TIMER, &MainFrame::OnRefreshTimerEvent, this, refreshTimer.GetId());
     RestorePosition();
     
     colorOutput = new HtmlHexOutput;
@@ -198,7 +198,7 @@ wxColor MainFrame::GetColor() const
 
 void MainFrame::SetColor(const wxColor& color, bool updateInputs, bool updateOutput)
 {
-    m_colourPicker->SetColour(color);
+//    m_colourPicker->SetColour(color);
     m_colorButton->SetBackgroundColour(color);
 	m_colorButton->Refresh();
     colorModel->setColor(color);
@@ -222,10 +222,6 @@ void MainFrame::OnColorChange(wxCommandEvent& event)
     colorModel->setValue(3, m_fourthCtrl->GetValue());
     SetColor(colorModel->getColor(), false);
 }
-void MainFrame::OnColorPick(wxColourPickerEvent& event)
-{
-    SetColor(m_colourPicker->GetColour());
-}
 
 void MainFrame::OnCaptureStart(wxMouseEvent& event)
 {
@@ -234,6 +230,7 @@ void MainFrame::OnCaptureStart(wxMouseEvent& event)
     CaptureMouse();
     SetCursor(*wxCROSS_CURSOR);
     capturing = true;
+    SetFocus();
 }
 void MainFrame::OnCaptureEnd(wxMouseEvent& event)
 {
@@ -339,4 +336,37 @@ void MainFrame::OnZoomOut(wxCommandEvent& event)
     if (zoom > 1)
         zoom /= 2;
     m_zoomPanel->SetZoom(zoom);
+}
+void MainFrame::OnRefreshImage(wxCommandEvent& event)
+{
+    m_zoomPanel->Update();
+}
+void MainFrame::OnSelectTiming(wxCommandEvent& event)
+{
+    int interval = timerIntervals[event.GetId()];
+    m_timerButton->Disable();
+    refreshTimer.Start(interval * 1000);
+}
+void MainFrame::OnTimerRefreshImage(wxCommandEvent& event)
+{
+    wxMenu menu(_("Refresh image in..."));
+    timerIntervals.clear();
+    int intervals [] = {1, 2, 5};
+    for (int i = 0; i < 3; i++) {
+        wxMenuItem* item;
+        if (i == 1)
+            item = menu.Append(wxID_ANY, wxString::Format(_("%d second"), intervals[i]));
+        else
+            item = menu.Append(wxID_ANY, wxString::Format(_("%d seconds"), intervals[i]));
+        menu.Bind(wxEVT_COMMAND_MENU_SELECTED, &MainFrame::OnSelectTiming, this, item->GetId());
+        timerIntervals[item->GetId()] = intervals[i];
+    }
+    m_timerButton->PopupMenu(&menu);
+}
+
+void MainFrame::OnRefreshTimerEvent(wxTimerEvent& event)
+{
+    m_zoomPanel->Update();
+    m_timerButton->Enable();
+    refreshTimer.Stop();
 }

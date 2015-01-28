@@ -5,13 +5,16 @@
 #include "wxcrafter.h"
 
 #include <wx/config.h>
+#include <wx/timer.h>
 #include <map>
 
 class MainFrame : public MainFrameBaseClass
 {
 private:
-    wxConfig config;
     bool capturing;
+    wxTimer refreshTimer;
+    wxConfig config;
+    std::map<int, int> timerIntervals;
 	std::map<int, IColorModel*> colorModels;
     IColorModel* colorModel;
     std::map<int, IColorOutput*> colorOutputs;
@@ -37,6 +40,8 @@ public:
 	 void SetColorFromPixel(wxCoord x, wxCoord y);
 	 void UpdateZoomArea();
 protected:
+    virtual void OnRefreshImage(wxCommandEvent& event);
+    virtual void OnTimerRefreshImage(wxCommandEvent& event);
     virtual void OnZoomIn(wxCommandEvent& event);
     virtual void OnZoomOut(wxCommandEvent& event);
     virtual void OnInputOutputEnter(wxCommandEvent& event);
@@ -53,10 +58,11 @@ protected:
     virtual void OnCaptureMove(wxMouseEvent& event);
     virtual void OnCaptureEnd(wxMouseEvent& event);
     virtual void OnCaptureStart(wxMouseEvent& event);
-    virtual void OnColorPick(wxColourPickerEvent& event);
     virtual void OnColorChange(wxCommandEvent& event);
     virtual void OnZoomSelect(wxCommandEvent& event);
     virtual void OnSelectColorModel(wxCommandEvent& event);
     virtual void OnSelectColorOutput(wxCommandEvent& event);
+    virtual void OnSelectTiming(wxCommandEvent& event);
+    virtual void OnRefreshTimerEvent(wxTimerEvent& event);
 };
 #endif // MAINFRAME_H
