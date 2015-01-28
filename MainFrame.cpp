@@ -92,7 +92,7 @@ int MainFrame::AddColorModel(IColorModel* colorModel)
 {
     wxWindowID id = wxIdManager::ReserveId();
     colorModels[id] = colorModel;
-    wxMenuItem* menuItem = new wxMenuItem(m_colorModelMenu, id, colorModel->getName(), wxT(""), wxITEM_RADIO);
+    wxMenuItem* menuItem = new wxMenuItem(m_colorModelMenu, id, wxString::Format("%s\tCtrl-%d", colorModel->getName(), colorModels.size()), wxT(""), wxITEM_RADIO);
     m_colorModelMenu->Append(menuItem);
     m_colorModelMenu->Bind(wxEVT_COMMAND_MENU_SELECTED, &MainFrame::OnSelectColorModel, this, menuItem->GetId());
     if (colorModel->getName() == config.Read("Main/Model", "RGB"))
@@ -107,7 +107,7 @@ int MainFrame::AddColorOutput(IColorOutput* colorOutput)
 {
     wxWindowID id = wxIdManager::ReserveId();
     colorOutputs[id] = colorOutput;
-    wxMenuItem* menuItem = new wxMenuItem(m_colorOutputMenu, id, colorOutput->getName(), wxT(""), wxITEM_RADIO);
+    wxMenuItem* menuItem = new wxMenuItem(m_colorOutputMenu, id, wxString::Format("%s\tCtrl-Shift-%d", colorOutput->getName(), colorOutputs.size()), wxT(""), wxITEM_RADIO);
     m_colorOutputMenu->Append(menuItem);
     m_colorOutputMenu->Bind(wxEVT_COMMAND_MENU_SELECTED, &MainFrame::OnSelectColorOutput, this, menuItem->GetId());
     if (colorOutput->getName() == config.Read("Main/Output", "Hexadecimal (HTML/CSS)"))
