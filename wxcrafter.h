@@ -35,6 +35,7 @@ protected:
     wxStaticText* m_fourthLabel;
     wxSpinCtrl* m_fourthCtrl;
     wxPanel* m_colorButton;
+    wxPanel* m_colorStack;
     wxTextCtrl* m_formatText;
     wxButton* m_pickerButton;
     wxButton* m_button1281;

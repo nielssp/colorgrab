@@ -119,21 +119,30 @@ MainFrameBaseClass::MainFrameBaseClass(wxWindow* parent, wxWindowID id, const wx
     
     flexGridSizer68->Add(boxSizer51, 1, wxLEFT|wxRIGHT|wxTOP|wxEXPAND, 5);
     
+    wxBoxSizer* boxSizer155 = new wxBoxSizer(wxHORIZONTAL);
+    
+    boxSizer51->Add(boxSizer155, 1, wxEXPAND, 5);
+    
     m_colorButton = new wxPanel(m_mainPanel, wxID_ANY, wxDefaultPosition, wxSize(70,70), wxBORDER_THEME);
     m_colorButton->SetBackgroundColour(wxColour(wxT("rgb(0,0,0)")));
     
-    boxSizer51->Add(m_colorButton, 0, wxRIGHT|wxTOP|wxBOTTOM|wxALIGN_LEFT, 1);
+    boxSizer155->Add(m_colorButton, 0, wxRIGHT|wxTOP|wxBOTTOM|wxALIGN_LEFT, 1);
     
-    wxBoxSizer* boxSizer114 = new wxBoxSizer(wxHORIZONTAL);
+    m_colorStack = new wxPanel(m_mainPanel, wxID_ANY, wxDefaultPosition, wxSize(51,70), wxTAB_TRAVERSAL);
     
-    boxSizer51->Add(boxSizer114, 1, wxBOTTOM|wxEXPAND, 5);
+    boxSizer155->Add(m_colorStack, 0, wxLEFT, 5);
+    
+    wxFlexGridSizer* flexGridSizer159 = new wxFlexGridSizer(0, 2, 0, 0);
+    flexGridSizer159->SetFlexibleDirection( wxBOTH );
+    flexGridSizer159->SetNonFlexibleGrowMode( wxFLEX_GROWMODE_SPECIFIED );
+    m_colorStack->SetSizer(flexGridSizer159);
     
     m_formatText = new wxTextCtrl(m_mainPanel, wxID_ANY, wxT("#000000"), wxDefaultPosition, wxSize(128,20), wxTE_PROCESS_ENTER|wxTE_CENTRE);
     #if wxVERSION_NUMBER >= 3000
     m_formatText->SetHint(wxT(""));
     #endif
     
-    boxSizer114->Add(m_formatText, 0, wxTOP|wxBOTTOM|wxALIGN_CENTER_HORIZONTAL, 2);
+    boxSizer51->Add(m_formatText, 0, wxTOP|wxBOTTOM|wxALIGN_CENTER_HORIZONTAL, 2);
     
     wxBoxSizer* boxSizer57 = new wxBoxSizer(wxVERTICAL);
     

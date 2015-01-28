@@ -5,6 +5,7 @@
 #include "CMYKModel.h"
 
 #include "HtmlHexOutput.h"
+#include "CssRgbOutput.h"
 
 #include <wx/aboutdlg.h>
 #include <wx/dcscreen.h>
@@ -36,6 +37,7 @@ MainFrame::MainFrame(wxWindow* parent)
     
     colorOutput = new HtmlHexOutput;
     AddColorOutput(colorOutput);
+    AddColorOutput(new CssRgbOutput);
     
     colorModel = new RGBModel;
     AddColorModel(colorModel);
@@ -111,6 +113,7 @@ void MainFrame::SetColorModel(IColorModel* colorModel)
 void MainFrame::SetColorOutput(IColorOutput* colorOutput)
 {
     this->colorOutput = colorOutput;
+    SetColor(GetColor());
 }
 
 void update_label_and_ctrl(int i, IColorModel* colorModel, wxStaticText* label, wxSpinCtrl* ctrl)
