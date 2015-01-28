@@ -277,11 +277,13 @@ void MainFrame::OnZoomSelect(wxCommandEvent& event)
 void MainFrame::OnZoomPanelDown(wxMouseEvent& event)
 {
     m_zoomPanel->ShowPoi(false);
+    m_zoomPanel->SetFocus();
     SetColorFromMouse();
     capturing = true;
 }
 void MainFrame::OnZoomPanelMove(wxMouseEvent& event)
 {
+    m_zoomPanel->SetFocus();
     if (capturing)
         SetColorFromMouse();
 }
