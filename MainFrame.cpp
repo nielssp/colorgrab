@@ -83,7 +83,7 @@ MainFrame::~MainFrame()
     for (size_t i = 0; i < 10; i++)
     {
         wxWindow* stackColor = m_colorStack->GetSizer()->GetItem(i)->GetWindow();
-        config.Write(wxString::Format("Main/Stack/Color%d", i), stackColor->GetBackgroundColour());
+        config.Write(wxString::Format("Main/Stack/Color%d", (int) i), stackColor->GetBackgroundColour());
     }
 }
 
@@ -117,7 +117,7 @@ int MainFrame::AddColorModel(IColorModel* colorModel)
 {
     wxWindowID id = wxIdManager::ReserveId();
     colorModels[id] = colorModel;
-    wxMenuItem* menuItem = new wxMenuItem(m_colorModelMenu, id, wxString::Format("%s\tCtrl-%d", colorModel->getName(), colorModels.size()), wxT(""), wxITEM_RADIO);
+    wxMenuItem* menuItem = new wxMenuItem(m_colorModelMenu, id, wxString::Format("%s\tCtrl-%d", colorModel->getName(), (int) colorModels.size()), wxT(""), wxITEM_RADIO);
     m_colorModelMenu->Append(menuItem);
     m_colorModelMenu->Bind(wxEVT_COMMAND_MENU_SELECTED, &MainFrame::OnSelectColorModel, this, menuItem->GetId());
     if (colorModel->getName() == config.Read("Main/Model", "RGB"))
@@ -132,7 +132,7 @@ int MainFrame::AddColorOutput(IColorOutput* colorOutput)
 {
     wxWindowID id = wxIdManager::ReserveId();
     colorOutputs[id] = colorOutput;
-    wxMenuItem* menuItem = new wxMenuItem(m_colorOutputMenu, id, wxString::Format("%s\tCtrl-Shift-%d", colorOutput->getName(), colorOutputs.size()), wxT(""), wxITEM_RADIO);
+    wxMenuItem* menuItem = new wxMenuItem(m_colorOutputMenu, id, wxString::Format("%s\tCtrl-Shift-%d", colorOutput->getName(), (int) colorOutputs.size()), wxT(""), wxITEM_RADIO);
     m_colorOutputMenu->Append(menuItem);
     m_colorOutputMenu->Bind(wxEVT_COMMAND_MENU_SELECTED, &MainFrame::OnSelectColorOutput, this, menuItem->GetId());
     if (colorOutput->getName() == config.Read("Main/Output", "Hexadecimal (HTML/CSS)"))
@@ -164,8 +164,7 @@ void update_label_and_ctrl(int i, IColorModel* colorModel, wxStaticText* label, 
         label->SetLabel(labelStr.substr(0, 1).append(":"));
         label->SetToolTip(labelStr);
         ctrl->SetToolTip(labelStr);
-        ctrl->SetMin(colorModel->getMin(i));
-        ctrl->SetMax(colorModel->getMax(i));
+        ctrl->SetRange(colorModel->getMin(i), colorModel->getMax(i));
     }
     else {
         label->Show(false);
