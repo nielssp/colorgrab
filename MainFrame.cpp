@@ -196,21 +196,29 @@ void MainFrame::OnAbout(wxCommandEvent& event)
     info.SetVersion("0.1-dev");
     info.SetWebSite("http://nielssp.dk");
     info.SetCopyright(_("(C) 2015 Niels Sonnich Poulsen"));
-    info.SetLicence(_("MIT License"));
+    info.SetLicence(_("Copyright (C) 2015 Niels Sonnich Poulsen (http://nielssp.dk)\n\
+\n\
+Permission is hereby granted, free of charge, to any person\
+obtaining a copy of this software and associated documentation\
+files (the \"Software\"), to deal in the Software without\
+restriction, including without limitation the rights to use,\
+copy, modify, merge, publish, distribute, sublicense, and/or\
+sell copies of the Software, and to permit persons to whom the\
+Software is furnished to do so, subject to the following conditions:\n\
+\n\
+The above copyright notice and this permission notice shall be\
+included in all copies or substantial portions of the Software.\n\
+\n\
+THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND,\
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES\
+OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND\
+NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT\
+HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,\
+WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING\
+FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR\
+OTHER DEALINGS IN THE SOFTWARE."));
     info.SetDescription(_("Free color picker tool."));
-    ::wxAboutBox(info);
-}
-
-wxBitmap GetScreenShot()
-{
-    wxSize screenSize = wxGetDisplaySize();
-    wxBitmap bitmap(screenSize.x, screenSize.y);
-    wxScreenDC dc;
-    wxMemoryDC memDC;
-    memDC.SelectObject(bitmap);
-    memDC.Blit(0, 0, screenSize.x, screenSize.y, &dc, 0, 0);
-    memDC.SelectObject(wxNullBitmap);
-    return bitmap;
+    wxAboutBox(info);
 }
 
 void MainFrame::UpdateZoomArea()
