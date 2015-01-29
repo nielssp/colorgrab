@@ -15,6 +15,8 @@ public:
         wxImage::AddHandler( new wxPNGHandler );
         wxImage::AddHandler( new wxJPEGHandler );
 
+        SetAppName("ColorGrab");
+
         MainFrame *mainFrame = new MainFrame(NULL);
         SetTopWindow(mainFrame);
         return GetTopWindow()->Show();
