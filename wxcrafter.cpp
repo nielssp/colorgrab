@@ -259,6 +259,7 @@ MainFrameBaseClass::MainFrameBaseClass(wxWindow* parent, wxWindowID id, const wx
     m_fourthCtrl->Connect(wxEVT_COMMAND_SPINCTRL_UPDATED, wxSpinEventHandler(MainFrameBaseClass::OnColorChange), NULL, this);
     m_fourthCtrl->Connect(wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler(MainFrameBaseClass::OnColorChange), NULL, this);
     m_colorButton->Connect(wxEVT_RIGHT_UP, wxMouseEventHandler(MainFrameBaseClass::OnPushColor), NULL, this);
+    m_colorButton->Connect(wxEVT_LEFT_DOWN, wxMouseEventHandler(MainFrameBaseClass::OnDragColor), NULL, this);
     m_formatText->Connect(wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler(MainFrameBaseClass::OnColorOutputChange), NULL, this);
     m_formatText->Connect(wxEVT_KILL_FOCUS, wxFocusEventHandler(MainFrameBaseClass::OnInputOutputBlur), NULL, this);
     m_formatText->Connect(wxEVT_COMMAND_TEXT_ENTER, wxCommandEventHandler(MainFrameBaseClass::OnInputOutputEnter), NULL, this);
@@ -296,6 +297,7 @@ MainFrameBaseClass::~MainFrameBaseClass()
     m_fourthCtrl->Disconnect(wxEVT_COMMAND_SPINCTRL_UPDATED, wxSpinEventHandler(MainFrameBaseClass::OnColorChange), NULL, this);
     m_fourthCtrl->Disconnect(wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler(MainFrameBaseClass::OnColorChange), NULL, this);
     m_colorButton->Disconnect(wxEVT_RIGHT_UP, wxMouseEventHandler(MainFrameBaseClass::OnPushColor), NULL, this);
+    m_colorButton->Disconnect(wxEVT_LEFT_DOWN, wxMouseEventHandler(MainFrameBaseClass::OnDragColor), NULL, this);
     m_formatText->Disconnect(wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler(MainFrameBaseClass::OnColorOutputChange), NULL, this);
     m_formatText->Disconnect(wxEVT_KILL_FOCUS, wxFocusEventHandler(MainFrameBaseClass::OnInputOutputBlur), NULL, this);
     m_formatText->Disconnect(wxEVT_COMMAND_TEXT_ENTER, wxCommandEventHandler(MainFrameBaseClass::OnInputOutputEnter), NULL, this);

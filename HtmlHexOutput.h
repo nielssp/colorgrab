@@ -17,7 +17,7 @@ public:
     virtual wxColor getColor() const;
     virtual std::string getOutput() const;
     virtual void setColor(const wxColour& color);
-    virtual void setOutput(std::string output);
+    virtual bool parseColor(std::string colorString);
 };
 
 #endif // HTMLHEXOUTPUT_H

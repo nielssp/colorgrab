@@ -11,7 +11,7 @@ public:
     virtual std::string getName() const = 0;
     
     virtual std::string getOutput() const = 0;
-    virtual void setOutput(std::string output) = 0;
+    virtual bool parseColor(std::string colorString) = 0;
 
     virtual wxColor getColor() const = 0;
     virtual void setColor(const wxColour& color) = 0;

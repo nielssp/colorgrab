@@ -42,9 +42,11 @@ public:
     void SetColor(const wxColor& color, bool updateInputs = true, bool updateOutput = true);
     void SetColorFromMouse();
     void SetColorFromPixel(wxCoord x, wxCoord y);
+    bool ParseColor(std::string colorString);
     void UpdateZoomArea();
 
 protected:
+    virtual void OnDragColor(wxMouseEvent& event);
     virtual void OnCopyColor(wxCommandEvent& event);
     virtual void OnCopyMagnifiedArea(wxCommandEvent& event);
     virtual void OnPasteColor(wxCommandEvent& event);

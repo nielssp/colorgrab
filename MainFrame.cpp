@@ -7,6 +7,8 @@
 #include "HtmlHexOutput.h"
 #include "CssRgbOutput.h"
 
+#include "ColorDropTarget.h"
+
 #include <wx/aboutdlg.h>
 #include <wx/dcscreen.h>
 #include <wx/graphics.h>
@@ -33,6 +35,9 @@ struct ZoomMenuFunctor
 MainFrame::MainFrame(wxWindow* parent)
     : MainFrameBaseClass(parent), capturing(false), refreshTimer(this)
 {
+    ColorDropTarget* dt = new ColorDropTarget(this);
+    SetDropTarget(dt);
+    
     Bind(wxEVT_TIMER, &MainFrame::OnRefreshTimerEvent, this, refreshTimer.GetId());
     RestorePosition();
     
@@ -264,6 +269,13 @@ void MainFrame::SetColor(const wxColor& color, bool updateInputs, bool updateOut
         m_formatText->ChangeValue(colorOutput->getOutput());
 }
 
+bool MainFrame::ParseColor(std::string colorString)
+{
+    bool result = colorOutput->parseColor(colorString);
+    SetColor(colorOutput->getColor());
+    return result;
+}
+
 void MainFrame::OnColorChange(wxCommandEvent& event)
 {
     colorModel->setValue(0, m_firstCtrl->GetValue());
@@ -357,7 +369,7 @@ void MainFrame::OnSelectColorOutput(wxCommandEvent& event)
 }
 void MainFrame::OnColorOutputChange(wxCommandEvent& event)
 {
-    colorOutput->setOutput(m_formatText->GetValue().ToStdString());
+    colorOutput->parseColor(m_formatText->GetValue().ToStdString());
     SetColor(colorOutput->getColor(), true, false);
 }
 void MainFrame::OnInputOutputBlur(wxFocusEvent& event)
@@ -420,6 +432,10 @@ void MainFrame::OnRefreshTimerEvent(wxTimerEvent& event)
 void MainFrame::OnStackColorClick(wxMouseEvent& event)
 {
     SetColor(stackColors[event.GetId()]->GetBackgroundColour());
+    wxTextDataObject colorData(colorOutput->getOutput());
+    wxDropSource dragSource(this);
+    dragSource.SetData(colorData);
+    dragSource.DoDragDrop(true);
 }
 
 void MainFrame::OnPushColor(wxMouseEvent& event)
@@ -458,4 +474,11 @@ void MainFrame::OnPasteColor(wxCommandEvent& event)
         }
         wxTheClipboard->Close();
     }
+}
+void MainFrame::OnDragColor(wxMouseEvent& event)
+{
+    wxTextDataObject colorData(colorOutput->getOutput());
+    wxDropSource dragSource(this);
+    dragSource.SetData(colorData);
+    dragSource.DoDragDrop(true);
 }

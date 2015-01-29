@@ -65,6 +65,7 @@ protected:
     virtual void OnColorChange(wxCommandEvent& event) { event.Skip(); }
     virtual void OnColorChange(wxSpinEvent& event) { event.Skip(); }
     virtual void OnPushColor(wxMouseEvent& event) { event.Skip(); }
+    virtual void OnDragColor(wxMouseEvent& event) { event.Skip(); }
     virtual void OnColorOutputChange(wxCommandEvent& event) { event.Skip(); }
     virtual void OnInputOutputBlur(wxFocusEvent& event) { event.Skip(); }
     virtual void OnInputOutputEnter(wxCommandEvent& event) { event.Skip(); }
