@@ -45,6 +45,10 @@ protected:
     ZoomPanel* m_zoomPanel;
     wxMenuBar* m_menuBar;
     wxMenu* m_name6;
+    wxMenuItem* m_menuItem191;
+    wxMenuItem* m_menuItem195;
+    wxMenuItem* m_menuItem197;
+    wxMenuItem* m_menuItem193;
     wxMenuItem* m_menuItem9;
     wxMenuItem* m_menuItem7;
     wxMenu* m_name8;
@@ -73,6 +77,9 @@ protected:
     virtual void OnZoomPanelUp(wxMouseEvent& event) { event.Skip(); }
     virtual void OnZoomPanelMove(wxMouseEvent& event) { event.Skip(); }
     virtual void OnZoomPanelZoom(wxMouseEvent& event) { event.Skip(); }
+    virtual void OnCopyColor(wxCommandEvent& event) { event.Skip(); }
+    virtual void OnPasteColor(wxCommandEvent& event) { event.Skip(); }
+    virtual void OnCopyMagnifiedArea(wxCommandEvent& event) { event.Skip(); }
     virtual void OnAbout(wxCommandEvent& event) { event.Skip(); }
     virtual void OnExit(wxCommandEvent& event) { event.Skip(); }
     virtual void OnSystemColorPicker(wxCommandEvent& event) { event.Skip(); }

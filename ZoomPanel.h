@@ -22,6 +22,8 @@ public:
         const wxSize& size = wxDefaultSize,
         long style = wxTAB_TRAVERSAL);
 
+    wxBitmap getImage() const;
+
     void paintEvent(wxPaintEvent& evt);
     void paintNow();
 

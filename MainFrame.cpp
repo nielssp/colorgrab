@@ -17,6 +17,7 @@
 #include <wx/dataobj.h>
 #include <wx/colordlg.h>
 #include <wx/colourdata.h>
+#include <wx/clipbrd.h>
 
 struct ZoomMenuFunctor
 {
@@ -422,4 +423,31 @@ void MainFrame::OnCapturePush(wxMouseEvent& event)
 {
     if (capturing)
         PushColor(GetColor());
+}
+void MainFrame::OnCopyColor(wxCommandEvent& event)
+{
+    if(wxTheClipboard->Open()) {
+        SetColor(GetColor());
+        wxTheClipboard->SetData(new wxTextDataObject(m_formatText->GetValue()));
+        wxTheClipboard->Close();
+    }
+}
+void MainFrame::OnCopyMagnifiedArea(wxCommandEvent& event)
+{
+    if(wxTheClipboard->Open()) {
+        SetColor(GetColor());
+        wxTheClipboard->SetData(new wxBitmapDataObject(m_zoomPanel->getImage()));
+        wxTheClipboard->Close();
+    }
+}
+void MainFrame::OnPasteColor(wxCommandEvent& event)
+{
+    if(wxTheClipboard->Open()) {
+        if(wxTheClipboard->IsSupported(wxDF_TEXT)) {
+            wxTextDataObject data;
+            wxTheClipboard->GetData(data);
+            m_formatText->SetValue(data.GetText());
+        }
+        wxTheClipboard->Close();
+    }
 }

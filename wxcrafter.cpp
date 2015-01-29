@@ -208,6 +208,17 @@ MainFrameBaseClass::MainFrameBaseClass(wxWindow* parent, wxWindowID id, const wx
     m_name6 = new wxMenu();
     m_menuBar->Append(m_name6, _("&File"));
     
+    m_menuItem191 = new wxMenuItem(m_name6, wxID_ANY, _("&Copy Color\tCtrl-C"), wxT(""), wxITEM_NORMAL);
+    m_name6->Append(m_menuItem191);
+    
+    m_menuItem195 = new wxMenuItem(m_name6, wxID_ANY, _("&Paste Color\tCtrl-V"), wxT(""), wxITEM_NORMAL);
+    m_name6->Append(m_menuItem195);
+    
+    m_menuItem197 = new wxMenuItem(m_name6, wxID_ANY, _("Copy &Magnified Area\tCtrl-Shift-C"), wxT(""), wxITEM_NORMAL);
+    m_name6->Append(m_menuItem197);
+    
+    m_name6->AppendSeparator();
+    
     m_menuItem9 = new wxMenuItem(m_name6, wxID_ABOUT, _("&About..."), wxT(""), wxITEM_NORMAL);
     m_name6->Append(m_menuItem9);
     
@@ -261,6 +272,9 @@ MainFrameBaseClass::MainFrameBaseClass(wxWindow* parent, wxWindowID id, const wx
     m_zoomPanel->Connect(wxEVT_MOTION, wxMouseEventHandler(MainFrameBaseClass::OnZoomPanelMove), NULL, this);
     m_zoomPanel->Connect(wxEVT_MOUSEWHEEL, wxMouseEventHandler(MainFrameBaseClass::OnZoomPanelZoom), NULL, this);
     m_zoomPanel->Connect(wxEVT_RIGHT_UP, wxMouseEventHandler(MainFrameBaseClass::OnPushColor), NULL, this);
+    this->Connect(m_menuItem191->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(MainFrameBaseClass::OnCopyColor), NULL, this);
+    this->Connect(m_menuItem195->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(MainFrameBaseClass::OnPasteColor), NULL, this);
+    this->Connect(m_menuItem197->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(MainFrameBaseClass::OnCopyMagnifiedArea), NULL, this);
     this->Connect(m_menuItem9->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(MainFrameBaseClass::OnAbout), NULL, this);
     this->Connect(m_menuItem7->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(MainFrameBaseClass::OnExit), NULL, this);
     this->Connect(m_menuItem79->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(MainFrameBaseClass::OnSystemColorPicker), NULL, this);
@@ -295,6 +309,9 @@ MainFrameBaseClass::~MainFrameBaseClass()
     m_zoomPanel->Disconnect(wxEVT_MOTION, wxMouseEventHandler(MainFrameBaseClass::OnZoomPanelMove), NULL, this);
     m_zoomPanel->Disconnect(wxEVT_MOUSEWHEEL, wxMouseEventHandler(MainFrameBaseClass::OnZoomPanelZoom), NULL, this);
     m_zoomPanel->Disconnect(wxEVT_RIGHT_UP, wxMouseEventHandler(MainFrameBaseClass::OnPushColor), NULL, this);
+    this->Disconnect(m_menuItem191->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(MainFrameBaseClass::OnCopyColor), NULL, this);
+    this->Disconnect(m_menuItem195->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(MainFrameBaseClass::OnPasteColor), NULL, this);
+    this->Disconnect(m_menuItem197->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(MainFrameBaseClass::OnCopyMagnifiedArea), NULL, this);
     this->Disconnect(m_menuItem9->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(MainFrameBaseClass::OnAbout), NULL, this);
     this->Disconnect(m_menuItem7->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(MainFrameBaseClass::OnExit), NULL, this);
     this->Disconnect(m_menuItem79->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(MainFrameBaseClass::OnSystemColorPicker), NULL, this);

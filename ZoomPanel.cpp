@@ -32,6 +32,11 @@ void ZoomPanel::paintNow()
     render(dc);
 }
 
+wxBitmap ZoomPanel::getImage() const
+{
+    return image;
+}
+
 void ZoomPanel::render(wxPaintDC& dc)
 {
 	 if (image.IsOk())

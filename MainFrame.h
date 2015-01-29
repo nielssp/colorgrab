@@ -45,6 +45,9 @@ public:
     void UpdateZoomArea();
 
 protected:
+    virtual void OnCopyColor(wxCommandEvent& event);
+    virtual void OnCopyMagnifiedArea(wxCommandEvent& event);
+    virtual void OnPasteColor(wxCommandEvent& event);
     virtual void OnCapturePush(wxMouseEvent& event);
     virtual void OnPushColor(wxMouseEvent& event);
     virtual void OnRefreshImage(wxCommandEvent& event);
