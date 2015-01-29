@@ -44,16 +44,16 @@ protected:
     wxButton* m_timerButton;
     ZoomPanel* m_zoomPanel;
     wxMenuBar* m_menuBar;
-    wxMenu* m_name6;
+    wxMenu* m_fileMenu;
     wxMenuItem* m_menuItem191;
     wxMenuItem* m_menuItem195;
     wxMenuItem* m_menuItem197;
     wxMenuItem* m_menuItem193;
     wxMenuItem* m_menuItem9;
     wxMenuItem* m_menuItem7;
-    wxMenu* m_name8;
+    wxMenu* m_toolsMenu;
     wxMenuItem* m_menuItem79;
-    wxMenu* m_menu65;
+    wxMenu* m_settingsMenu;
     wxMenu* m_colorModelMenu;
     wxMenu* m_colorOutputMenu;
 

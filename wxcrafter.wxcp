@@ -2053,7 +2053,7 @@
        "m_properties": [{
          "type": "string",
          "m_label": "Name:",
-         "m_value": "m_name6"
+         "m_value": "m_fileMenu"
         }, {
          "type": "string",
          "m_label": "Label:",
@@ -2371,7 +2371,7 @@
        "m_properties": [{
          "type": "string",
          "m_label": "Name:",
-         "m_value": "m_name8"
+         "m_value": "m_toolsMenu"
         }, {
          "type": "string",
          "m_label": "Label:",
@@ -2441,7 +2441,7 @@
        "m_properties": [{
          "type": "string",
          "m_label": "Name:",
-         "m_value": "m_menu65"
+         "m_value": "m_settingsMenu"
         }, {
          "type": "string",
          "m_label": "Label:",
