@@ -37,6 +37,9 @@ MainFrame::MainFrame(wxWindow* parent)
     colorOutput = new HtmlHexOutput;
     AddColorOutput(colorOutput);
     AddColorOutput(new CssRgbOutput);
+    AddColorOutput(new CssHslOutput);
+    AddColorOutput(new HexOutput);
+    AddColorOutput(new RgbFloatOutput);
     
     colorModel = new RGBModel;
     AddColorModel(colorModel);
