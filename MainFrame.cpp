@@ -1,12 +1,5 @@
 #include "MainFrame.h"
 
-#include "RGBModel.h"
-#include "HSLModel.h"
-#include "CMYKModel.h"
-
-#include "HtmlHexOutput.h"
-#include "CssRgbOutput.h"
-
 #include "ColorDropTarget.h"
 
 #include <wx/aboutdlg.h>

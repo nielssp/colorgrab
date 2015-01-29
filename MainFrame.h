@@ -1,7 +1,7 @@
 #ifndef MAINFRAME_H
 #define MAINFRAME_H
-#include "IColorModel.h"
-#include "IColorOutput.h"
+#include "colormodels.h"
+#include "coloroutputs.h"
 #include "wxcrafter.h"
 
 #include <wx/config.h>

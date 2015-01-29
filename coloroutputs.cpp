@@ -1,4 +1,4 @@
-#include "HtmlHexOutput.h"
+#include "coloroutputs.h"
 
 #include <wx/regex.h>
 
@@ -35,4 +35,14 @@ bool HtmlHexOutput::parseColor(std::string colorString)
         return true;
     }
     return false;
+}
+
+wxString CssRgbOutput::getFormat() const
+{
+    return "rgb(%3d, %3d, %3d)";
+}
+
+std::string CssRgbOutput::getName() const
+{
+    return "Decimal RGB (CSS)";
 }
