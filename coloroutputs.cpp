@@ -111,7 +111,7 @@ wxString RgbFloatOutput::getFormat() const
 
 std::string RgbFloatOutput::getOutput()
 {
-    return wxString::Format(getFormat(), color.Red() / 255.0, color.Blue() / 255.0, color.Blue() / 255.0).ToStdString();
+    return wxString::Format(getFormat(), color.Red() / 255.0, color.Green() / 255.0, color.Blue() / 255.0).ToStdString();
 }
 
 std::string RgbFloatOutput::getName() const
