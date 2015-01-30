@@ -1,6 +1,9 @@
 #include "MainFrame.h"
 
 #include "ColorDropTarget.h"
+#include "colormodels.h"
+#include "coloroutputs.h"
+#include "ToolWindow.h"
 
 #include <wx/aboutdlg.h>
 #include <wx/dcscreen.h>
@@ -13,6 +16,16 @@
 #include <wx/colordlg.h>
 #include <wx/colourdata.h>
 #include <wx/clipbrd.h>
+
+class TestTool : public ToolWindow
+{
+public:
+    TestTool(MainFrame *main) : ToolWindow(main, wxID_ANY, "Test Tool") { }
+    std::string GetName()
+    {
+        return "Test Tool";
+    }
+};
 
 struct ZoomMenuFunctor
 {
@@ -67,6 +80,8 @@ MainFrame::MainFrame(wxWindow* parent)
         stackColor->Bind(wxEVT_LEFT_DOWN, &MainFrame::OnStackColorClick, this, stackColor->GetId());
         stackColor->Bind(wxEVT_RIGHT_DOWN, &MainFrame::OnPushColor, this, stackColor->GetId());
     }
+    
+    AddTool(new TestTool(this));
 }
 
 MainFrame::~MainFrame()
@@ -145,6 +160,14 @@ int MainFrame::AddColorOutput(IColorOutput* colorOutput)
     return id;
 }
 
+void MainFrame::AddTool(ToolWindow* tool)
+{
+    wxMenuItem* menuItem = new wxMenuItem(m_toolsMenu, wxID_ANY, tool->GetName());
+    m_toolsMenu->Prepend(menuItem);
+    tools[menuItem->GetId()] = tool;
+    m_toolsMenu->Bind(wxEVT_COMMAND_MENU_SELECTED, &MainFrame::OnSelectTool, this, menuItem->GetId());
+}
+
 void MainFrame::SetColorModel(IColorModel* colorModel)
 {
     this->colorModel = colorModel;
@@ -199,26 +222,24 @@ void MainFrame::OnAbout(wxCommandEvent& event)
     info.SetCopyright(_("(C) 2015 Niels Sonnich Poulsen"));
     info.SetLicence(_("Copyright (C) 2015 Niels Sonnich Poulsen (http://nielssp.dk)\n\
 \n\
-Permission is hereby granted, free of charge, to any person\
-obtaining a copy of this software and associated documentation\
-files (the \"Software\"), to deal in the Software without\
-restriction, including without limitation the rights to use,\
-copy, modify, merge, publish, distribute, sublicense, and/or\
-sell copies of the Software, and to permit persons to whom the\
-Software is furnished to do so, subject to the following conditions:\n\
+Permission is hereby granted, free of charge, to any person obtaining a copy\n\
+of this software and associated documentation files (the \"Software\"), to deal\n\
+in the Software without restriction, including without limitation the rights\n\
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell\n\
+copies of the Software, and to permit persons to whom the Software is\n\
+furnished to do so, subject to the following conditions:\n\
 \n\
-The above copyright notice and this permission notice shall be\
-included in all copies or substantial portions of the Software.\n\
+The above copyright notice and this permission notice shall be included in all\n\
+copies or substantial portions of the Software.\n\
 \n\
-THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND,\
-EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES\
-OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND\
-NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT\
-HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,\
-WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING\
-FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR\
-OTHER DEALINGS IN THE SOFTWARE."));
-    info.SetDescription(_("Free color picker tool."));
+THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\n\
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\n\
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\n\
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\n\
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\n\
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE\n\
+SOFTWARE."));
+    info.SetDescription(_("A free cross-platform color picker tool."));
     wxAboutBox(info);
 }
 
@@ -352,6 +373,12 @@ void MainFrame::OnZoomPanelZoom(wxMouseEvent& event)
     else if (event.GetWheelRotation() < 0 && zoom > 1)
         zoom /= 2;
     m_zoomPanel->SetZoom(zoom);
+}
+
+void MainFrame::OnSelectTool(wxCommandEvent& event)
+{
+    wxFrame* tool = tools[event.GetId()];
+    tool->Show(!tool->IsVisible());
 }
 
 void MainFrame::OnSelectColorModel(wxCommandEvent& event)

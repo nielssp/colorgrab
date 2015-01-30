@@ -1,12 +1,14 @@
 #ifndef MAINFRAME_H
 #define MAINFRAME_H
-#include "colormodels.h"
-#include "coloroutputs.h"
 #include "wxcrafter.h"
 
 #include <wx/config.h>
 #include <wx/timer.h>
 #include <map>
+
+class ToolWindow;
+class IColorOutput;
+class IColorModel;
 
 class MainFrame : public MainFrameBaseClass
 {
@@ -19,6 +21,7 @@ private:
     IColorModel* colorModel;
     std::map<int, IColorOutput*> colorOutputs;
     std::map<int, wxPanel*> stackColors;
+    std::map<int, ToolWindow*> tools;
     IColorOutput* colorOutput;
     void RestorePosition();
 
@@ -35,6 +38,8 @@ public:
 
     int AddColorOutput(IColorOutput* colorOutput);
     void SetColorOutput(IColorOutput* colorOutput);
+
+    void AddTool(ToolWindow* tool);
 
     void PushColor(const wxColour& color);
 
@@ -73,6 +78,7 @@ protected:
     virtual void OnZoomSelect(wxCommandEvent& event);
     virtual void OnSelectColorModel(wxCommandEvent& event);
     virtual void OnSelectColorOutput(wxCommandEvent& event);
+    virtual void OnSelectTool(wxCommandEvent& event);
     virtual void OnSelectTiming(wxCommandEvent& event);
     virtual void OnRefreshTimerEvent(wxTimerEvent& event);
 };
