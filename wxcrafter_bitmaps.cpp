@@ -2505,16 +2505,16 @@ void wxC9ED9InitBitmapResources()
         else wxFileSystem::AddHandler(new wxMemoryFSHandlerBase);
     }
 
-    XRC_ADD_FILE(wxT("XRC_resource/wxcrafter_bitmaps.cpp$Icons_128x128.png"), xml_res_file_0, xml_res_size_0, wxT("image/png"));
-    XRC_ADD_FILE(wxT("XRC_resource/wxcrafter_bitmaps.cpp$Icons_16x16.png"), xml_res_file_1, xml_res_size_1, wxT("image/png"));
-    XRC_ADD_FILE(wxT("XRC_resource/wxcrafter_bitmaps.cpp$Icons_256x256.png"), xml_res_file_2, xml_res_size_2, wxT("image/png"));
-    XRC_ADD_FILE(wxT("XRC_resource/wxcrafter_bitmaps.cpp$Icons_32x32.png"), xml_res_file_3, xml_res_size_3, wxT("image/png"));
-    XRC_ADD_FILE(wxT("XRC_resource/wxcrafter_bitmaps.cpp$Icons_64x64.png"), xml_res_file_4, xml_res_size_4, wxT("image/png"));
-    XRC_ADD_FILE(wxT("XRC_resource/wxcrafter_bitmaps.cpp$Icons_Cross.png"), xml_res_file_5, xml_res_size_5, wxT("image/png"));
-    XRC_ADD_FILE(wxT("XRC_resource/wxcrafter_bitmaps.cpp$Icons_add.png"), xml_res_file_6, xml_res_size_6, wxT("image/png"));
-    XRC_ADD_FILE(wxT("XRC_resource/wxcrafter_bitmaps.cpp$Icons_refresh.png"), xml_res_file_7, xml_res_size_7, wxT("image/png"));
-    XRC_ADD_FILE(wxT("XRC_resource/wxcrafter_bitmaps.cpp$Icons_remove.png"), xml_res_file_8, xml_res_size_8, wxT("image/png"));
-    XRC_ADD_FILE(wxT("XRC_resource/wxcrafter_bitmaps.cpp$Icons_timer.png"), xml_res_file_9, xml_res_size_9, wxT("image/png"));
-    XRC_ADD_FILE(wxT("XRC_resource/wxcrafter_bitmaps.cpp$D__Home_Dropbox_Projects_cgrabtest2_wxcrafter_bitmaps.xrc"), xml_res_file_10, xml_res_size_10, wxT("text/xml"));
-    wxXmlResource::Get()->Load(wxT("memory:XRC_resource/wxcrafter_bitmaps.cpp$D__Home_Dropbox_Projects_cgrabtest2_wxcrafter_bitmaps.xrc"));
+    XRC_ADD_FILE(wxT("XRC_resource/wxcrafter_bitmaps.cpp$Icons_128x128.png"), xml_res_file_0, xml_res_size_0, wxT("image/x-apple-ios-png"));
+    XRC_ADD_FILE(wxT("XRC_resource/wxcrafter_bitmaps.cpp$Icons_16x16.png"), xml_res_file_1, xml_res_size_1, wxT("image/x-apple-ios-png"));
+    XRC_ADD_FILE(wxT("XRC_resource/wxcrafter_bitmaps.cpp$Icons_256x256.png"), xml_res_file_2, xml_res_size_2, wxT("image/x-apple-ios-png"));
+    XRC_ADD_FILE(wxT("XRC_resource/wxcrafter_bitmaps.cpp$Icons_32x32.png"), xml_res_file_3, xml_res_size_3, wxT("image/x-apple-ios-png"));
+    XRC_ADD_FILE(wxT("XRC_resource/wxcrafter_bitmaps.cpp$Icons_64x64.png"), xml_res_file_4, xml_res_size_4, wxT("image/x-apple-ios-png"));
+    XRC_ADD_FILE(wxT("XRC_resource/wxcrafter_bitmaps.cpp$Icons_Cross.png"), xml_res_file_5, xml_res_size_5, wxT("image/x-apple-ios-png"));
+    XRC_ADD_FILE(wxT("XRC_resource/wxcrafter_bitmaps.cpp$Icons_add.png"), xml_res_file_6, xml_res_size_6, wxT("image/x-apple-ios-png"));
+    XRC_ADD_FILE(wxT("XRC_resource/wxcrafter_bitmaps.cpp$Icons_refresh.png"), xml_res_file_7, xml_res_size_7, wxT("image/x-apple-ios-png"));
+    XRC_ADD_FILE(wxT("XRC_resource/wxcrafter_bitmaps.cpp$Icons_remove.png"), xml_res_file_8, xml_res_size_8, wxT("image/x-apple-ios-png"));
+    XRC_ADD_FILE(wxT("XRC_resource/wxcrafter_bitmaps.cpp$Icons_timer.png"), xml_res_file_9, xml_res_size_9, wxT("image/x-apple-ios-png"));
+    XRC_ADD_FILE(wxT("XRC_resource/wxcrafter_bitmaps.cpp$_home_darx_Workspace_ColorGrab_wxcrafter_bitmaps.xrc"), xml_res_file_10, xml_res_size_10, wxT("text/xml"));
+    wxXmlResource::Get()->Load(wxT("memory:XRC_resource/wxcrafter_bitmaps.cpp$_home_darx_Workspace_ColorGrab_wxcrafter_bitmaps.xrc"));
 }
