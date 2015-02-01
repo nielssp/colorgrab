@@ -104,23 +104,23 @@
     }, {
      "type": "bitmapPicker",
      "m_label": "Bitmap File (16x16)  :",
-     "m_path": "Icons/16x16.png"
+     "m_path": "../img/16x16.png"
     }, {
      "type": "bitmapPicker",
      "m_label": "Bitmap File (32x32)  :",
-     "m_path": "Icons/32x32.png"
+     "m_path": "../img/32x32.png"
     }, {
      "type": "bitmapPicker",
      "m_label": "Bitmap File (64x64)  :",
-     "m_path": "Icons/64x64.png"
+     "m_path": "../img/64x64.png"
     }, {
      "type": "bitmapPicker",
      "m_label": "Bitmap File (128x128):",
-     "m_path": "Icons/128x128.png"
+     "m_path": "../img/128x128.png"
     }, {
      "type": "bitmapPicker",
      "m_label": "Bitmap File (256x256):",
-     "m_path": "Icons/256x256.png"
+     "m_path": "../img/256x256.png"
     }],
    "m_events": [{
      "m_eventName": "wxEVT_LEFT_UP",
@@ -1442,7 +1442,7 @@
               }, {
                "type": "bitmapPicker",
                "m_label": "Bitmap File:",
-               "m_path": "Icons/Cross.png"
+               "m_path": "../img/Cross.png"
               }, {
                "type": "choice",
                "m_label": "Direction",
@@ -1571,7 +1571,7 @@
                 }, {
                  "type": "bitmapPicker",
                  "m_label": "Bitmap File:",
-                 "m_path": "Icons/add.png"
+                 "m_path": "../img/add.png"
                 }, {
                  "type": "choice",
                  "m_label": "Direction",
@@ -1666,7 +1666,7 @@
                 }, {
                  "type": "bitmapPicker",
                  "m_label": "Bitmap File:",
-                 "m_path": "Icons/remove.png"
+                 "m_path": "../img/remove.png"
                 }, {
                  "type": "choice",
                  "m_label": "Direction",
@@ -1761,7 +1761,7 @@
                 }, {
                  "type": "bitmapPicker",
                  "m_label": "Bitmap File:",
-                 "m_path": "Icons/refresh.png"
+                 "m_path": "../img/refresh.png"
                 }, {
                  "type": "choice",
                  "m_label": "Direction",
@@ -1856,7 +1856,7 @@
                 }, {
                  "type": "bitmapPicker",
                  "m_label": "Bitmap File:",
-                 "m_path": "Icons/timer.png"
+                 "m_path": "../img/timer.png"
                 }, {
                  "type": "choice",
                  "m_label": "Direction",
