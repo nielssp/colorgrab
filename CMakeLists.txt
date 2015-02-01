@@ -6,7 +6,7 @@ find_package(wxWidgets COMPONENTS core base xml xrc adv REQUIRED)
 
 include(${wxWidgets_USE_FILE})
 
-aux_source_directory(. SRC_LIST)
+aux_source_directory(src SRC_LIST)
 
 add_executable(${PROJECT_NAME} ${SRC_LIST})
 
