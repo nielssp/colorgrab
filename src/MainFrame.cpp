@@ -4,6 +4,7 @@
 #include "colormodels.h"
 #include "coloroutputs.h"
 #include "ToolWindow.h"
+#include "tools/palettetool/PaletteTool.h"
 
 #include <wx/aboutdlg.h>
 #include <wx/dcscreen.h>
@@ -17,15 +18,6 @@
 #include <wx/colourdata.h>
 #include <wx/clipbrd.h>
 
-class TestTool : public ToolWindow
-{
-public:
-    TestTool(MainFrame *main) : ToolWindow(main, wxID_ANY, "Test Tool") { }
-    std::string GetName()
-    {
-        return "Test Tool";
-    }
-};
 
 struct ZoomMenuFunctor
 {
@@ -81,7 +73,7 @@ MainFrame::MainFrame(wxWindow* parent)
         stackColor->Bind(wxEVT_RIGHT_DOWN, &MainFrame::OnPushColor, this, stackColor->GetId());
     }
     
-    AddTool(new TestTool(this));
+    AddTool(new PaletteTool(this));
 }
 
 MainFrame::~MainFrame()

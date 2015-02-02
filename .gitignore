@@ -1,0 +1,5 @@
+Release/
+Debug/
+CMakeFiles/
+.codelite/
+CMakeCache.txt
