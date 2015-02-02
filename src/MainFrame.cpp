@@ -3,6 +3,7 @@
 #include "ColorDropTarget.h"
 #include "colormodels.h"
 #include "coloroutputs.h"
+#include "ToolWindow.h"
 
 #include <wx/aboutdlg.h>
 #include <wx/dcscreen.h>
@@ -16,12 +17,14 @@
 #include <wx/colourdata.h>
 #include <wx/clipbrd.h>
 
-struct Tool
+class TestTool : public ToolWindow
 {
-    wxFrame* window;
-    std::string configName;
-    Tool() { }
-    Tool(std::string c, wxFrame* w) : window(w), configName(c) { }
+public:
+    TestTool(MainFrame *main) : ToolWindow(main, wxID_ANY, "Test Tool") { }
+    std::string GetName()
+    {
+        return "Test Tool";
+    }
 };
 
 struct ZoomMenuFunctor
@@ -78,6 +81,7 @@ MainFrame::MainFrame(wxWindow* parent)
         stackColor->Bind(wxEVT_RIGHT_DOWN, &MainFrame::OnPushColor, this, stackColor->GetId());
     }
     
+    AddTool(new TestTool(this));
 }
 
 MainFrame::~MainFrame()
@@ -156,16 +160,11 @@ int MainFrame::AddColorOutput(IColorOutput* colorOutput)
     return id;
 }
 
-void MainFrame::AddTool(const std::string& configName, wxFrame* window, const wxString& menuLabel)
+void MainFrame::AddTool(ToolWindow* tool)
 {
-    
-    wxMenuItem* menuItem;
-    if (menuLabel.IsEmpty())
-        menuItem = new wxMenuItem(m_toolsMenu, wxID_ANY, window->GetTitle());
-    else
-        menuItem = new wxMenuItem(m_toolsMenu, wxID_ANY, menuLabel);
+    wxMenuItem* menuItem = new wxMenuItem(m_toolsMenu, wxID_ANY, tool->GetName());
     m_toolsMenu->Prepend(menuItem);
-    tools[menuItem->GetId()] = Tool(configName, window);
+    tools[menuItem->GetId()] = tool;
     m_toolsMenu->Bind(wxEVT_COMMAND_MENU_SELECTED, &MainFrame::OnSelectTool, this, menuItem->GetId());
 }
 
@@ -378,8 +377,8 @@ void MainFrame::OnZoomPanelZoom(wxMouseEvent& event)
 
 void MainFrame::OnSelectTool(wxCommandEvent& event)
 {
-    wxFrame* window = tools[event.GetId()].window;
-    window->Show(!window->IsVisible());
+    wxFrame* tool = tools[event.GetId()];
+    tool->Show(!tool->IsVisible());
 }
 
 void MainFrame::OnSelectColorModel(wxCommandEvent& event)
