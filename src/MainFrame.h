@@ -6,9 +6,10 @@
 #include <wx/timer.h>
 #include <map>
 
-class ToolWindow;
 class IColorOutput;
 class IColorModel;
+
+struct Tool;
 
 class MainFrame : public MainFrameBaseClass
 {
@@ -21,7 +22,7 @@ private:
     IColorModel* colorModel;
     std::map<int, IColorOutput*> colorOutputs;
     std::map<int, wxPanel*> stackColors;
-    std::map<int, ToolWindow*> tools;
+    std::map<int, Tool> tools;
     IColorOutput* colorOutput;
     void RestorePosition();
 
@@ -39,7 +40,7 @@ public:
     int AddColorOutput(IColorOutput* colorOutput);
     void SetColorOutput(IColorOutput* colorOutput);
 
-    void AddTool(ToolWindow* tool);
+    void AddTool(const std::string& configName, wxFrame* window, const wxString& menuLabel = wxEmptyString);
 
     void PushColor(const wxColour& color);
 
