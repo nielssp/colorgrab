@@ -4,7 +4,7 @@
 #include "colormodels.h"
 #include "coloroutputs.h"
 #include "ToolWindow.h"
-#include "tools/palettetool/PaletteTool.h"
+#include "tools/PaletteTool.h"
 
 #include <wx/aboutdlg.h>
 #include <wx/dcscreen.h>
