@@ -7,11 +7,11 @@ class PaletteTool : public ToolWindow
 {
 public:
     PaletteTool(MainFrame* main);
-    ~PaletteTool();
 
-public:
-    virtual
-std::string GetName();
+    virtual std::string GetName();
+    
+    virtual void Store(wxConfigBase* config);
+    virtual void Restore(wxConfigBase* config);
 };
 
 #endif // PALETTETOOL_H

@@ -28,6 +28,8 @@ private:
 public:
     MainFrame(wxWindow* parent);
     virtual ~MainFrame();
+    
+    wxConfigBase *GetConfig();
 
     void OnExit(wxCommandEvent& event);
     void OnAbout(wxCommandEvent& event);

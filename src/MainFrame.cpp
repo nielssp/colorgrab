@@ -89,11 +89,26 @@ MainFrame::~MainFrame()
     config.Write("Main/Model", wxString(colorModel->getName()));
     config.Write("Main/Output", wxString(colorOutput->getName()));
     
+    // Save stack colors
     for (size_t i = 0; i < 10; i++)
     {
         wxWindow* stackColor = m_colorStack->GetSizer()->GetItem(i)->GetWindow();
         config.Write(wxString::Format("Main/Stack/Color%d", (int) i), stackColor->GetBackgroundColour());
     }
+    
+    // Save state of tool windows
+    for (std::map<int, ToolWindow*>::const_iterator iter = tools.begin(); iter != tools.end(); ++iter )
+    {
+        ToolWindow* tool = iter->second;
+        config.SetPath(tool->GetName());
+        tool->Store(&config);
+        config.SetPath("..");
+    }
+}
+
+wxConfigBase* MainFrame::GetConfig()
+{
+    return &config;
 }
 
 void MainFrame::PushColor(const wxColour& color)
@@ -154,10 +169,13 @@ int MainFrame::AddColorOutput(IColorOutput* colorOutput)
 
 void MainFrame::AddTool(ToolWindow* tool)
 {
-    wxMenuItem* menuItem = new wxMenuItem(m_toolsMenu, wxID_ANY, tool->GetName());
+    wxMenuItem* menuItem = new wxMenuItem(m_toolsMenu, wxID_ANY, tool->GetTitle());
     m_toolsMenu->Prepend(menuItem);
     tools[menuItem->GetId()] = tool;
     m_toolsMenu->Bind(wxEVT_COMMAND_MENU_SELECTED, &MainFrame::OnSelectTool, this, menuItem->GetId());
+    config.SetPath(tool->GetName());
+    tool->Restore(&config);
+    config.SetPath("..");
 }
 
 void MainFrame::SetColorModel(IColorModel* colorModel)
@@ -371,6 +389,8 @@ void MainFrame::OnSelectTool(wxCommandEvent& event)
 {
     wxFrame* tool = tools[event.GetId()];
     tool->Show(!tool->IsVisible());
+    if (tool->IsVisible())
+        tool->SetFocus();
 }
 
 void MainFrame::OnSelectColorModel(wxCommandEvent& event)
