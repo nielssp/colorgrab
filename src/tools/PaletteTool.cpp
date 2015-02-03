@@ -27,7 +27,7 @@ public:
     }
     wxSize GetSize() const
     {
-        return wxSize(20, 10);
+        return wxSize(30, 20);
     }
     bool Render(wxRect cell, wxDC* dc, int state)
     {
@@ -46,7 +46,7 @@ PaletteTool::PaletteTool(MainFrame* main) : ToolWindow(main, wxID_ANY, "Palette 
     colorList = new wxDataViewListCtrl(this, wxID_ANY);
     colorList->AppendColumn(new wxDataViewColumn("", new ColorColumnRenderer, 0));
     colorList->AppendTextColumn("Color");
-    colorList->AppendTextColumn("Name");
+    colorList->AppendTextColumn("Name", wxDATAVIEW_CELL_EDITABLE );
     
     AddColor(wxColour(102, 0, 0), "Redish");
     AddColor(wxColour(50, 200, 0), "Greenish");
