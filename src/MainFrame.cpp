@@ -517,3 +517,13 @@ void MainFrame::OnDragColor(wxMouseEvent& event)
     dragSource.SetData(colorData);
     dragSource.DoDragDrop(true);
 }
+
+IColorOutput* MainFrame::GetColorOutput() const
+{
+    return colorOutput;
+}
+
+IColorModel* MainFrame::GetColorModel() const
+{
+    return colorModel;
+}

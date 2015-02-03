@@ -37,9 +37,11 @@ public:
     int AddColorModel(IColorModel* colorModel);
     void SetColorModel(IColorModel* colorModel);
     void UpdateColorModel();
+    IColorModel* GetColorModel() const;
 
     int AddColorOutput(IColorOutput* colorOutput);
     void SetColorOutput(IColorOutput* colorOutput);
+    IColorOutput* GetColorOutput() const;
 
     void AddTool(ToolWindow* tool);
 
