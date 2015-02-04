@@ -317,7 +317,7 @@ void PaletteTool::OnSave(wxCommandEvent& event)
 
 void PaletteTool::OnSaveAs(wxCommandEvent& event)
 {
-    wxFileDialog saveFileDialog(main, _("Save palette file"), "", "", "GIMP palette (*.gpl)|*.gpl", wxFD_SAVE);
+    wxFileDialog saveFileDialog(main, _("Save palette file"), "", "", "GIMP palette (*.gpl)|*.gpl", wxFD_SAVE | wxFD_OVERWRITE_PROMPT);
     if (saveFileDialog.ShowModal() == wxID_CANCEL)
         return;
     SaveFile(saveFileDialog.GetPath());
