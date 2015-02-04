@@ -14,7 +14,7 @@ private:
     wxToolBar* toolBar;
     wxDataViewListCtrl* colorList;
     
-    wxToolBarToolBase* t_newPalette;
+    wxToolBarToolBase* t_new;
     wxToolBarToolBase* t_open;
     wxToolBarToolBase* t_save;
     wxToolBarToolBase* t_saveAs;
@@ -22,9 +22,15 @@ private:
     wxToolBarToolBase* t_removeColor;
     
 protected:
+    virtual void OnNew(wxCommandEvent& event);
+    virtual void OnOpen(wxCommandEvent& event);
+    virtual void OnSave(wxCommandEvent& event);
+    virtual void OnSaveAs(wxCommandEvent& event);
+
+    virtual void OnAddColor(wxCommandEvent& event);
+    virtual void OnRemoveColor(wxCommandEvent& event);
+    
     virtual void OnColorSelected(wxDataViewEvent& event);
-    virtual void OnAddColorClick(wxCommandEvent& event);
-    virtual void OnRemoveColorClick(wxCommandEvent& event);
 
 public:
     PaletteTool(MainFrame* main);

@@ -8,6 +8,8 @@
 #include <wx/brush.h>
 #include <wx/dc.h>
 #include <wx/artprov.h>
+#include <wx/filedlg.h>
+#include <wx/wfstream.h>
 
 class ColorColumnRenderer : public wxDataViewCustomRenderer
 {
@@ -46,24 +48,25 @@ PaletteTool::PaletteTool(MainFrame* main) : ToolWindow(main, wxID_ANY, "Palette 
 {
     toolBar = CreateToolBar();
     
-    t_newPalette = toolBar->AddTool(wxID_ANY, "New Palette", wxArtProvider::GetBitmap(wxART_NEW, wxART_TOOLBAR, wxSize(16, 16)));
-    t_open = toolBar->AddTool(wxID_ANY, "Open Palette", wxArtProvider::GetBitmap(wxART_FILE_OPEN, wxART_TOOLBAR, wxSize(16, 16)));
-    t_save = toolBar->AddTool(wxID_ANY, "Save", wxArtProvider::GetBitmap(wxART_FILE_SAVE, wxART_TOOLBAR, wxSize(16, 16)));
-    t_saveAs = toolBar->AddTool(wxID_ANY, "Save As...", wxArtProvider::GetBitmap(wxART_FILE_SAVE_AS, wxART_TOOLBAR, wxSize(16, 16)));
+    t_new = toolBar->AddTool(wxID_ANY, _("New Palette"), wxArtProvider::GetBitmap(wxART_NEW, wxART_TOOLBAR, wxSize(16, 16)));
+    t_open = toolBar->AddTool(wxID_ANY, _("Open Palette"), wxArtProvider::GetBitmap(wxART_FILE_OPEN, wxART_TOOLBAR, wxSize(16, 16)));
+    t_save = toolBar->AddTool(wxID_ANY, _("Save"), wxArtProvider::GetBitmap(wxART_FILE_SAVE, wxART_TOOLBAR, wxSize(16, 16)));
+    t_saveAs = toolBar->AddTool(wxID_ANY, _("Save As..."), wxArtProvider::GetBitmap(wxART_FILE_SAVE_AS, wxART_TOOLBAR, wxSize(16, 16)));
     toolBar->AddSeparator();
-    t_addColor = toolBar->AddTool(wxID_ANY, "Add Color", wxArtProvider::GetBitmap(wxART_PLUS, wxART_TOOLBAR, wxSize(16, 16)));
-    t_removeColor = toolBar->AddTool(wxID_ANY, "Remove Color", wxArtProvider::GetBitmap(wxART_MINUS, wxART_TOOLBAR, wxSize(16, 16)));
+    t_addColor = toolBar->AddTool(wxID_ANY, _("Add Color"), wxArtProvider::GetBitmap(wxART_PLUS, wxART_TOOLBAR, wxSize(16, 16)));
+    t_removeColor = toolBar->AddTool(wxID_ANY, _("Remove Color"), wxArtProvider::GetBitmap(wxART_MINUS, wxART_TOOLBAR, wxSize(16, 16)));
     t_removeColor->Enable(false);
     toolBar->Realize();
     
     colorList = new wxDataViewListCtrl(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxDV_ROW_LINES | wxDV_MULTIPLE);
     colorList->AppendColumn(new wxDataViewColumn("", new ColorColumnRenderer, 0));
-    colorList->AppendTextColumn("Color");
-    colorList->AppendTextColumn("Name", wxDATAVIEW_CELL_EDITABLE );
+    colorList->AppendTextColumn(_("Color"));
+    colorList->AppendTextColumn(_("Name"), wxDATAVIEW_CELL_EDITABLE );
     Bind(wxEVT_DATAVIEW_SELECTION_CHANGED, &PaletteTool::OnColorSelected, this, colorList->GetId());
         
-    Bind(wxEVT_COMMAND_TOOL_CLICKED, &PaletteTool::OnAddColorClick, this, t_addColor->GetId());
-    Bind(wxEVT_COMMAND_TOOL_CLICKED, &PaletteTool::OnRemoveColorClick, this, t_removeColor->GetId());
+    Bind(wxEVT_COMMAND_TOOL_CLICKED, &PaletteTool::OnOpen, this, t_open->GetId());
+    Bind(wxEVT_COMMAND_TOOL_CLICKED, &PaletteTool::OnAddColor, this, t_addColor->GetId());
+    Bind(wxEVT_COMMAND_TOOL_CLICKED, &PaletteTool::OnRemoveColor, this, t_removeColor->GetId());
 }
 
 std::string PaletteTool::GetName()
@@ -90,19 +93,40 @@ void PaletteTool::AddColor(const wxColour& color, const std::string& name)
     colorList->AppendItem(data);
 }
 
-void PaletteTool::OnAddColorClick(wxCommandEvent& event)
+
+void PaletteTool::OnNew(wxCommandEvent& event)
+{
+}
+
+void PaletteTool::OnOpen(wxCommandEvent& event)
+{
+    wxFileDialog openFileDialog(main, _("Open palette file"), "", "", "GIMP palette (*.gpl)|*.gpl", wxFD_OPEN | wxFD_FILE_MUST_EXIST);
+    if (openFileDialog.ShowModal() == wxID_CANCEL)
+        return;
+    wxFileInputStream input(openFileDialog.GetPath());
+    if (!input.IsOk())
+    {
+        return;
+    }
+}
+
+void PaletteTool::OnSave(wxCommandEvent& event)
+{
+}
+
+void PaletteTool::OnSaveAs(wxCommandEvent& event)
+{
+}
+
+
+void PaletteTool::OnAddColor(wxCommandEvent& event)
 {
     wxColour color = main->GetColor();
     AddColor(color, "Hello");
 }
 
-void PaletteTool::OnColorSelected(wxDataViewEvent& event)
-{
-    t_removeColor->Enable(event.GetItem().IsOk());
-    toolBar->Realize();
-}
 
-void PaletteTool::OnRemoveColorClick(wxCommandEvent& event)
+void PaletteTool::OnRemoveColor(wxCommandEvent& event)
 {
     if (colorList->HasSelection())
     {
@@ -115,4 +139,10 @@ void PaletteTool::OnRemoveColorClick(wxCommandEvent& event)
         t_removeColor->Enable(false);
         toolBar->Realize();
     }
+}
+
+void PaletteTool::OnColorSelected(wxDataViewEvent& event)
+{
+    t_removeColor->Enable(event.GetItem().IsOk());
+    toolBar->Realize();
 }
