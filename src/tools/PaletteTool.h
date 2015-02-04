@@ -5,12 +5,27 @@
 
 class wxToolBar;
 class wxDataViewListCtrl;
+class wxDataViewEvent;
+class wxToolBarToolBase;
 
 class PaletteTool : public ToolWindow
 {
 private:
     wxToolBar* toolBar;
     wxDataViewListCtrl* colorList;
+    
+    wxToolBarToolBase* t_newPalette;
+    wxToolBarToolBase* t_open;
+    wxToolBarToolBase* t_save;
+    wxToolBarToolBase* t_saveAs;
+    wxToolBarToolBase* t_addColor;
+    wxToolBarToolBase* t_removeColor;
+    
+protected:
+    virtual void OnColorSelected(wxDataViewEvent& event);
+    virtual void OnAddColorClick(wxCommandEvent& event);
+    virtual void OnRemoveColorClick(wxCommandEvent& event);
+
 public:
     PaletteTool(MainFrame* main);
 
