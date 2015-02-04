@@ -185,9 +185,9 @@ void PaletteTool::RemoveSelectedColors()
 }
 
 
-wxString read_line(wxFileInputStream& input)
+std::string read_line(wxFileInputStream& input)
 {
-    wxString line("");
+    std::string line("");
     while (!input.Eof())
     {
         int c = input.GetC();
@@ -195,12 +195,12 @@ wxString read_line(wxFileInputStream& input)
             continue;
         if (c == '\n')
             break;
-        line << (wchar_t) c; 
+        line.push_back(c);
     }
     return line;
 }
 
-void write_line(wxFileOutputStream& output, const wxString& line)
+void write_line(wxFileOutputStream& output, const std::string& line)
 {
     for (size_t i = 0; i < line.size(); i++)
         output.PutC(line[i]);
@@ -220,10 +220,10 @@ void PaletteTool::OpenFile(const wxString& path)
         SetStatusText("Could not open file");
         return;
     }
-    wxString t = read_line(input);
+    std::string t = read_line(input);
     if (t != "GIMP Palette")
     {
-        SetStatusText("nvalid file format");
+        SetStatusText("Invalid file format");
         return;
     }
     colorList->DeleteAllItems();
@@ -233,7 +233,7 @@ void PaletteTool::OpenFile(const wxString& path)
     wxRegEx settingRegex("([^:]+): *(.*)");
     while (!input.Eof())
     {
-        wxString line = read_line(input);
+        std::string line = read_line(input);
         if (line[0] == '#')
             break;
         if (settingRegex.Matches(line))
@@ -246,7 +246,7 @@ void PaletteTool::OpenFile(const wxString& path)
     wxRegEx colorRegex(" *([0-9]{1,3}) +([0-9]{1,3}) +([0-9]{1,3})[ \t]*(.*)");
     while (!input.Eof())
     {
-        wxString line = read_line(input);
+        std::string line = read_line(input);
         if (colorRegex.Matches(line))
         {
             long red = 0, green = 0, blue = 0;
@@ -274,7 +274,7 @@ void PaletteTool::SaveFile(const wxString& path)
         return;
     }
     write_line(output, "GIMP Palette");
-    write_line(output, wxString::Format("Name: %s", fileName.GetName()));
+    write_line(output, wxString::Format("Name: %s", fileName.GetName()).ToStdString());
     write_line(output, "#");
     for (int i = 0; i < colorList->GetItemCount(); i++)
     {
@@ -283,7 +283,7 @@ void PaletteTool::SaveFile(const wxString& path)
         colorList->GetValue(variant, i, 0);
         color << variant;
         wxString name = colorList->GetTextValue(i, 1);
-        write_line(output, wxString::Format("%3d %3d %3d\t%s", color.Red(), color.Green(), color.Blue(), name));
+        write_line(output, wxString::Format("%3d %3d %3d\t%s", color.Red(), color.Green(), color.Blue(), name).ToStdString());
     }
     filePath = path;
     isSaved = true;
