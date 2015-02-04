@@ -11,6 +11,7 @@
 #include <wx/artprov.h>
 #include <wx/filedlg.h>
 #include <wx/wfstream.h>
+#include <wx/regex.h>
 
 class ColorColumnRenderer : public wxDataViewCustomRenderer
 {
@@ -87,13 +88,75 @@ void PaletteTool::Restore(wxConfigBase* config)
     ToolWindow::Restore(config);
 }
 
-void PaletteTool::AddColor(const wxColour& color, const std::string& name)
+void PaletteTool::AddColor(const wxColour& color, const wxString& name)
 {
     wxVector<wxVariant> data;
     data.push_back(wxVariant(color));
     data.push_back(wxVariant("rgb"));
     data.push_back(wxVariant(name));
     colorList->AppendItem(data);
+}
+
+wxString read_line(wxFileInputStream& input)
+{
+    wxString line("");
+    while (!input.Eof())
+    {
+        char c = input.GetC();
+        if (c == '\r')
+            continue;
+        if (c == '\n')
+            break;
+        line << c; 
+    }
+    return line;
+}
+
+void PaletteTool::OpenFile(const wxString& path)
+{
+    wxFileInputStream input(path);
+    if (!input.IsOk())
+    {
+        SetStatusText("Could not open file");
+        return;
+    }
+    wxString t = read_line(input);
+    if (t != "GIMP Palette")
+    {
+        SetStatusText("Invalid file format");
+        return;
+    }
+    colorList->DeleteAllItems();
+    t_removeColor->Enable(false);
+    toolBar->Realize();
+    // Read palette settings
+    wxRegEx settingRegex("([^:]+): *(.*)");
+    while (!input.Eof())
+    {
+        wxString line = read_line(input);
+        if (line[0] == '#')
+            break;
+        if (settingRegex.Matches(line))
+        {
+            wxString key = settingRegex.GetMatch(line, 1);
+            wxString value = settingRegex.GetMatch(line, 2);
+        }
+    }
+    // Read palette colors
+    wxRegEx colorRegex(" *([0-9]{1,3}) +([0-9]{1,3}) +([0-9]{1,3})[ \t]*(.*)");
+    while (!input.Eof())
+    {
+        wxString line = read_line(input);
+        if (colorRegex.Matches(line))
+        {
+            long red = 0, green = 0, blue = 0;
+            colorRegex.GetMatch(line, 1).ToLong(&red);
+            colorRegex.GetMatch(line, 2).ToLong(&green);
+            colorRegex.GetMatch(line, 3).ToLong(&blue);
+            wxString name = colorRegex.GetMatch(line, 4);
+            AddColor(wxColour(red, green, blue), name);
+        }
+    }
 }
 
 
@@ -106,12 +169,7 @@ void PaletteTool::OnOpen(wxCommandEvent& event)
     wxFileDialog openFileDialog(main, _("Open palette file"), "", "", "GIMP palette (*.gpl)|*.gpl", wxFD_OPEN | wxFD_FILE_MUST_EXIST);
     if (openFileDialog.ShowModal() == wxID_CANCEL)
         return;
-    wxFileInputStream input(openFileDialog.GetPath());
-    if (!input.IsOk())
-    {
-        return;
-    }
-    SetStatusText(openFileDialog.GetPath());
+    OpenFile(openFileDialog.GetPath());
 }
 
 void PaletteTool::OnSave(wxCommandEvent& event)

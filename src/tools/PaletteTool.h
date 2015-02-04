@@ -42,7 +42,9 @@ public:
     virtual void Store(wxConfigBase* config);
     virtual void Restore(wxConfigBase* config);
     
-    void AddColor(const wxColour& color, const std::string& name);
+    void AddColor(const wxColour& color, const wxString& name);
+    
+    void OpenFile(const wxString& path);
 };
 
 #endif // PALETTETOOL_H
