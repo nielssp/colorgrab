@@ -9,9 +9,12 @@
 #include <wx/brush.h>
 #include <wx/dc.h>
 #include <wx/artprov.h>
+#include <wx/msgdlg.h>
 #include <wx/filedlg.h>
 #include <wx/wfstream.h>
 #include <wx/regex.h>
+#include <wx/stdpaths.h>
+#include <wx/dir.h>
 
 class ColorColumnRenderer : public wxDataViewCustomRenderer
 {
@@ -46,7 +49,7 @@ public:
     }
 };
 
-PaletteTool::PaletteTool(MainFrame* main) : ToolWindow(main, wxID_ANY, "Palette Tool")
+PaletteTool::PaletteTool(MainFrame* main) : ToolWindow(main, wxID_ANY, "Palette Tool"), filePath(""), isSaved(true), isNew(true)
 {
     toolBar = CreateToolBar();
     
@@ -54,6 +57,7 @@ PaletteTool::PaletteTool(MainFrame* main) : ToolWindow(main, wxID_ANY, "Palette 
     
     t_new = toolBar->AddTool(wxID_ANY, _("New Palette"), wxArtProvider::GetBitmap(wxART_NEW, wxART_TOOLBAR, wxSize(16, 16)));
     t_open = toolBar->AddTool(wxID_ANY, _("Open Palette"), wxArtProvider::GetBitmap(wxART_FILE_OPEN, wxART_TOOLBAR, wxSize(16, 16)));
+    toolBar->AddSeparator();
     t_save = toolBar->AddTool(wxID_ANY, _("Save"), wxArtProvider::GetBitmap(wxART_FILE_SAVE, wxART_TOOLBAR, wxSize(16, 16)));
     t_saveAs = toolBar->AddTool(wxID_ANY, _("Save As..."), wxArtProvider::GetBitmap(wxART_FILE_SAVE_AS, wxART_TOOLBAR, wxSize(16, 16)));
     toolBar->AddSeparator();
@@ -67,6 +71,7 @@ PaletteTool::PaletteTool(MainFrame* main) : ToolWindow(main, wxID_ANY, "Palette 
     colorList->AppendTextColumn(_("Color"));
     colorList->AppendTextColumn(_("Name"), wxDATAVIEW_CELL_EDITABLE );
     Bind(wxEVT_DATAVIEW_SELECTION_CHANGED, &PaletteTool::OnColorSelected, this, colorList->GetId());
+    Bind(wxEVT_DATAVIEW_ITEM_EDITING_DONE, &PaletteTool::OnNameEdited, this, colorList->GetId());
         
     Bind(wxEVT_COMMAND_TOOL_CLICKED, &PaletteTool::OnNew, this, t_new->GetId());
     Bind(wxEVT_COMMAND_TOOL_CLICKED, &PaletteTool::OnOpen, this, t_open->GetId());
@@ -84,11 +89,38 @@ std::string PaletteTool::GetName()
 void PaletteTool::Store(wxConfigBase* config)
 {
     ToolWindow::Store(config);
+    config->Write("Saved", isSaved);
+    config->Write("File", filePath);
+    if (!isSaved)
+    {
+        wxString userData = wxStandardPaths::Get().GetUserDataDir();
+        if (wxDir::Exists(userData) || wxDir::Make(userData))
+        {
+            wxDir dir(userData);
+            SaveFile(wxString::Format("%s%s", dir.GetNameWithSep(), "unsaved.gpl"));
+        }
+    }
 }
 
 void PaletteTool::Restore(wxConfigBase* config)
 {
     ToolWindow::Restore(config);
+    isSaved = config->ReadBool("Saved", false);
+    if (!isSaved)
+    {
+        wxString userData = wxStandardPaths::Get().GetUserDataDir();
+        OpenFile(wxString::Format("%s%c%s", userData, wxFILE_SEP_PATH, "unsaved.gpl"));
+        filePath = config->Read("File", wxT(""));
+        isSaved = false;
+        isNew = filePath.IsEmpty();
+        SetStatusText(filePath);
+    }
+    else
+    {
+        wxString file = config->Read("File", wxT(""));
+        if (!file.IsEmpty())
+            OpenFile(file);
+    }
 }
 
 void PaletteTool::AddColor(const wxColour& color, const wxString& name)
@@ -98,6 +130,7 @@ void PaletteTool::AddColor(const wxColour& color, const wxString& name)
     data.push_back(wxVariant("rgb"));
     data.push_back(wxVariant(name));
     colorList->AppendItem(data);
+    isSaved = false;
 }
 
 wxString read_line(wxFileInputStream& input)
@@ -124,6 +157,11 @@ void write_line(wxFileOutputStream& output, const wxString& line)
 
 void PaletteTool::OpenFile(const wxString& path)
 {
+    if (!wxFile::Exists(path))
+    {
+        SetStatusText("Could not open file");
+        return;
+    }
     wxFileInputStream input(path);
     if (!input.IsOk())
     {
@@ -167,10 +205,15 @@ void PaletteTool::OpenFile(const wxString& path)
             AddColor(wxColour(red, green, blue), name);
         }
     }
+    filePath = path;
+    isSaved = true;
+    isNew = false;
+    SetStatusText(filePath);
 }
 
 void PaletteTool::SaveFile(const wxString& path)
 {
+    wxFileName fileName(path);
     wxFileOutputStream output(path);
     if (!output.IsOk())
     {
@@ -178,7 +221,7 @@ void PaletteTool::SaveFile(const wxString& path)
         return;
     }
     write_line(output, "GIMP Palette");
-    write_line(output, "Name: unnamed");
+    write_line(output, wxString::Format("Name: %s", fileName.GetName()));
     write_line(output, "#");
     for (int i = 0; i < colorList->GetItemCount(); i++)
     {
@@ -189,14 +232,29 @@ void PaletteTool::SaveFile(const wxString& path)
         wxString name = colorList->GetTextValue(i, 2);
         write_line(output, wxString::Format("%3d %3d %3d\t%s", color.Red(), color.Green(), color.Blue(), name));
     }
+    filePath = path;
+    isSaved = true;
+    isNew = false;
 }
 
 void PaletteTool::OnNew(wxCommandEvent& event)
 {
+    if (!isSaved) {
+         if (wxMessageBox(_("Current palette has not been saved! Proceed?"), _("Please confirm"), wxICON_QUESTION | wxYES_NO, this) == wxNO)
+            return;
+    }
+    colorList->DeleteAllItems();
+    isSaved = true;
+    isNew = true;
+    filePath = "";
 }
 
 void PaletteTool::OnOpen(wxCommandEvent& event)
 {
+    if (!isSaved) {
+         if (wxMessageBox(_("Current palette has not been saved! Proceed?"), _("Please confirm"), wxICON_QUESTION | wxYES_NO, this) == wxNO)
+            return;
+    }
     wxFileDialog openFileDialog(main, _("Open palette file"), "", "", "GIMP palette (*.gpl)|*.gpl", wxFD_OPEN | wxFD_FILE_MUST_EXIST);
     if (openFileDialog.ShowModal() == wxID_CANCEL)
         return;
@@ -205,6 +263,14 @@ void PaletteTool::OnOpen(wxCommandEvent& event)
 
 void PaletteTool::OnSave(wxCommandEvent& event)
 {
+    if (isNew)
+    {
+        OnSaveAs(event);
+    }
+    else if (!isSaved)
+    {
+        SaveFile(filePath);
+    }
 }
 
 void PaletteTool::OnSaveAs(wxCommandEvent& event)
@@ -242,4 +308,9 @@ void PaletteTool::OnColorSelected(wxDataViewEvent& event)
 {
     t_removeColor->Enable(event.GetItem().IsOk());
     toolBar->Realize();
+}
+
+void PaletteTool::OnNameEdited(wxDataViewEvent& event)
+{
+    isSaved = false;
 }

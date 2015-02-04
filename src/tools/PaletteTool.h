@@ -12,6 +12,10 @@ class wxToolBarToolBase;
 class PaletteTool : public ToolWindow
 {
 private:
+    wxString filePath;
+    bool isSaved;
+    bool isNew;
+
     wxToolBar* toolBar;
     wxStatusBarBase* statusBar;
     wxDataViewListCtrl* colorList;
@@ -33,6 +37,7 @@ protected:
     virtual void OnRemoveColor(wxCommandEvent& event);
     
     virtual void OnColorSelected(wxDataViewEvent& event);
+    virtual void OnNameEdited(wxDataViewEvent& event);
 
 public:
     PaletteTool(MainFrame* main);
