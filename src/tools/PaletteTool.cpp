@@ -2,6 +2,8 @@
 
 #include "MainFrame.h"
 
+#include "coloroutputs.h"
+
 #include <wx/confbase.h>
 #include <wx/toolbar.h>
 #include <wx/statusbr.h>
@@ -49,7 +51,7 @@ public:
     }
 };
 
-PaletteTool::PaletteTool(MainFrame* main) : ToolWindow(main, wxID_ANY, "Palette Tool"), filePath(""), isSaved(true), isNew(true)
+PaletteTool::PaletteTool(MainFrame* main) : ToolWindow(main, wxID_ANY, "Palette Tool", wxDefaultPosition, wxSize(220, 300)), filePath(""), isSaved(true), isNew(true)
 {
     toolBar = CreateToolBar();
     
@@ -68,7 +70,6 @@ PaletteTool::PaletteTool(MainFrame* main) : ToolWindow(main, wxID_ANY, "Palette 
     
     colorList = new wxDataViewListCtrl(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxDV_ROW_LINES | wxDV_MULTIPLE);
     colorList->AppendColumn(new wxDataViewColumn("", new ColorColumnRenderer, 0));
-    colorList->AppendTextColumn(_("Color"));
     colorList->AppendTextColumn(_("Name"), wxDATAVIEW_CELL_EDITABLE );
     Bind(wxEVT_DATAVIEW_SELECTION_CHANGED, &PaletteTool::OnColorSelected, this, colorList->GetId());
     Bind(wxEVT_DATAVIEW_ITEM_EDITING_DONE, &PaletteTool::OnNameEdited, this, colorList->GetId());
@@ -89,6 +90,10 @@ std::string PaletteTool::GetName()
 void PaletteTool::Store(wxConfigBase* config)
 {
     ToolWindow::Store(config);
+    
+    config->Write("Width0", colorList->GetColumn(0)->GetWidth());
+    config->Write("Width1", colorList->GetColumn(1)->GetWidth());
+    
     config->Write("Saved", isSaved);
     config->Write("File", filePath);
     if (!isSaved)
@@ -105,6 +110,10 @@ void PaletteTool::Store(wxConfigBase* config)
 void PaletteTool::Restore(wxConfigBase* config)
 {
     ToolWindow::Restore(config);
+    
+    colorList->GetColumn(0)->SetWidth(config->ReadLong("Width0", 30));
+    colorList->GetColumn(1)->SetWidth(config->ReadLong("Width1", 160));
+    
     isSaved = config->ReadBool("Saved", false);
     if (!isSaved)
     {
@@ -127,7 +136,6 @@ void PaletteTool::AddColor(const wxColour& color, const wxString& name)
 {
     wxVector<wxVariant> data;
     data.push_back(wxVariant(color));
-    data.push_back(wxVariant("rgb"));
     data.push_back(wxVariant(name));
     colorList->AppendItem(data);
     isSaved = false;
@@ -229,7 +237,7 @@ void PaletteTool::SaveFile(const wxString& path)
         wxVariant variant;
         colorList->GetValue(variant, i, 0);
         color << variant;
-        wxString name = colorList->GetTextValue(i, 2);
+        wxString name = colorList->GetTextValue(i, 1);
         write_line(output, wxString::Format("%3d %3d %3d\t%s", color.Red(), color.Green(), color.Blue(), name));
     }
     filePath = path;
@@ -285,7 +293,7 @@ void PaletteTool::OnSaveAs(wxCommandEvent& event)
 void PaletteTool::OnAddColor(wxCommandEvent& event)
 {
     wxColour color = main->GetColor();
-    AddColor(color, "Hello");
+    AddColor(color, main->GetColorOutput()->getOutput());
 }
 
 
