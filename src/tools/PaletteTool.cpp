@@ -5,6 +5,7 @@
 #include <wx/dataview.h>
 #include <wx/brush.h>
 #include <wx/dc.h>
+#include <wx/artprov.h>
 
 class ColorColumnRenderer : public wxDataViewCustomRenderer
 {
@@ -42,6 +43,15 @@ public:
 PaletteTool::PaletteTool(MainFrame* main) : ToolWindow(main, wxID_ANY, "Palette Tool")
 {
     toolBar = CreateToolBar();
+    
+    toolBar->AddTool(wxID_ANY, "New Palette", wxArtProvider::GetBitmap(wxART_NEW, wxART_TOOLBAR, wxSize(16, 16)));
+    toolBar->AddTool(wxID_ANY, "Open Palette", wxArtProvider::GetBitmap(wxART_FILE_OPEN, wxART_TOOLBAR, wxSize(16, 16)));
+    toolBar->AddTool(wxID_ANY, "Save", wxArtProvider::GetBitmap(wxART_FILE_SAVE, wxART_TOOLBAR, wxSize(16, 16)));
+    toolBar->AddTool(wxID_ANY, "Save As...", wxArtProvider::GetBitmap(wxART_FILE_SAVE_AS, wxART_TOOLBAR, wxSize(16, 16)));
+    toolBar->AddSeparator();
+    toolBar->AddTool(wxID_ANY, "Add Color", wxArtProvider::GetBitmap(wxART_PLUS, wxART_TOOLBAR, wxSize(16, 16)));
+    toolBar->AddTool(wxID_ANY, "Remove Color", wxArtProvider::GetBitmap(wxART_MINUS, wxART_TOOLBAR, wxSize(16, 16)));
+    toolBar->Realize();
     
     colorList = new wxDataViewListCtrl(this, wxID_ANY);
     colorList->AppendColumn(new wxDataViewColumn("", new ColorColumnRenderer, 0));
