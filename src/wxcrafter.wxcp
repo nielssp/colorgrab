@@ -2090,7 +2090,7 @@
           }, {
            "type": "string",
            "m_label": "Shortcut:",
-           "m_value": "Ctrl-C"
+           "m_value": "Ctrl+C"
           }, {
            "type": "string",
            "m_label": "Help String:",
@@ -2141,7 +2141,7 @@
           }, {
            "type": "string",
            "m_label": "Shortcut:",
-           "m_value": "Ctrl-V"
+           "m_value": "Ctrl+V"
           }, {
            "type": "string",
            "m_label": "Help String:",
@@ -2192,7 +2192,7 @@
           }, {
            "type": "string",
            "m_label": "Shortcut:",
-           "m_value": "Ctrl-Shift-C"
+           "m_value": "Ctrl+Shift+C"
           }, {
            "type": "string",
            "m_label": "Help String:",
@@ -2338,7 +2338,7 @@
           }, {
            "type": "string",
            "m_label": "Shortcut:",
-           "m_value": "Ctrl-Q"
+           "m_value": "Ctrl+Q"
           }, {
            "type": "string",
            "m_label": "Help String:",
@@ -2408,7 +2408,7 @@
           }, {
            "type": "string",
            "m_label": "Shortcut:",
-           "m_value": "Ctrl-P"
+           "m_value": "Ctrl+P"
           }, {
            "type": "string",
            "m_label": "Help String:",

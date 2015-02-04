@@ -208,13 +208,13 @@ MainFrameBaseClass::MainFrameBaseClass(wxWindow* parent, wxWindowID id, const wx
     m_fileMenu = new wxMenu();
     m_menuBar->Append(m_fileMenu, _("&File"));
     
-    m_menuItem191 = new wxMenuItem(m_fileMenu, wxID_ANY, _("&Copy Color\tCtrl-C"), wxT(""), wxITEM_NORMAL);
+    m_menuItem191 = new wxMenuItem(m_fileMenu, wxID_ANY, _("&Copy Color\tCtrl+C"), wxT(""), wxITEM_NORMAL);
     m_fileMenu->Append(m_menuItem191);
     
-    m_menuItem195 = new wxMenuItem(m_fileMenu, wxID_ANY, _("&Paste Color\tCtrl-V"), wxT(""), wxITEM_NORMAL);
+    m_menuItem195 = new wxMenuItem(m_fileMenu, wxID_ANY, _("&Paste Color\tCtrl+V"), wxT(""), wxITEM_NORMAL);
     m_fileMenu->Append(m_menuItem195);
     
-    m_menuItem197 = new wxMenuItem(m_fileMenu, wxID_ANY, _("Copy &Magnified Area\tCtrl-Shift-C"), wxT(""), wxITEM_NORMAL);
+    m_menuItem197 = new wxMenuItem(m_fileMenu, wxID_ANY, _("Copy &Magnified Area\tCtrl+Shift+C"), wxT(""), wxITEM_NORMAL);
     m_fileMenu->Append(m_menuItem197);
     
     m_fileMenu->AppendSeparator();
@@ -222,13 +222,13 @@ MainFrameBaseClass::MainFrameBaseClass(wxWindow* parent, wxWindowID id, const wx
     m_menuItem9 = new wxMenuItem(m_fileMenu, wxID_ABOUT, _("&About..."), wxT(""), wxITEM_NORMAL);
     m_fileMenu->Append(m_menuItem9);
     
-    m_menuItem7 = new wxMenuItem(m_fileMenu, wxID_EXIT, _("E&xit\tCtrl-Q"), _("Quit"), wxITEM_NORMAL);
+    m_menuItem7 = new wxMenuItem(m_fileMenu, wxID_EXIT, _("E&xit\tCtrl+Q"), _("Quit"), wxITEM_NORMAL);
     m_fileMenu->Append(m_menuItem7);
     
     m_toolsMenu = new wxMenu();
     m_menuBar->Append(m_toolsMenu, _("&Tools"));
     
-    m_menuItem79 = new wxMenuItem(m_toolsMenu, wxID_ANY, _("&System Color Picker\tCtrl-P"), wxT(""), wxITEM_NORMAL);
+    m_menuItem79 = new wxMenuItem(m_toolsMenu, wxID_ANY, _("&System Color Picker\tCtrl+P"), wxT(""), wxITEM_NORMAL);
     m_toolsMenu->Append(m_menuItem79);
     
     m_settingsMenu = new wxMenu();

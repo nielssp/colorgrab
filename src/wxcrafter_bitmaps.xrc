@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resource xmlns="http://www.wxwindows.org/wxxrc" version="2.3.0.1">
-  <object class="wxBitmap" name="128x128">../img/128x128.png</object>
-  <object class="wxBitmap" name="16x16">../img/16x16.png</object>
-  <object class="wxBitmap" name="256x256">../img/256x256.png</object>
-  <object class="wxBitmap" name="32x32">../img/32x32.png</object>
-  <object class="wxBitmap" name="64x64">../img/64x64.png</object>
-  <object class="wxBitmap" name="Cross">../img/Cross.png</object>
-  <object class="wxBitmap" name="add">../img/add.png</object>
-  <object class="wxBitmap" name="refresh">../img/refresh.png</object>
-  <object class="wxBitmap" name="remove">../img/remove.png</object>
-  <object class="wxBitmap" name="timer">../img/timer.png</object>
+  <object class="wxBitmap" name="128x128">..\img\128x128.png</object>
+  <object class="wxBitmap" name="16x16">..\img\16x16.png</object>
+  <object class="wxBitmap" name="256x256">..\img\256x256.png</object>
+  <object class="wxBitmap" name="32x32">..\img\32x32.png</object>
+  <object class="wxBitmap" name="64x64">..\img\64x64.png</object>
+  <object class="wxBitmap" name="Cross">..\img\Cross.png</object>
+  <object class="wxBitmap" name="add">..\img\add.png</object>
+  <object class="wxBitmap" name="refresh">..\img\refresh.png</object>
+  <object class="wxBitmap" name="remove">..\img\remove.png</object>
+  <object class="wxBitmap" name="timer">..\img\timer.png</object>
 </resource>
