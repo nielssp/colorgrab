@@ -190,7 +190,7 @@ wxString read_line(wxFileInputStream& input)
     wxString line("");
     while (!input.Eof())
     {
-        char c = input.GetC();
+        int c = input.GetC();
         if (c == '\r')
             continue;
         if (c == '\n')
