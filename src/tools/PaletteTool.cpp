@@ -195,7 +195,7 @@ wxString read_line(wxFileInputStream& input)
             continue;
         if (c == '\n')
             break;
-        line << c; 
+        line << (wchar_t) c; 
     }
     return line;
 }
@@ -223,7 +223,7 @@ void PaletteTool::OpenFile(const wxString& path)
     wxString t = read_line(input);
     if (t != "GIMP Palette")
     {
-        SetStatusText("Invalid file format");
+        SetStatusText("nvalid file format");
         return;
     }
     colorList->DeleteAllItems();
