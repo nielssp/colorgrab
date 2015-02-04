@@ -1,16 +1,17 @@
 #ifndef MAINFRAME_H
 #define MAINFRAME_H
 #include "wxcrafter.h"
+#include "colordnd.h"
 
 #include <wx/config.h>
 #include <wx/timer.h>
 #include <map>
 
 class ToolWindow;
-class IColorOutput;
+class ColorOutput;
 class IColorModel;
 
-class MainFrame : public MainFrameBaseClass
+class MainFrame : public MainFrameBaseClass, public IColorReceiver
 {
 private:
     bool capturing;
@@ -19,10 +20,10 @@ private:
     std::map<int, int> timerIntervals;
     std::map<int, IColorModel*> colorModels;
     IColorModel* colorModel;
-    std::map<int, IColorOutput*> colorOutputs;
+    std::map<int, ColorOutput*> colorOutputs;
     std::map<int, wxPanel*> stackColors;
     std::map<int, ToolWindow*> tools;
-    IColorOutput* colorOutput;
+    ColorOutput* colorOutput;
     void RestorePosition();
 
 public:
@@ -39,9 +40,9 @@ public:
     void UpdateColorModel();
     IColorModel* GetColorModel() const;
 
-    int AddColorOutput(IColorOutput* colorOutput);
-    void SetColorOutput(IColorOutput* colorOutput);
-    IColorOutput* GetColorOutput() const;
+    int AddColorOutput(ColorOutput* colorOutput);
+    void SetColorOutput(ColorOutput* colorOutput);
+    ColorOutput* GetColorOutput() const;
 
     void AddTool(ToolWindow* tool);
 

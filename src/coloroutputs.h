@@ -5,32 +5,33 @@
 #include <wx/colour.h>
 #include <wx/string.h>
 
-class IColorOutput
-{
-public:
-    virtual ~IColorOutput() {}
-
-    virtual std::string getName() const = 0;
-    
-    virtual std::string getOutput() = 0;
-    virtual bool parseColor(std::string colorString) = 0;
-
-    virtual wxColor getColor() const = 0;
-    virtual void setColor(const wxColour& color) = 0;
-};
-
-class HtmlHexOutput : public IColorOutput
+class ColorOutput
 {
 protected:
     wxColour color;
+   
+public:
+    virtual ~ColorOutput();
+    
+    virtual wxColor getColor() const;
+    virtual void setColor(const wxColour& color);
+    
+    virtual std::string getOutput();
+    virtual bool parseColor(std::string colorString);
 
+    virtual std::string getName() const = 0;
+    virtual bool parseColor(std::string colorString, wxColour& color) = 0;
+    virtual std::string format(const wxColour& color) = 0;
+
+};
+
+class HtmlHexOutput : public ColorOutput
+{
 public:
     virtual wxString getFormat() const;
     virtual std::string getName() const;
-    virtual wxColor getColor() const;
-    virtual std::string getOutput();
-    virtual void setColor(const wxColour& color);
-    virtual bool parseColor(std::string colorString);
+    virtual bool parseColor(std::string colorString, wxColour& color);
+    virtual std::string format(const wxColour& color);
 };
 
 class CssRgbOutput : public HtmlHexOutput
@@ -38,7 +39,7 @@ class CssRgbOutput : public HtmlHexOutput
 public:
     virtual wxString getFormat() const;
     virtual std::string getName() const;
-    virtual bool parseColor(std::string colorString);
+    virtual bool parseColor(std::string colorString, wxColour& color);
 };
 
 class CssHslOutput : public HtmlHexOutput
@@ -48,8 +49,8 @@ private:
 public:
     virtual wxString getFormat() const;
     virtual std::string getName() const;
-    virtual std::string getOutput();
-    virtual bool parseColor(std::string colorString);
+    virtual bool parseColor(std::string colorString, wxColour& color);
+    virtual std::string format(const wxColour& color);
 };
 
 class HexOutput : public HtmlHexOutput
@@ -63,9 +64,9 @@ class RgbFloatOutput : public HtmlHexOutput
 {
 public:
     virtual wxString getFormat() const;
-    virtual std::string getOutput();
+    virtual std::string format(const wxColour& color);
     virtual std::string getName() const;
-    virtual bool parseColor(std::string colorString);
+    virtual bool parseColor(std::string colorString, wxColour& color);
 };
 
 #endif // COLOROUTPUTS_H

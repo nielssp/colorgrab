@@ -2,10 +2,29 @@
 
 #include <wx/regex.h>
 
-wxColor HtmlHexOutput::getColor() const
+ColorOutput::~ColorOutput()
+{
+}
+
+wxColor ColorOutput::getColor() const
 {
     return color;
 }
+void ColorOutput::setColor(const wxColour& color)
+{
+    this->color = color;
+}
+
+std::string ColorOutput::getOutput()
+{
+    return format(color);
+}
+
+bool ColorOutput::parseColor(std::string colorString)
+{
+    return parseColor(colorString, color);
+}
+
 wxString HtmlHexOutput::getFormat() const
 {
     return "#%02X%02X%02X";
@@ -14,15 +33,11 @@ std::string HtmlHexOutput::getName() const
 {
     return "Hexadecimal (HTML/CSS)";
 }
-std::string HtmlHexOutput::getOutput()
+std::string HtmlHexOutput::format(const wxColour& color)
 {
     return wxString::Format(getFormat(), color.Red(), color.Green(), color.Blue()).ToStdString();
 }
-void HtmlHexOutput::setColor(const wxColour& color)
-{
-    this->color = color;
-}
-bool HtmlHexOutput::parseColor(std::string colorString)
+bool HtmlHexOutput::parseColor(std::string colorString, wxColour& color)
 {
     wxRegEx regex("#?([0-9a-fA-F]{2})([0-9a-fA-F]{2})([0-9a-fA-F]{2})");
     if (regex.Matches(colorString))
@@ -46,7 +61,7 @@ std::string CssRgbOutput::getName() const
 {
     return "Decimal RGB (CSS)";
 }
-bool CssRgbOutput::parseColor(std::string colorString)
+bool CssRgbOutput::parseColor(std::string colorString, wxColour& color)
 {
     wxRegEx regex("rgb *\\( *([0-9]{1,3}) *, *([0-9]{1,3}) *, *([0-9]{1,3}) *\\)", wxRE_ICASE);
     if (regex.Matches(colorString))
@@ -70,12 +85,12 @@ std::string CssHslOutput::getName() const
 {
     return "Decimal HSL (CSS)";
 }
-std::string CssHslOutput::getOutput()
+std::string CssHslOutput::format(const wxColour& color)
 {
     model.setColor(color);
     return wxString::Format(getFormat(), model.getValue(0), model.getValue(1), model.getValue(2)).ToStdString();
 }
-bool CssHslOutput::parseColor(std::string colorString)
+bool CssHslOutput::parseColor(std::string colorString, wxColour& color)
 {
     wxRegEx regex("hsl *\\( *([0-9]{1,3}) *, *([0-9]{1,3}) *%? *, *([0-9]{1,3}) *%? *\\)", wxRE_ICASE);
     if (regex.Matches(colorString))
@@ -109,7 +124,7 @@ wxString RgbFloatOutput::getFormat() const
     return "%.2lf, %.2lf, %.2lf";
 }
 
-std::string RgbFloatOutput::getOutput()
+std::string RgbFloatOutput::format(const wxColour& color)
 {
     return wxString::Format(getFormat(), color.Red() / 255.0, color.Green() / 255.0, color.Blue() / 255.0).ToStdString();
 }
@@ -118,7 +133,7 @@ std::string RgbFloatOutput::getName() const
 {
     return "Float RGB";
 }
-bool RgbFloatOutput::parseColor(std::string colorString)
+bool RgbFloatOutput::parseColor(std::string colorString, wxColour& color)
 {
     wxRegEx regex("([0-9]+(?:\\.[0-9]+)?) *, *([0-9]+(?:\\.[0-9]+)?) *, *([0-9]+(?:\\.[0-9]+)?)", wxRE_ADVANCED);
     if (regex.Matches(colorString))

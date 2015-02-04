@@ -1,6 +1,5 @@
 #include "MainFrame.h"
 
-#include "ColorDropTarget.h"
 #include "colormodels.h"
 #include "coloroutputs.h"
 #include "ToolWindow.h"
@@ -152,7 +151,7 @@ int MainFrame::AddColorModel(IColorModel* colorModel)
     return id;
 }
 
-int MainFrame::AddColorOutput(IColorOutput* colorOutput)
+int MainFrame::AddColorOutput(ColorOutput* colorOutput)
 {
     wxWindowID id = wxIdManager::ReserveId();
     colorOutputs[id] = colorOutput;
@@ -184,7 +183,7 @@ void MainFrame::SetColorModel(IColorModel* colorModel)
     UpdateColorModel();
 }
 
-void MainFrame::SetColorOutput(IColorOutput* colorOutput)
+void MainFrame::SetColorOutput(ColorOutput* colorOutput)
 {
     this->colorOutput = colorOutput;
     SetColor(GetColor());
@@ -518,7 +517,7 @@ void MainFrame::OnDragColor(wxMouseEvent& event)
     dragSource.DoDragDrop(true);
 }
 
-IColorOutput* MainFrame::GetColorOutput() const
+ColorOutput* MainFrame::GetColorOutput() const
 {
     return colorOutput;
 }

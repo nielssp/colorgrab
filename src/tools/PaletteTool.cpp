@@ -53,6 +53,9 @@ public:
 
 PaletteTool::PaletteTool(MainFrame* main) : ToolWindow(main, wxID_ANY, "Palette Tool", wxDefaultPosition, wxSize(220, 300)), filePath(""), isSaved(true), isNew(true)
 {
+    ColorDropTarget* dt = new ColorDropTarget(this);
+    SetDropTarget(dt);
+    
     toolBar = CreateToolBar();
     
     statusBar = CreateStatusBar();
@@ -68,10 +71,12 @@ PaletteTool::PaletteTool(MainFrame* main) : ToolWindow(main, wxID_ANY, "Palette 
     t_removeColor->Enable(false);
     toolBar->Realize();
     
-    colorList = new wxDataViewListCtrl(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxDV_ROW_LINES | wxDV_MULTIPLE);
+    colorList = new wxDataViewListCtrl(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxDV_ROW_LINES | wxDV_MULTIPLE | wxWANTS_CHARS);
     colorList->AppendColumn(new wxDataViewColumn("", new ColorColumnRenderer, 0));
     colorList->AppendTextColumn(_("Name"), wxDATAVIEW_CELL_EDITABLE );
     Bind(wxEVT_DATAVIEW_SELECTION_CHANGED, &PaletteTool::OnColorSelected, this, colorList->GetId());
+    Bind(wxEVT_DATAVIEW_ITEM_CONTEXT_MENU, &PaletteTool::OnColorPush, this, colorList->GetId());
+    Bind(wxEVT_DATAVIEW_ITEM_BEGIN_DRAG, &PaletteTool::OnColorDrag, this, colorList->GetId());
     Bind(wxEVT_DATAVIEW_ITEM_EDITING_DONE, &PaletteTool::OnNameEdited, this, colorList->GetId());
         
     Bind(wxEVT_COMMAND_TOOL_CLICKED, &PaletteTool::OnNew, this, t_new->GetId());
@@ -80,6 +85,8 @@ PaletteTool::PaletteTool(MainFrame* main) : ToolWindow(main, wxID_ANY, "Palette 
     Bind(wxEVT_COMMAND_TOOL_CLICKED, &PaletteTool::OnSaveAs, this, t_saveAs->GetId());
     Bind(wxEVT_COMMAND_TOOL_CLICKED, &PaletteTool::OnAddColor, this, t_addColor->GetId());
     Bind(wxEVT_COMMAND_TOOL_CLICKED, &PaletteTool::OnRemoveColor, this, t_removeColor->GetId());
+    
+    colorList->Bind(wxEVT_CHAR, &PaletteTool::OnKeyDown, this);
 }
 
 std::string PaletteTool::GetName()
@@ -140,6 +147,33 @@ void PaletteTool::AddColor(const wxColour& color, const wxString& name)
     colorList->AppendItem(data);
     isSaved = false;
 }
+
+bool PaletteTool::ParseColor(std::string colorString)
+{
+    wxColour color;
+    if (main->GetColorOutput()->parseColor(colorString, color))
+    {
+        AddColor(color, main->GetColorOutput()->format(color));
+        return true;
+    }
+    return false;
+}
+
+void PaletteTool::RemoveSelectedColors()
+{
+    if (colorList->HasSelection())
+    {
+        wxDataViewItemArray items;
+        int n = colorList->GetSelections(items);
+        for (int i = 0; i < n; i++)
+        {
+            colorList->DeleteItem(colorList->ItemToRow(items[i]));
+        }
+        t_removeColor->Enable(false);
+        toolBar->Realize();
+    }
+}
+
 
 wxString read_line(wxFileInputStream& input)
 {
@@ -299,26 +333,67 @@ void PaletteTool::OnAddColor(wxCommandEvent& event)
 
 void PaletteTool::OnRemoveColor(wxCommandEvent& event)
 {
-    if (colorList->HasSelection())
-    {
-        wxDataViewItemArray items;
-        int n = colorList->GetSelections(items);
-        for (int i = 0; i < n; i++)
-        {
-            colorList->DeleteItem(colorList->ItemToRow(items[i]));
-        }
-        t_removeColor->Enable(false);
-        toolBar->Realize();
-    }
+    RemoveSelectedColors();
 }
 
 void PaletteTool::OnColorSelected(wxDataViewEvent& event)
 {
+    // Set main color
+    if (event.GetItem().IsOk())
+    {
+        wxColour color;
+        wxVariant variant;
+        colorList->GetValue(variant, colorList->ItemToRow(event.GetItem()), 0);
+        color << variant;
+        main->SetColor(color);
+    }
+    
+    // Enable delete color button
     t_removeColor->Enable(event.GetItem().IsOk());
     toolBar->Realize();
 }
 
+void PaletteTool::OnColorPush(wxDataViewEvent& event)
+{
+    if (event.GetItem().IsOk())
+    {
+        wxColour color;
+        wxVariant variant;
+        colorList->GetValue(variant, colorList->ItemToRow(event.GetItem()), 0);
+        color << variant;
+        main->PushColor(color);
+    }
+}
+
+void PaletteTool::OnColorDrag(wxDataViewEvent& event)
+{
+    if (event.GetItem().IsOk())
+    {
+        wxColour color;
+        wxVariant variant;
+        colorList->GetValue(variant, colorList->ItemToRow(event.GetItem()), 0);
+        color << variant;
+        wxTextDataObject colorData(main->GetColorOutput()->format(color));
+        wxDropSource dragSource(this);
+        dragSource.SetData(colorData);
+        dragSource.DoDragDrop(true);
+    }
+}
+
+
 void PaletteTool::OnNameEdited(wxDataViewEvent& event)
 {
     isSaved = false;
+}
+
+void PaletteTool::OnKeyDown(wxKeyEvent& event)
+{
+    if (event.GetKeyCode() == WXK_DELETE)
+    {
+        RemoveSelectedColors();
+    }
+    else
+    {
+        event.Skip();
+    }
 }

@@ -1,7 +1,8 @@
 #ifndef PALETTETOOL_H
 #define PALETTETOOL_H
 
-#include "ToolWindow.h" // Base class: ToolWindow
+#include "ToolWindow.h"
+#include "colordnd.h"
 
 class wxToolBar;
 class wxStatusBarBase;
@@ -9,7 +10,7 @@ class wxDataViewListCtrl;
 class wxDataViewEvent;
 class wxToolBarToolBase;
 
-class PaletteTool : public ToolWindow
+class PaletteTool : public ToolWindow, public IColorReceiver
 {
 private:
     wxString filePath;
@@ -37,7 +38,11 @@ protected:
     virtual void OnRemoveColor(wxCommandEvent& event);
     
     virtual void OnColorSelected(wxDataViewEvent& event);
+    virtual void OnColorPush(wxDataViewEvent& event);
+    virtual void OnColorDrag(wxDataViewEvent& event);
     virtual void OnNameEdited(wxDataViewEvent& event);
+    
+    virtual void OnKeyDown(wxKeyEvent& event);
 
 public:
     PaletteTool(MainFrame* main);
@@ -48,6 +53,8 @@ public:
     virtual void Restore(wxConfigBase* config);
     
     void AddColor(const wxColour& color, const wxString& name);
+    virtual bool ParseColor(std::string colorString);
+    void RemoveSelectedColors();
     
     void OpenFile(const wxString& path);
     void SaveFile(const wxString& path);
