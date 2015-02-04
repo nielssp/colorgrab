@@ -6,7 +6,7 @@ find_package(wxWidgets COMPONENTS core base xml xrc adv REQUIRED)
 
 include(${wxWidgets_USE_FILE})
 
-include_directories(src);
+include_directories(src)
 
 file(GLOB_RECURSE SRC_LIST src/*.cpp)
 
