@@ -4,6 +4,7 @@
 #include "ToolWindow.h" // Base class: ToolWindow
 
 class wxToolBar;
+class wxStatusBarBase;
 class wxDataViewListCtrl;
 class wxDataViewEvent;
 class wxToolBarToolBase;
@@ -12,6 +13,7 @@ class PaletteTool : public ToolWindow
 {
 private:
     wxToolBar* toolBar;
+    wxStatusBarBase* statusBar;
     wxDataViewListCtrl* colorList;
     
     wxToolBarToolBase* t_new;

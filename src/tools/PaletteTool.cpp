@@ -4,6 +4,7 @@
 
 #include <wx/confbase.h>
 #include <wx/toolbar.h>
+#include <wx/statusbr.h>
 #include <wx/dataview.h>
 #include <wx/brush.h>
 #include <wx/dc.h>
@@ -47,6 +48,8 @@ public:
 PaletteTool::PaletteTool(MainFrame* main) : ToolWindow(main, wxID_ANY, "Palette Tool")
 {
     toolBar = CreateToolBar();
+    
+    statusBar = CreateStatusBar();
     
     t_new = toolBar->AddTool(wxID_ANY, _("New Palette"), wxArtProvider::GetBitmap(wxART_NEW, wxART_TOOLBAR, wxSize(16, 16)));
     t_open = toolBar->AddTool(wxID_ANY, _("Open Palette"), wxArtProvider::GetBitmap(wxART_FILE_OPEN, wxART_TOOLBAR, wxSize(16, 16)));
@@ -108,6 +111,7 @@ void PaletteTool::OnOpen(wxCommandEvent& event)
     {
         return;
     }
+    SetStatusText(openFileDialog.GetPath());
 }
 
 void PaletteTool::OnSave(wxCommandEvent& event)
