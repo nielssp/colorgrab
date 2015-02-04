@@ -52,6 +52,8 @@ public:
     virtual void Store(wxConfigBase* config);
     virtual void Restore(wxConfigBase* config);
     
+    void RefreshTitle();
+    
     void AddColor(const wxColour& color, const wxString& name);
     virtual bool ParseColor(std::string colorString);
     void RemoveSelectedColors();

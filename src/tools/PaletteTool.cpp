@@ -51,7 +51,7 @@ public:
     }
 };
 
-PaletteTool::PaletteTool(MainFrame* main) : ToolWindow(main, wxID_ANY, "Palette Tool", wxDefaultPosition, wxSize(220, 300)), filePath(""), isSaved(true), isNew(true)
+PaletteTool::PaletteTool(MainFrame* main) : ToolWindow(main, wxID_ANY, _("Palette Tool"), wxDefaultPosition, wxSize(220, 300)), filePath(""), isSaved(true), isNew(true)
 {
     ColorDropTarget* dt = new ColorDropTarget(this);
     SetDropTarget(dt);
@@ -137,6 +137,15 @@ void PaletteTool::Restore(wxConfigBase* config)
         if (!file.IsEmpty())
             OpenFile(file);
     }
+    RefreshTitle();
+}
+
+void PaletteTool::RefreshTitle()
+{
+    if (isSaved)
+        SetTitle(_("Palette Tool"));
+    else
+        SetTitle(_("Palette Tool (*)"));
 }
 
 void PaletteTool::AddColor(const wxColour& color, const wxString& name)
@@ -146,6 +155,7 @@ void PaletteTool::AddColor(const wxColour& color, const wxString& name)
     data.push_back(wxVariant(name));
     colorList->AppendItem(data);
     isSaved = false;
+    RefreshTitle();
 }
 
 bool PaletteTool::ParseColor(std::string colorString)
@@ -251,6 +261,7 @@ void PaletteTool::OpenFile(const wxString& path)
     isSaved = true;
     isNew = false;
     SetStatusText(filePath);
+    RefreshTitle();
 }
 
 void PaletteTool::SaveFile(const wxString& path)
@@ -277,6 +288,7 @@ void PaletteTool::SaveFile(const wxString& path)
     filePath = path;
     isSaved = true;
     isNew = false;
+    RefreshTitle();
 }
 
 void PaletteTool::OnNew(wxCommandEvent& event)
@@ -289,6 +301,7 @@ void PaletteTool::OnNew(wxCommandEvent& event)
     isSaved = true;
     isNew = true;
     filePath = "";
+    RefreshTitle();
 }
 
 void PaletteTool::OnOpen(wxCommandEvent& event)
@@ -384,6 +397,7 @@ void PaletteTool::OnColorDrag(wxDataViewEvent& event)
 void PaletteTool::OnNameEdited(wxDataViewEvent& event)
 {
     isSaved = false;
+    RefreshTitle();
 }
 
 void PaletteTool::OnKeyDown(wxKeyEvent& event)
