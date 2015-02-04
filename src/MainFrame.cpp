@@ -30,7 +30,7 @@ struct ZoomMenuFunctor
 };
 
 MainFrame::MainFrame(wxWindow* parent)
-    : MainFrameBaseClass(parent), capturing(false), refreshTimer(this)
+    : MainFrameBaseClass(parent), capturing(false), refreshTimer(this), config(wxEmptyString, wxEmptyString, wxEmptyString, wxEmptyString, wxCONFIG_USE_SUBDIR)
 {
     ColorDropTarget* dt = new ColorDropTarget(this);
     SetDropTarget(dt);
