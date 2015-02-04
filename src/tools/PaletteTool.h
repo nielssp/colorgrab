@@ -45,6 +45,7 @@ public:
     void AddColor(const wxColour& color, const wxString& name);
     
     void OpenFile(const wxString& path);
+    void SaveFile(const wxString& path);
 };
 
 #endif // PALETTETOOL_H

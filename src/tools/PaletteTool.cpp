@@ -68,7 +68,10 @@ PaletteTool::PaletteTool(MainFrame* main) : ToolWindow(main, wxID_ANY, "Palette 
     colorList->AppendTextColumn(_("Name"), wxDATAVIEW_CELL_EDITABLE );
     Bind(wxEVT_DATAVIEW_SELECTION_CHANGED, &PaletteTool::OnColorSelected, this, colorList->GetId());
         
+    Bind(wxEVT_COMMAND_TOOL_CLICKED, &PaletteTool::OnNew, this, t_new->GetId());
     Bind(wxEVT_COMMAND_TOOL_CLICKED, &PaletteTool::OnOpen, this, t_open->GetId());
+    Bind(wxEVT_COMMAND_TOOL_CLICKED, &PaletteTool::OnSave, this, t_save->GetId());
+    Bind(wxEVT_COMMAND_TOOL_CLICKED, &PaletteTool::OnSaveAs, this, t_saveAs->GetId());
     Bind(wxEVT_COMMAND_TOOL_CLICKED, &PaletteTool::OnAddColor, this, t_addColor->GetId());
     Bind(wxEVT_COMMAND_TOOL_CLICKED, &PaletteTool::OnRemoveColor, this, t_removeColor->GetId());
 }
@@ -110,6 +113,13 @@ wxString read_line(wxFileInputStream& input)
         line << c; 
     }
     return line;
+}
+
+void write_line(wxFileOutputStream& output, const wxString& line)
+{
+    for (size_t i = 0; i < line.size(); i++)
+        output.PutC(line[i]);
+    output.PutC('\n');
 }
 
 void PaletteTool::OpenFile(const wxString& path)
@@ -159,6 +169,27 @@ void PaletteTool::OpenFile(const wxString& path)
     }
 }
 
+void PaletteTool::SaveFile(const wxString& path)
+{
+    wxFileOutputStream output(path);
+    if (!output.IsOk())
+    {
+        SetStatusText("Could not open file");
+        return;
+    }
+    write_line(output, "GIMP Palette");
+    write_line(output, "Name: unnamed");
+    write_line(output, "#");
+    for (int i = 0; i < colorList->GetItemCount(); i++)
+    {
+        wxColour color;
+        wxVariant variant;
+        colorList->GetValue(variant, i, 0);
+        color << variant;
+        wxString name = colorList->GetTextValue(i, 2);
+        write_line(output, wxString::Format("%3d %3d %3d\t%s", color.Red(), color.Green(), color.Blue(), name));
+    }
+}
 
 void PaletteTool::OnNew(wxCommandEvent& event)
 {
@@ -178,6 +209,10 @@ void PaletteTool::OnSave(wxCommandEvent& event)
 
 void PaletteTool::OnSaveAs(wxCommandEvent& event)
 {
+    wxFileDialog saveFileDialog(main, _("Save palette file"), "", "", "GIMP palette (*.gpl)|*.gpl", wxFD_SAVE);
+    if (saveFileDialog.ShowModal() == wxID_CANCEL)
+        return;
+    SaveFile(saveFileDialog.GetPath());
 }
 
 
