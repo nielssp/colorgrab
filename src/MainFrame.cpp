@@ -125,15 +125,27 @@ void MainFrame::PushColor(const wxColour& color)
 
 void MainFrame::RestorePosition()
 {
-    int x = config.ReadLong("Main/Position/X", GetPosition().x);
-    int y = config.ReadLong("Main/Position/Y", GetPosition().y);
-    wxSize screenSize = wxGetDisplaySize();
-    wxSize windowSize = GetSize();
-    if (x < 0) x = 0;
-    if (y < 0) y = 0;
-    if (x > (screenSize.x - windowSize.x)) x = screenSize.x - windowSize.x;
-    if (y > (screenSize.y - windowSize.y)) y = screenSize.y - windowSize.y;
-    SetPosition(wxPoint(x, y));
+    wxPoint current = GetScreenPosition();
+    int x = config.ReadLong("Main/Position/X", current.x);
+    int y = config.ReadLong("Main/Position/Y", current.y);
+    wxMessageOutput::Get()->Printf("current: %d x %d want: %d x %d", current.x, current.y, x, y);
+      wxSize screenSize = wxGetDisplaySize();
+      wxSize windowSize = GetSize();
+      if (x < 0) x = 0;
+      if (y < 0) y = 0;
+      if (x > (screenSize.x - windowSize.x)) x = screenSize.x - windowSize.x;
+      if (y > (screenSize.y - windowSize.y)) y = screenSize.y - windowSize.y;
+      Center();
+      Move(wxPoint(x, y));
+}
+
+bool MainFrame::Show(bool show)
+{
+  bool result = wxFrame::Show(show);
+  // Under some window managers position can't be restored until after the window
+  // has been opened (possibly?)
+  RestorePosition();
+  return result;
 }
 
 int MainFrame::AddColorModel(IColorModel* colorModel)

@@ -35,6 +35,8 @@ public:
     void OnExit(wxCommandEvent& event);
     void OnAbout(wxCommandEvent& event);
 
+    virtual bool Show(bool show = true);
+
     int AddColorModel(IColorModel* colorModel);
     void SetColorModel(IColorModel* colorModel);
     void UpdateColorModel();
