@@ -1,9 +1,13 @@
+// ColorGrab
+// Copyright (c) 2015 Niels Sonnich Poulsen (http://nielssp.dk)
+// Licensed under the MIT license.
+// See the LICENSE file or http://opensource.org/licenses/MIT for more information.
+
 #include <wx/app.h>
 #include <wx/event.h>
 #include "MainFrame.h"
 #include <wx/image.h>
 
-// Define the MainApp
 class MainApp : public wxApp
 {
 public:

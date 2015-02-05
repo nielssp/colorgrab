@@ -1,3 +1,8 @@
+// ColorGrab
+// Copyright (c) 2015 Niels Sonnich Poulsen (http://nielssp.dk)
+// Licensed under the MIT license.
+// See the LICENSE file or http://opensource.org/licenses/MIT for more information.
+
 #ifndef TOOLWINDOW_H
 #define TOOLWINDOW_H
 
@@ -8,6 +13,13 @@
 class MainFrame;
 class wxConfigBase;
 
+/**
+ * @class ToolWindow
+ * @author Niels
+ * @date 02/05/15
+ * @file ToolWindow.h
+ * @brief 
+ */
 class ToolWindow : public wxFrame
 {
 protected:
