@@ -20,6 +20,8 @@ public:
         long style = DEFAULT_TOOL_WINDOW_STYLE);
     virtual ~ToolWindow();
 
+    virtual bool Show(bool show = true);
+
     virtual std::string GetName() = 0;
     
     virtual void Store(wxConfigBase* config);

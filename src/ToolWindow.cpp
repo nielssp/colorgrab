@@ -22,8 +22,9 @@ void ToolWindow::OnClose(wxCloseEvent& event)
 
 void ToolWindow::RestorePosition(wxConfigBase* config)
 {
-    int x = config->ReadLong("Position/X", GetPosition().x);
-    int y = config->ReadLong("Position/Y", GetPosition().y);
+    wxPoint current = GetScreenPosition();
+    int x = config->ReadLong("Position/X", current.x);
+    int y = config->ReadLong("Position/Y", current.y);
     wxSize screenSize = wxGetDisplaySize();
     wxSize windowSize = GetSize();
     if (x < 0) x = 0;
@@ -31,6 +32,17 @@ void ToolWindow::RestorePosition(wxConfigBase* config)
     if (x > (screenSize.x - windowSize.x)) x = screenSize.x - windowSize.x;
     if (y > (screenSize.y - windowSize.y)) y = screenSize.y - windowSize.y;
     SetPosition(wxPoint(x, y));
+}
+
+bool ToolWindow::Show(bool show)
+{
+  bool result = wxFrame::Show(show);
+  // Under some window managers position can't be restored until after the window
+  // has been opened (possibly?)
+  wxPoint wantedPosition = GetPosition();
+  Center();
+  Move(wantedPosition);
+  return result;
 }
 
 void ToolWindow::Store(wxConfigBase* config)
