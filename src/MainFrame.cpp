@@ -173,7 +173,7 @@ int MainFrame::AddColorOutput(ColorOutput* colorOutput)
 {
     wxWindowID id = wxIdManager::ReserveId();
     colorOutputs[id] = colorOutput;
-    wxMenuItem* menuItem = new wxMenuItem(m_colorOutputMenu, id, wxString::Format("%s\tCtrl+Shift+%d", colorOutput->getName(), (int) colorOutputs.size()), wxT(""), wxITEM_RADIO);
+    wxMenuItem* menuItem = new wxMenuItem(m_colorOutputMenu, id, wxString::Format("%s\tAlt+%d", colorOutput->getName(), (int) colorOutputs.size()), wxT(""), wxITEM_RADIO);
     m_colorOutputMenu->Append(menuItem);
     m_colorOutputMenu->Bind(wxEVT_COMMAND_MENU_SELECTED, &MainFrame::OnSelectColorOutput, this, menuItem->GetId());
     if (colorOutput->getName() == config.Read("Main/Output", "Hexadecimal (HTML/CSS)"))
@@ -186,8 +186,8 @@ int MainFrame::AddColorOutput(ColorOutput* colorOutput)
 
 void MainFrame::AddTool(ToolWindow* tool)
 {
-    wxMenuItem* menuItem = new wxMenuItem(m_toolsMenu, wxID_ANY, tool->GetTitle());
-    m_toolsMenu->Prepend(menuItem);
+    wxMenuItem* menuItem = new wxMenuItem(m_toolsMenu, wxID_ANY, wxString::Format("%s\tF%d", tool->GetTitle(), (int) tools.size() + 1));
+    m_toolsMenu->Append(menuItem);
     tools[menuItem->GetId()] = tool;
     m_toolsMenu->Bind(wxEVT_COMMAND_MENU_SELECTED, &MainFrame::OnSelectTool, this, menuItem->GetId());
     config.SetPath(tool->GetName());
