@@ -13,13 +13,7 @@
 class MainFrame;
 class wxConfigBase;
 
-/**
- * @class ToolWindow
- * @author Niels
- * @date 02/05/15
- * @file ToolWindow.h
- * @brief 
- */
+/// A tool window opened from the tools-menu.
 class ToolWindow : public wxFrame
 {
 protected:
@@ -34,9 +28,13 @@ public:
 
     virtual bool Show(bool show = true);
 
+    /// Name of tool for use in configuration, should be in CamelCase.
     virtual std::string GetName() = 0;
     
+    /// Store tool configuration.
     virtual void Store(wxConfigBase* config);
+    
+    /// Restore tool configuration.
     virtual void Restore(wxConfigBase* config);
 private:
     void OnClose(wxCloseEvent& event);

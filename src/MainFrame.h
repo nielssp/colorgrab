@@ -16,6 +16,7 @@ class ToolWindow;
 class ColorOutput;
 class IColorModel;
 
+/// ColorGrab main window.
 class MainFrame : public MainFrameBaseClass, public IColorReceiver
 {
 private:
@@ -42,24 +43,49 @@ public:
 
     virtual bool Show(bool show = true);
 
+    /// Add a color model to the bottom of the color model menu.
     int AddColorModel(IColorModel* colorModel);
+    
+    /// Set the current color model.
     void SetColorModel(IColorModel* colorModel);
+    
+    /// Update values of current color model.
     void UpdateColorModel();
+    
+    /// Get current color model.
     IColorModel* GetColorModel() const;
 
+    /// Add an output format to the bottom of the output menu.
     int AddColorOutput(ColorOutput* colorOutput);
+    
+    /// Set the current output format.
     void SetColorOutput(ColorOutput* colorOutput);
+    
+    /// Get current output format.
     ColorOutput* GetColorOutput() const;
 
+    /// Add a tool to the bottom of the tools-menu.
     void AddTool(ToolWindow* tool);
 
+    /// Push a color to the top of the color stack.
     void PushColor(const wxColour& color);
 
+    /// Get currently selected color.
     wxColour GetColor() const;
+    
+    /// Set the current color.
     void SetColor(const wxColor& color, bool updateInputs = true, bool updateOutput = true);
+    
+    /// Pick color from current mouse position.
     void SetColorFromMouse();
+    
+    /// Pick color from a pixel on the screen.
     void SetColorFromPixel(wxCoord x, wxCoord y);
+    
+    /// Parse a color using the current output format.
     bool ParseColor(std::string colorString);
+    
+    /// Refresh the magnified image.
     void UpdateZoomArea();
 
 protected:

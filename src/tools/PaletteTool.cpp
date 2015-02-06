@@ -23,6 +23,7 @@
 #include <wx/stdpaths.h>
 #include <wx/dir.h>
 
+/// Used for rendering a colored rectangle for each palette color
 class ColorColumnRenderer : public wxDataViewCustomRenderer
 {
 private:

@@ -15,6 +15,7 @@ class wxDataViewListCtrl;
 class wxDataViewEvent;
 class wxToolBarToolBase;
 
+/// A tool for creating/editing palettes.
 class PaletteTool : public ToolWindow, public IColorReceiver
 {
 private:

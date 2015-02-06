@@ -8,6 +8,7 @@
 
 #include <wx/colour.h>
 
+/// Conversion between color models.
 class IColorModel
 {
 public:
@@ -24,6 +25,7 @@ public:
     virtual void setValue(int i, int value) = 0;
 };
 
+/// Red, green, blue.
 class RGBModel : public IColorModel
 {
 private:
@@ -41,6 +43,7 @@ public:
     virtual void setValue(int i, int value);
 };
 
+/// Hue, saturation, lightness.
 class HSLModel : public IColorModel
 {
 private:
@@ -60,6 +63,7 @@ public:
     virtual void setValue(int i, int value);
 };
 
+/// Cyan, magenta, yellow, key.
 class CMYKModel : public IColorModel
 {
 private:

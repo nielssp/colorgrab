@@ -20,11 +20,13 @@ ToolWindow::~ToolWindow()
 {
 }
 
+/// Hides window instead of destroying.
 void ToolWindow::OnClose(wxCloseEvent& event)
 {
     Hide();
 }
 
+/// Restores previous window position.
 void ToolWindow::RestorePosition(wxConfigBase* config)
 {
     wxPoint current = GetScreenPosition();

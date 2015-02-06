@@ -10,6 +10,7 @@
 #include <wx/colour.h>
 #include <wx/string.h>
 
+/// Conversion between color and string.
 class ColorOutput
 {
 protected:
@@ -30,6 +31,7 @@ public:
 
 };
 
+/// Hexadecimal RGB color: #FFFFFF
 class HtmlHexOutput : public ColorOutput
 {
 public:
@@ -39,6 +41,7 @@ public:
     virtual std::string format(const wxColour& color);
 };
 
+/// Decimal RGB color: rgb(255, 255, 255)
 class CssRgbOutput : public HtmlHexOutput
 {
 public:
@@ -47,6 +50,7 @@ public:
     virtual bool parseColor(std::string colorString, wxColour& color);
 };
 
+/// Decimal HSL color: hsl(359, 100, 100)
 class CssHslOutput : public HtmlHexOutput
 {
 private:
@@ -58,6 +62,7 @@ public:
     virtual std::string format(const wxColour& color);
 };
 
+/// Hexadecimal RGB color: FFFFFF
 class HexOutput : public HtmlHexOutput
 {
 public:
@@ -65,6 +70,7 @@ public:
     virtual std::string getName() const;
 };
 
+/// Float RGB color: 1.0, 1.0, 1.0
 class RgbFloatOutput : public HtmlHexOutput
 {
 public:

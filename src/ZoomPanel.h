@@ -10,6 +10,7 @@
 #include <wx/panel.h>
 #include <wx/dc.h>
 
+/// Displays a zoomable region of the screen.
 class ZoomPanel : public wxPanel
 {
 private:
@@ -27,6 +28,7 @@ public:
         const wxSize& size = wxDefaultSize,
         long style = wxTAB_TRAVERSAL);
 
+    /// Get the current image.
     wxBitmap getImage() const;
 
     void paintEvent(wxPaintEvent& evt);
@@ -34,15 +36,21 @@ public:
 
     void render(wxPaintDC& dc);
 
+    /// Get current point of interest on screen.
     wxPoint GetPoi() const;
+    /// Set the current point of interest on screen/
     void SetPoi(const wxPoint& point);
     
+    /// Set the magnification level.
     void SetZoom(int zoom);
     
+    /// Whether or not to show the current point of interest.
     void ShowPoi(bool show);
     
+    /// Get the magnification level.
     int GetZoom() const;
 
+    /// Refresh the image.
     void Update();
 
     DECLARE_EVENT_TABLE()

@@ -8,6 +8,7 @@
 
 #include <wx/dnd.h>
 
+/// Interface for objects that can receive and parse a color string.
 class IColorReceiver
 {
 public:
@@ -15,6 +16,7 @@ public:
     virtual bool ParseColor(std::string colorString) = 0;
 };
 
+/// Drop target for color strings.
 class ColorDropTarget : public wxTextDropTarget
 {
 private:
