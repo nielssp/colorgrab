@@ -147,10 +147,11 @@ void PaletteTool::Restore(wxConfigBase* config)
 
 void PaletteTool::RefreshTitle()
 {
-    if (isSaved)
-        SetTitle(_("Palette Tool"));
-    else
-        SetTitle(_("Palette Tool (*)"));
+    if (isSaved) SetTitle(_("Palette Tool"));
+    else SetTitle(_("Palette Tool (*)"));
+    
+    if (filePath.IsEmpty()) SetStatusText(_("Unsaved"));
+    else SetStatusText(filePath);
 }
 
 void PaletteTool::AddColor(const wxColour& color, const wxString& name)
@@ -212,24 +213,24 @@ void write_line(wxFileOutputStream& output, const std::string& line)
     output.PutC('\n');
 }
 
-void PaletteTool::OpenFile(const wxString& path)
+bool PaletteTool::OpenFile(const wxString& path)
 {
     if (!wxFile::Exists(path))
     {
         SetStatusText("Could not open file");
-        return;
+        return false;
     }
     wxFileInputStream input(path);
     if (!input.IsOk())
     {
         SetStatusText("Could not open file");
-        return;
+        return false;
     }
     std::string t = read_line(input);
     if (t != "GIMP Palette")
     {
         SetStatusText("Invalid file format");
-        return;
+        return false;
     }
     colorList->DeleteAllItems();
     t_removeColor->Enable(false);
@@ -265,18 +266,18 @@ void PaletteTool::OpenFile(const wxString& path)
     filePath = path;
     isSaved = true;
     isNew = false;
-    SetStatusText(filePath);
     RefreshTitle();
+    return true;
 }
 
-void PaletteTool::SaveFile(const wxString& path)
+bool PaletteTool::SaveFile(const wxString& path)
 {
     wxFileName fileName(path);
     wxFileOutputStream output(path);
     if (!output.IsOk())
     {
-        SetStatusText("Could not open file");
-        return;
+        SetStatusText("Could not save file");
+        return false;
     }
     write_line(output, "GIMP Palette");
     write_line(output, wxString::Format("Name: %s", fileName.GetName()).ToStdString());
@@ -294,6 +295,7 @@ void PaletteTool::SaveFile(const wxString& path)
     isSaved = true;
     isNew = false;
     RefreshTitle();
+    return true;
 }
 
 bool PaletteTool::ConfirmSave()
@@ -313,13 +315,12 @@ bool PaletteTool::ConfirmSave()
                                             wxFD_SAVE | wxFD_OVERWRITE_PROMPT);
                 if (saveFileDialog.ShowModal() == wxID_CANCEL)
                     return false;
-                SaveFile(saveFileDialog.GetPath());
+                return SaveFile(saveFileDialog.GetPath());
             }
             else
             {
-                SaveFile(filePath);
+                return SaveFile(filePath);
             }
-            return true;
         case wxNO:
             return true;
         default:

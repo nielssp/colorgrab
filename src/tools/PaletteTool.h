@@ -63,9 +63,8 @@ public:
     virtual bool ParseColor(std::string colorString);
     void RemoveSelectedColors();
     
-    void OpenFile(const wxString& path);
-    void SaveFile(const wxString& path);
-    
+    bool OpenFile(const wxString& path);
+    bool SaveFile(const wxString& path);
     bool ConfirmSave();
 };
 
