@@ -296,12 +296,41 @@ void PaletteTool::SaveFile(const wxString& path)
     RefreshTitle();
 }
 
+bool PaletteTool::ConfirmSave()
+{
+    if (isSaved) return true;
+    
+    switch (wxMessageBox(_("Save changes to palette?"), _("Save changes"), wxICON_QUESTION | wxYES_NO | wxCANCEL, this))
+    {
+        case wxYES:
+            if (isNew)
+            {
+                wxFileDialog saveFileDialog(main,
+                                            _("Save palette file"),
+                                            "",
+                                            "",
+                                            "GIMP palette (*.gpl)|*.gpl",
+                                            wxFD_SAVE | wxFD_OVERWRITE_PROMPT);
+                if (saveFileDialog.ShowModal() == wxID_CANCEL)
+                    return false;
+                SaveFile(saveFileDialog.GetPath());
+            }
+            else
+            {
+                SaveFile(filePath);
+            }
+            return true;
+        case wxNO:
+            return true;
+        default:
+            return false;
+    }
+}
+
 void PaletteTool::OnNew(wxCommandEvent& event)
 {
-    if (!isSaved) {
-         if (wxMessageBox(_("Current palette has not been saved! Proceed?"), _("Please confirm"), wxICON_QUESTION | wxYES_NO, this) == wxNO)
-            return;
-    }
+    if (!ConfirmSave())
+        return;
     colorList->DeleteAllItems();
     isSaved = true;
     isNew = true;
@@ -311,10 +340,8 @@ void PaletteTool::OnNew(wxCommandEvent& event)
 
 void PaletteTool::OnOpen(wxCommandEvent& event)
 {
-    if (!isSaved) {
-         if (wxMessageBox(_("Current palette has not been saved! Proceed?"), _("Please confirm"), wxICON_QUESTION | wxYES_NO, this) == wxNO)
-            return;
-    }
+    if (!ConfirmSave())
+        return;
     wxFileDialog openFileDialog(main, _("Open palette file"), "", "", "GIMP palette (*.gpl)|*.gpl", wxFD_OPEN | wxFD_FILE_MUST_EXIST);
     if (openFileDialog.ShowModal() == wxID_CANCEL)
         return;

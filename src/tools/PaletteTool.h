@@ -65,6 +65,8 @@ public:
     
     void OpenFile(const wxString& path);
     void SaveFile(const wxString& path);
+    
+    bool ConfirmSave();
 };
 
 #endif // PALETTETOOL_H
