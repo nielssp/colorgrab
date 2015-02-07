@@ -24,23 +24,30 @@ SOFTWARE.
 
 ## Features
 
+  * Pick colors from screen.
+  * Magnify screen.
+  * Convert between color models and representations.
+  * Palette tool.
+
 ## Install
 
 ### Linux
 
- * install wxwidgets
- * install cmake
- * `cmake .`
- * `make`
+  * install wxgtk
+  * install cmake
+  * `cmake .`
+  * `make`
 
 ### Windows
 
 With mingw:
 
- * install mingw32
- * add gdiplus headers
- * enable wxGraphicsContext in setup.h
- * build wxWidgets >= 3.0.0
- * install cmake
+  * install mingw32
+  * add gdiplus headers
+  * enable wxGraphicsContext in setup.h
+  * build wxWidgets >= 3.0.0
+  * install cmake
 
-With VS?
+Or download wxpack?
+
+Maybe easier with VS?
