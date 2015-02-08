@@ -1,0 +1,30 @@
+# Maintainer: Niels Sonnich Poulsen <niels@nielssp.dk>
+pkgname=colorgrab
+pkgver=0.1
+pkgrel=1
+pkgdesc="A cross-platform color picker."
+url="https://github.com/Acolarh/colorgrab"
+arch=('x86_64' 'i686')
+license=('MIT')
+depends=('wxgtk')
+makedepends=('cmake')
+conflicts=()
+replaces=()
+backup=()
+install=
+source=("https://github.com/Acolarh/${pkgname}/archive/v${pkgver}.tar.gz")
+md5sums=('1af21995faf4636f79dab7a6d7fa7fda')
+
+build() {
+  cd "${srcdir}/${pkgname}-${pkgver}"
+  cmake ./ -DCMAKE_INSTALL_PREFIX=/usr
+  make
+}
+
+package() {
+  cd "${srcdir}/${pkgname}-${pkgver}"
+  install -Dm755 "${pkgname}" "$pkgdir/usr/bin/${pkgname}"
+  install -Dm644 LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+}
+
+
