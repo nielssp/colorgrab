@@ -1,6 +1,8 @@
 # ColorGrab
 A cross-platform color picker.
 
+![ColorGrab on Windows 8.](screenshots/main-win8.png)
+
 ## License
 Copyright (C) 2015 Niels Sonnich Poulsen (http://nielssp.dk)
 
@@ -32,22 +34,18 @@ SOFTWARE.
 ## Install
 
 ### Linux
+An Arch Linux package is available on the [AUR](https://aur.archlinux.org/packages/colorgrab/).
 
-  * install wxgtk
-  * install cmake
-  * `cmake .`
-  * `make`
+To compile ColorGrab on Linux, make sure that you have wxgtk 3.0 or newer, as well as cmake and a C++ compiler. Then run:
+
+    git clone https://github.com/Acolarh/colorgrab
+    cd colorgrab
+    cmake .
+    make
 
 ### Windows
+A Windows-installer (as well as a standalone executable) is available under [releases](https://github.com/Acolarh/colorgrab/releases).
 
-With mingw:
+To compile ColorGrab on Windows you can use [MinGW](http://www.mingw.org). If you use MinGW you will have to manually add GDI+ headers (see [this blog post](http://www.miscdebris.net/blog/2009/09/17/adding-gdi-headers-to-mingw-to-compile-wxwidgets-with-wxgraphicscontext-support/)) before compiling [wxWidgets](http://wxwidgets.org/).
 
-  * install mingw32
-  * add gdiplus headers
-  * enable wxGraphicsContext in setup.h
-  * build wxWidgets >= 3.0.0
-  * install cmake
-
-Or download wxpack?
-
-Maybe easier with VS?
+More information about compiling wxWidgets on Windows is available on the [wxWidgets wiki](https://wiki.wxwidgets.org/Main_Page).
