@@ -44,6 +44,8 @@ public:
         Bind(wxEVT_LEFT_DOWN, &HueSlider::OnSetHue, this);
         Bind(wxEVT_MOTION, &HueSlider::OnSetHue, this);
         Bind(wxEVT_LEFT_UP, &HueSlider::OnSetHue, this);
+        
+        Bind(wxEVT_RIGHT_DOWN, &HueSlider::OnPushColor, this);
     }
     
     void OnPaint(wxPaintEvent& event)
@@ -72,6 +74,11 @@ public:
         }
         wxPoint pos = ScreenToClient(wxGetMousePosition());
         tool->SetHue(1.0 - pos.y / (double) GetClientSize().y);
+    }
+    
+    void OnPushColor(wxMouseEvent& event)
+    {
+        tool->OnPushColor(event);
     }
     
     void Render(wxPaintDC& dc)
@@ -124,6 +131,8 @@ public:
         Bind(wxEVT_LEFT_DOWN, &CrossSection::OnSetPosition, this);
         Bind(wxEVT_MOTION, &CrossSection::OnSetPosition, this);
         Bind(wxEVT_LEFT_UP, &CrossSection::OnSetPosition, this);
+        
+        Bind(wxEVT_RIGHT_DOWN, &CrossSection::OnPushColor, this);
     }
     
     void OnPaint(wxPaintEvent& event)
@@ -154,6 +163,11 @@ public:
         tool->SetLightness(pos.x / (double) GetClientSize().x);
         tool->SetSaturation(1.0 - pos.y / (double) GetClientSize().y);
         Refresh(false);
+    }
+    
+    void OnPushColor(wxMouseEvent& event)
+    {
+        tool->OnPushColor(event);
     }
     
     void Render(wxPaintDC& dc)
@@ -262,4 +276,9 @@ void CylindricalSelectorTool::SetSaturation(double saturation)
     this->saturation = std::min(std::max(saturation, 0.0), 1.0);
     model.setValue(1, round(saturation * 100.0));
     main->SetColor(model.getColor());
+}
+
+void CylindricalSelectorTool::OnPushColor(wxMouseEvent& event)
+{
+    main->PushColor(model.getColor());
 }

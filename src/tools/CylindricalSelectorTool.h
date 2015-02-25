@@ -37,6 +37,8 @@ public:
     
     void SetLightness(double lightness);
     double GetLightness();
+    
+    void OnPushColor(wxMouseEvent& event);
 };
 
 #endif // CYLINDRICALSELECTORTOOL_H
