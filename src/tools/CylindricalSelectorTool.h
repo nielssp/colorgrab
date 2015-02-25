@@ -8,6 +8,8 @@
 
 #include "ToolWindow.h"
 
+#include "colormodels.h"
+
 class HueSlider;
 class CrossSection;
 
@@ -19,10 +21,13 @@ private:
     double lightness;
     HueSlider *hueSlider;
     CrossSection *crossSection;
+    HSLModel model;
 public:
     CylindricalSelectorTool(MainFrame* main);
 
     virtual std::string GetName();
+    
+    virtual void UpdateColor(const wxColour& color);
     
     void SetHue(double hue);
     double GetHue();

@@ -36,6 +36,9 @@ public:
     
     /// Restore tool configuration.
     virtual void Restore(wxConfigBase* config);
+    
+    /// Called when the color in the main window is changed
+    virtual void UpdateColor(const wxColour& color);
 private:
     void OnClose(wxCloseEvent& event);
 };

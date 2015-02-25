@@ -194,6 +194,7 @@ void MainFrame::AddTool(ToolWindow* tool)
     m_toolsMenu->Bind(wxEVT_COMMAND_MENU_SELECTED, &MainFrame::OnSelectTool, this, menuItem->GetId());
     config.SetPath(tool->GetName());
     tool->Restore(&config);
+    tool->UpdateColor(GetColor());
     config.SetPath("..");
 }
 
@@ -313,6 +314,12 @@ void MainFrame::SetColor(const wxColor& color, bool updateInputs, bool updateOut
     colorOutput->setColor(color);
     if (updateOutput)
         m_formatText->ChangeValue(colorOutput->getOutput());
+        
+    for (std::map<int, ToolWindow*>::const_iterator iter = tools.begin(); iter != tools.end(); ++iter )
+    {
+        ToolWindow* tool = iter->second;
+        tool->UpdateColor(color);
+    }
 }
 
 bool MainFrame::ParseColor(std::string colorString)

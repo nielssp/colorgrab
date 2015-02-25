@@ -75,3 +75,7 @@ void ToolWindow::Restore(wxConfigBase* config)
     
     Show(config->ReadBool("IsOpen", false));
 }
+
+void ToolWindow::UpdateColor(const wxColour& color)
+{
+}
