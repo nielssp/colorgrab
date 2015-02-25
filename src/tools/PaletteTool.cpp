@@ -66,17 +66,24 @@ PaletteTool::PaletteTool(MainFrame* main) : ToolWindow(main, wxID_ANY, _("Palett
     
     statusBar = CreateStatusBar();
     
-    t_new = toolBar->AddTool(wxID_ANY, _("New Palette"), wxArtProvider::GetBitmap(wxART_NEW, wxART_TOOLBAR, wxSize(16, 16)));
-    t_open = toolBar->AddTool(wxID_ANY, _("Open Palette"), wxArtProvider::GetBitmap(wxART_FILE_OPEN, wxART_TOOLBAR, wxSize(16, 16)));
+    t_new = toolBar->AddTool(wxID_ANY, _("New Palette"), wxArtProvider::GetBitmap(wxART_NEW, wxART_TOOLBAR, wxSize(16, 16)), _("New palette"));
+    t_open = toolBar->AddTool(wxID_ANY, _("Open Palette"), wxArtProvider::GetBitmap(wxART_FILE_OPEN, wxART_TOOLBAR, wxSize(16, 16)), _("Open palette"));
     toolBar->AddSeparator();
-    t_save = toolBar->AddTool(wxID_ANY, _("Save"), wxArtProvider::GetBitmap(wxART_FILE_SAVE, wxART_TOOLBAR, wxSize(16, 16)));
-    t_saveAs = toolBar->AddTool(wxID_ANY, _("Save As..."), wxArtProvider::GetBitmap(wxART_FILE_SAVE_AS, wxART_TOOLBAR, wxSize(16, 16)));
+    t_save = toolBar->AddTool(wxID_ANY, _("Save"), wxArtProvider::GetBitmap(wxART_FILE_SAVE, wxART_TOOLBAR, wxSize(16, 16)), _("Save Palette"));
+    t_saveAs = toolBar->AddTool(wxID_ANY, _("Save As..."), wxArtProvider::GetBitmap(wxART_FILE_SAVE_AS, wxART_TOOLBAR, wxSize(16, 16)), _("Save palette as..."));
     toolBar->AddSeparator();
-    t_addColor = toolBar->AddTool(wxID_ANY, _("Add Color"), wxArtProvider::GetBitmap(wxART_PLUS, wxART_TOOLBAR, wxSize(16, 16)));
-    t_removeColor = toolBar->AddTool(wxID_ANY, _("Remove Color"), wxArtProvider::GetBitmap(wxART_MINUS, wxART_TOOLBAR, wxSize(16, 16)));
+    t_addColor = toolBar->AddTool(wxID_ANY, _("Add Color"), wxArtProvider::GetBitmap(wxART_PLUS, wxART_TOOLBAR, wxSize(16, 16)), _("Add color"));
+    t_removeColor = toolBar->AddTool(wxID_ANY, _("Remove Color"), wxArtProvider::GetBitmap(wxART_MINUS, wxART_TOOLBAR, wxSize(16, 16)), _("Remove color"));
     t_removeColor->Enable(false);
     toolBar->Realize();
     
+    t_new->SetLongHelp(_("Create a new palette"));
+    t_open->SetLongHelp(_("Open an existing palette"));
+    t_save->SetLongHelp(_("Save palette"));
+    t_saveAs->SetLongHelp(_("Save palette as..."));
+    t_addColor->SetLongHelp(_("Add current primary color"));
+    t_removeColor->SetLongHelp(_("Remove selected color"));
+        
     colorList = new wxDataViewListCtrl(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxDV_ROW_LINES | wxDV_MULTIPLE | wxWANTS_CHARS);
     colorList->AppendColumn(new wxDataViewColumn("", new ColorColumnRenderer, 0));
     colorList->AppendTextColumn(_("Name"), wxDATAVIEW_CELL_EDITABLE );
