@@ -96,7 +96,7 @@ wxColour hslToRgb(double h, double s, double l)
     }
     else
     {
-        double m2;
+        double m2; // m2 = C / 2 + 1
         if (l <= 0.5)
             m2 = l * (s + 1);
         else
@@ -175,7 +175,7 @@ void HSLModel::setColor(const wxColour& color)
             H = (r - g) / C + 4;
         }
     }
-    if (L != 0 && L != 1)
+    if (L != 0)
     {
         S = C / (1 - std::abs(2 * L - 1));
     }
@@ -202,6 +202,134 @@ void HSLModel::setValue(int i, int value)
             if (value < 0) value = 0;
             if (value > 100) value = 100;
             l = value;
+            break;
+    }
+}
+
+std::string HSVModel::getName() const
+{
+    return "HSV";
+}
+
+wxColour hsvToRgb(double h, double s, double v)
+{
+    if (s == 0)
+        return wxColour(v * 255, v * 255, v * 255);
+    h *= 6;
+    int i = (int) h;
+    double f = h - i;
+    double p = v * ( 1 - s );
+	double q = v * ( 1 - s * f );
+	double t = v * ( 1 - s * ( 1 - f ) );
+    switch (i) {
+        case 0:
+            return wxColour(v * 255, t * 255, p * 255);
+        case 1:
+            return wxColour(q * 255, v * 255, p * 255);
+        case 2:
+            return wxColour(p * 255, v * 255, t * 255);
+        case 3:
+            return wxColour(p * 255, q * 255, v * 255);
+        case 4:
+            return wxColour(t * 255, p * 255, v * 255);
+        default:
+            return wxColour(v * 255, p * 255, q * 255);
+    }
+}
+
+wxColour HSVModel::getColor() const
+{
+    return hsvToRgb(h / 360.0, s / 100.0, v / 100.0);
+}
+
+std::string HSVModel::getLabel(int i) const
+{
+    switch (i) {
+        case 0: return "Hue";
+        case 1: return "Saturation";
+        case 2: return "Value";
+        default: return "";
+    }
+}
+int HSVModel::getNumComponents() const
+{
+    return 3;
+}
+int HSVModel::getValue(int i) const
+{
+    switch (i) {
+        case 0: return h;
+        case 1: return s;
+        case 2: return v;
+        default: return 0;
+    }
+}
+int HSVModel::getMin(int i) const
+{
+    return 0;
+}
+int HSVModel::getMax(int i) const
+{
+    switch (i) {
+        case 0: return 360;
+        case 1: return 100;
+        case 2: return 100;
+        default: return 0;
+    }
+}
+void HSVModel::setColor(const wxColour& color)
+{
+    double r = color.Red() / 255.0;
+    double g = color.Green() / 255.0;
+    double b = color.Blue() / 255.0;
+    double M = std::max(std::max(r, g), b);
+    double m = std::min(std::min(r, g), b);
+    double C = M - m;
+    double V = M;
+    double H = 0;
+    double S = 0;
+    if (C != 0)
+    {
+        if (M == r)
+        {
+            H = (g - b) / C;
+        }
+        if (M == g)
+        {
+            H = (b - r) / C + 2;
+        }
+        if (M == b)
+        {
+            H = (r - g) / C + 4;
+        }
+    }
+    if (M != 0)
+    {
+        S = C / M;
+    }
+    h = round(60 * H);
+    if (h < 0) h += 360;
+    if (h >= 360) h -= 360;
+    s = round(S * 100);
+    v = round(V * 100);
+}
+void HSVModel::setValue(int i, int value)
+{
+    switch (i) {
+        case 0:
+            if (value < 0) value = 0;
+            if (value > 360) value = 360;
+            h = value;
+            break;
+        case 1:
+            if (value < 0) value = 0;
+            if (value > 100) value = 100;
+            s = value;
+            break;
+        case 2:
+            if (value < 0) value = 0;
+            if (value > 100) value = 100;
+            v = value;
             break;
     }
 }

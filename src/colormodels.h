@@ -66,6 +66,26 @@ public:
     virtual void setValue(int i, int value);
 };
 
+/// Hue, saturation, value.
+class HSVModel : public IColorModel
+{
+private:
+    int h;
+    int s;
+    int v;
+
+public:
+    virtual std::string getName() const;
+    virtual wxColour getColor() const;
+    virtual std::string getLabel(int i) const;
+    virtual int getNumComponents() const;
+    virtual int getValue(int i) const;
+    virtual int getMin(int i) const;
+    virtual int getMax(int i) const;
+    virtual void setColor(const wxColour& color);
+    virtual void setValue(int i, int value);
+};
+
 /// Cyan, magenta, yellow, key.
 class CMYKModel : public IColorModel
 {

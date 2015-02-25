@@ -54,6 +54,7 @@ MainFrame::MainFrame(wxWindow* parent)
     colorModel = new RGBModel;
     AddColorModel(colorModel);
     AddColorModel(new HSLModel);
+    AddColorModel(new HSVModel);
     AddColorModel(new CMYKModel);
     UpdateColorModel();
     
