@@ -76,16 +76,20 @@ public:
     
     void Render(wxPaintDC& dc)
     {
-        wxSize size = dc.GetSize();
-        for (int y = 0; y < size.y; y++) {
-            double hue = 1.0 - y / (double) size.y;
-            dc.SetPen(wxPen(wxColour(
+        wxImage image(1, 360);
+        for (int y = 0; y < 360; y++) {
+            double hue = 1.0 - y / 360.0;
+            wxColour color = wxColour(
                 hueToRgb(0, 1, hue + 1.0 / 3.0),
                 hueToRgb(0, 1, hue),
                 hueToRgb(0, 1, hue - 1.0 / 3.0)
-            )));
-            dc.DrawLine(0, y, size.x, y);
+            );
+            image.SetRGB(0, y, color.Red(), color.Green(), color.Blue());
         }
+        wxSize size = dc.GetSize();
+        image.Rescale(size.x, size.y, wxIMAGE_QUALITY_NEAREST);
+        dc.DrawBitmap(wxBitmap(image), 0, 0);
+        
         int hue = round((1.0 - tool->GetHue()) * (size.y - 1));
         dc.SetPen(*wxBLACK_PEN);
         dc.DrawLine(0, hue, size.x, hue);
@@ -165,8 +169,9 @@ public:
             }
         }
         wxSize size = dc.GetSize();
-        image.Rescale(size.x, size.y);
+        image.Rescale(size.x, size.y, wxIMAGE_QUALITY_NEAREST);
         dc.DrawBitmap(wxBitmap(image), 0, 0);
+
         int sat = (int)((1.0 - tool->GetSaturation()) * (size.y - 1));
         int lig = (int)(tool->GetLightness() * (size.x - 1));
         dc.SetPen(wxPen(*wxWHITE, 3));
@@ -178,7 +183,7 @@ public:
     }
 };
 
-CylindricalSelectorTool::CylindricalSelectorTool(MainFrame* main) : ToolWindow(main, wxID_ANY, _("Cylindrical Selector Tool"), wxDefaultPosition, wxSize(480, 300))
+CylindricalSelectorTool::CylindricalSelectorTool(MainFrame* main) : ToolWindow(main, wxID_ANY, _("Cylindrical Selector Tool"), wxDefaultPosition, wxSize(300, 250))
 {
     wxBoxSizer* boxSizer = new wxBoxSizer(wxVERTICAL);
     SetSizer(boxSizer);
