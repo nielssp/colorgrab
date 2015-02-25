@@ -15,7 +15,7 @@ public:
     virtual ~IColorModel(){};
 
     virtual std::string getName() const = 0;
-    virtual wxColor getColor() const = 0;
+    virtual wxColour getColor() const = 0;
     virtual std::string getLabel(int i) const = 0;
     virtual int getNumComponents() const = 0;
     virtual int getValue(int i) const = 0;
@@ -33,7 +33,7 @@ private:
     
 public:
     virtual std::string getName() const;
-    virtual wxColor getColor() const;
+    virtual wxColour getColor() const;
     virtual std::string getLabel(int i) const;
     virtual int getNumComponents() const;
     virtual int getValue(int i) const;
@@ -44,6 +44,7 @@ public:
 };
 
 int hueToRgb(double m1, double m2, double hue);
+wxColour hslToRgb(double h, double s, double l);
 
 /// Hue, saturation, lightness.
 class HSLModel : public IColorModel
@@ -55,7 +56,7 @@ private:
 
 public:
     virtual std::string getName() const;
-    virtual wxColor getColor() const;
+    virtual wxColour getColor() const;
     virtual std::string getLabel(int i) const;
     virtual int getNumComponents() const;
     virtual int getValue(int i) const;
@@ -76,7 +77,7 @@ private:
 
 public:
     virtual std::string getName() const;
-    virtual wxColor getColor() const;
+    virtual wxColour getColor() const;
     virtual std::string getLabel(int i) const;
     virtual int getNumComponents() const;
     virtual int getValue(int i) const;

@@ -8,7 +8,7 @@ std::string RGBModel::getName() const
     return "RGB";
 }
 
-wxColor RGBModel::getColor() const
+wxColour RGBModel::getColor() const
 {
     return color;
 }
@@ -87,29 +87,31 @@ int hueToRgb(double m1, double m2, double hue)
 	return 255 * v;
 }
 
-wxColor HSLModel::getColor() const
+wxColour hslToRgb(double h, double s, double l)
 {
-    double S = s / 100.0;
-    double L = l / 100.0;
     int r, g, b;
     if (s == 0)
     {
-        r = g = b = L * 255;
+        r = g = b = l * 255;
     }
     else
     {
         double m2;
-        if (L <= 0.5)
-            m2 = L * (S + 1);
+        if (l <= 0.5)
+            m2 = l * (s + 1);
         else
-            m2 = L + S - L * S;
-        double m1 = L * 2 - m2;
-        double H = h / 360.0;
-        r = hueToRgb(m1, m2, H + 1.0 / 3.0);
-        g = hueToRgb(m1, m2, H);
-        b = hueToRgb(m1, m2, H - 1.0 / 3.0);
+            m2 = l + s - l * s;
+        double m1 = l * 2 - m2;
+        r = hueToRgb(m1, m2, h + 1.0 / 3.0);
+        g = hueToRgb(m1, m2, h);
+        b = hueToRgb(m1, m2, h - 1.0 / 3.0);
     }
     return wxColour(r, g, b);
+}
+
+wxColour HSLModel::getColor() const
+{
+    return hslToRgb(h / 360.0, s / 100.0, l / 100.0);
 }
 
 std::string HSLModel::getLabel(int i) const
@@ -210,7 +212,7 @@ std::string CMYKModel::getName() const
     return "CMYK";
 }
 
-wxColor CMYKModel::getColor() const
+wxColour CMYKModel::getColor() const
 {
     int r = round(255.0 * (1 - c / 100.0) * (1 - k / 100.0));
     int g = round(255.0 * (1 - m / 100.0) * (1 - k / 100.0));
