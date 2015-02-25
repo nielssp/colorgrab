@@ -9,6 +9,7 @@
 #include "coloroutputs.h"
 #include "ToolWindow.h"
 #include "tools/PaletteTool.h"
+#include "tools/CylindricalSelectorTool.h"
 
 #include <wx/aboutdlg.h>
 #include <wx/dcscreen.h>
@@ -78,6 +79,7 @@ MainFrame::MainFrame(wxWindow* parent)
     }
     
     AddTool(new PaletteTool(this));
+    AddTool(new CylindricalSelectorTool(this));
 }
 
 MainFrame::~MainFrame()
@@ -244,7 +246,7 @@ void MainFrame::OnAbout(wxCommandEvent& event)
     wxUnusedVar(event);
     wxAboutDialogInfo info;
     info.SetName("ColorGrab");
-    info.SetVersion("0.1");
+    info.SetVersion("0.2-dev");
     info.SetWebSite("http://nielssp.dk");
     info.SetCopyright(_("(C) 2015 Niels Sonnich Poulsen"));
     info.SetLicence(_("Copyright (C) 2015 Niels Sonnich Poulsen (http://nielssp.dk)\n\

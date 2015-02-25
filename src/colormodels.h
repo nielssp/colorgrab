@@ -43,6 +43,8 @@ public:
     virtual void setValue(int i, int value);
 };
 
+int hueToRgb(double m1, double m2, double hue);
+
 /// Hue, saturation, lightness.
 class HSLModel : public IColorModel
 {
