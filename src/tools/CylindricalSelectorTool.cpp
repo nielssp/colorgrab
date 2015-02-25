@@ -191,15 +191,15 @@ CylindricalSelectorTool::CylindricalSelectorTool(MainFrame* main) : ToolWindow(m
     wxPanel *mainPanel = new wxPanel(this, wxID_ANY, wxDefaultPosition, wxSize(-1,-1), wxTAB_TRAVERSAL);
     boxSizer->Add(mainPanel, 1, wxEXPAND, 5);
     
-    wxFlexGridSizer *sizer = new wxFlexGridSizer(2, 2, 0, 0);
+    wxFlexGridSizer *sizer = new wxFlexGridSizer(1, 2, 0, 0);
     sizer->AddGrowableCol(1);
-    sizer->AddGrowableRow(1);
+    sizer->AddGrowableRow(0);
     
-    wxStaticText *text = new wxStaticText(mainPanel, wxID_ANY, wxT(""));
-    sizer->Add(text, 1, wxALL | wxEXPAND, 5);
-    
-    wxChoice *choice = new wxChoice(mainPanel, wxID_ANY);
-    sizer->Add(choice, 1, wxALL | wxEXPAND, 5);
+//    wxStaticText *text = new wxStaticText(mainPanel, wxID_ANY, wxT(""));
+//    sizer->Add(text, 1, wxALL | wxEXPAND, 5);
+//    
+//    wxChoice *choice = new wxChoice(mainPanel, wxID_ANY);
+//    sizer->Add(choice, 1, wxALL | wxEXPAND, 5);
     
     hueSlider = new HueSlider(this, mainPanel, wxID_ANY, wxDefaultPosition, wxSize(-1, -1), wxBORDER_THEME);
     sizer->Add(hueSlider, 1, wxALL | wxEXPAND, 5);
