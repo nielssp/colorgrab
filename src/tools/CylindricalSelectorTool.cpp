@@ -160,8 +160,8 @@ public:
             return;
         }
         wxPoint pos = ScreenToClient(wxGetMousePosition());
-        tool->SetLightness(pos.x / (double) GetClientSize().x);
-        tool->SetSaturation(1.0 - pos.y / (double) GetClientSize().y);
+        tool->SetB(pos.x / (double) GetClientSize().x);
+        tool->SetA(1.0 - pos.y / (double) GetClientSize().y);
         Refresh(false);
     }
     
@@ -176,9 +176,9 @@ public:
         double hue = tool->GetHue();
         for (int x = 0; x <= 100; x++) {
             for (int y = 0; y <= 100; y++) {
-                double lig = x / 100.0;
-                double sat = 1.0 - y / 100.0;
-                wxColour color = hslToRgb(hue, sat ,lig);
+                double b = x / 100.0;
+                double a = 1.0 - y / 100.0;
+                wxColour color = tool->ToRgb(hue, a ,b);
                 image.SetRGB(x, y, color.Red(), color.Green(), color.Blue());
             }
         }
@@ -186,34 +186,44 @@ public:
         image.Rescale(size.x, size.y, wxIMAGE_QUALITY_NEAREST);
         dc.DrawBitmap(wxBitmap(image), 0, 0);
 
-        int sat = (int)((1.0 - tool->GetSaturation()) * (size.y - 1));
-        int lig = (int)(tool->GetLightness() * (size.x - 1));
+        int a = (int)((1.0 - tool->GetA()) * (size.y - 1));
+        int b = (int)(tool->GetB() * (size.x - 1));
         dc.SetPen(wxPen(*wxWHITE, 3));
-        dc.DrawLine(0, sat, size.x, sat);
-        dc.DrawLine(lig, 0, lig, size.y);
+        dc.DrawLine(0, a, size.x, a);
+        dc.DrawLine(b, 0, b, size.y);
         dc.SetPen(*wxBLACK_PEN);
-        dc.DrawLine(0, sat, size.x, sat);
-        dc.DrawLine(lig, 0, lig, size.y);
+        dc.DrawLine(0, a, size.x, a);
+        dc.DrawLine(b, 0, b, size.y);
     }
 };
 
-CylindricalSelectorTool::CylindricalSelectorTool(MainFrame* main) : ToolWindow(main, wxID_ANY, _("Cylindrical Selector Tool"), wxDefaultPosition, wxSize(300, 250))
+struct CylColorSpace
 {
+    wxString name;
+    wxColour (*toRgb)(double hue, double a, double b);
+    IColorModel *model;
+};
+
+CylindricalSelectorTool::CylindricalSelectorTool(MainFrame* main) : ToolWindow(main, wxID_ANY, _("Cylindrical Selector Tool"))
+{
+    model = new HSLModel;
+    toRgb = &hslToRgb;
+
     wxBoxSizer* boxSizer = new wxBoxSizer(wxVERTICAL);
     SetSizer(boxSizer);
         
     wxPanel *mainPanel = new wxPanel(this, wxID_ANY, wxDefaultPosition, wxSize(-1,-1), wxTAB_TRAVERSAL);
     boxSizer->Add(mainPanel, 1, wxEXPAND, 5);
     
-    wxFlexGridSizer *sizer = new wxFlexGridSizer(1, 2, 0, 0);
+    wxFlexGridSizer *sizer = new wxFlexGridSizer(2, 2, 0, 0);
     sizer->AddGrowableCol(1);
-    sizer->AddGrowableRow(0);
+    sizer->AddGrowableRow(1);
     
-//    wxStaticText *text = new wxStaticText(mainPanel, wxID_ANY, wxT(""));
-//    sizer->Add(text, 1, wxALL | wxEXPAND, 5);
-//    
-//    wxChoice *choice = new wxChoice(mainPanel, wxID_ANY);
-//    sizer->Add(choice, 1, wxALL | wxEXPAND, 5);
+    wxStaticText *text = new wxStaticText(mainPanel, wxID_ANY, wxT(""));
+    sizer->Add(text, 1, wxALL | wxEXPAND, 5);
+    
+    spaceChoice = new wxChoice(mainPanel, wxID_ANY);
+    sizer->Add(spaceChoice, 1, wxALL | wxEXPAND, 5);
     
     hueSlider = new HueSlider(this, mainPanel, wxID_ANY, wxDefaultPosition, wxSize(-1, -1), wxBORDER_THEME);
     sizer->Add(hueSlider, 1, wxALL | wxEXPAND, 5);
@@ -222,7 +232,35 @@ CylindricalSelectorTool::CylindricalSelectorTool(MainFrame* main) : ToolWindow(m
     sizer->Add(crossSection, 1, wxALL | wxEXPAND, 5);
     
     mainPanel->SetSizerAndFit(sizer);
-    SetSizerAndFit(boxSizer);
+    SetSizer(boxSizer);
+    SetSize(wxSize(300, 250));
+    
+    Bind(wxEVT_CHOICE, &CylindricalSelectorTool::OnSelectColorSpace, this);
+    
+    AddColorSpace("Hue, Saturation, Lightness", &hslToRgb, model);
+    AddColorSpace("Hue, Saturation, Value", &hsvToRgb, new HSVModel);
+    spaceChoice->SetSelection(0);
+}
+
+void CylindricalSelectorTool::AddColorSpace(const wxString& name, wxColour (*toRgb)(double hue, double a, double b), IColorModel *model)
+{
+    CylColorSpace* space = new CylColorSpace;
+    space->name = name;
+    space->toRgb = toRgb;
+    space->model = model;
+    colorSpaces.push_back(space);
+    spaceChoice->Append(name);
+}
+
+void CylindricalSelectorTool::SetColorSpace(CylColorSpace* colorSpace)
+{
+    toRgb = colorSpace->toRgb;
+    model = colorSpace->model;
+    model->setColor(main->GetColor());
+    this->hue = model->getValue(0) / 360.0;
+    this->a = model->getValue(1) / 100.0;
+    this->b = model->getValue(2) / 100.0;
+    crossSection->Refresh(false);
 }
 
 std::string CylindricalSelectorTool::GetName()
@@ -230,16 +268,38 @@ std::string CylindricalSelectorTool::GetName()
     return "CylindricalSelectorTool";
 }
 
+void CylindricalSelectorTool::Store(wxConfigBase* config)
+{
+    ToolWindow::Store(config);
+    
+    config->Write("ColorSpace", spaceChoice->GetSelection());
+}
+
+void CylindricalSelectorTool::Restore(wxConfigBase* config)
+{
+    ToolWindow::Restore(config);
+    
+    spaceChoice->SetSelection(config->ReadLong("ColorSpace", 0));
+    size_t selection = spaceChoice->GetSelection();
+    if (selection >= 0 && selection < colorSpaces.size())
+        SetColorSpace(colorSpaces[selection]);
+}
+
 void CylindricalSelectorTool::UpdateColor(const wxColour& color)
 {
-    if (model.getColor() == color)
+    if (model->getColor() == color)
         return;
-    model.setColor(color);
-    this->hue = model.getValue(0) / 360.0;
-    this->saturation = model.getValue(1) / 100.0;
-    this->lightness = model.getValue(2) / 100.0;
+    model->setColor(color);
+    this->hue = model->getValue(0) / 360.0;
+    this->a = model->getValue(1) / 100.0;
+    this->b = model->getValue(2) / 100.0;
     hueSlider->Refresh(false);
     crossSection->Refresh(false);
+}
+
+wxColour CylindricalSelectorTool::ToRgb(double hue, double a, double b)
+{
+    return toRgb(hue, a, b);
 }
 
 double CylindricalSelectorTool::GetHue() {
@@ -250,35 +310,42 @@ void CylindricalSelectorTool::SetHue(double hue) {
     this->hue = std::min(std::max(hue, 0.0), 1.0);
     hueSlider->Refresh(false);
     crossSection->Refresh(false);
-    model.setValue(0, round(hue * 360.0));
-    main->SetColor(model.getColor());
+    model->setValue(0, round(hue * 360.0));
+    main->SetColor(model->getColor());
 }
 
-double CylindricalSelectorTool::GetLightness()
+double CylindricalSelectorTool::GetB()
 {
-    return lightness;
+    return b;
 }
 
-void CylindricalSelectorTool::SetLightness(double lightness)
+void CylindricalSelectorTool::SetB(double b)
 {
-    this->lightness = std::min(std::max(lightness, 0.0), 1.0);
-    model.setValue(2, round(lightness * 100.0));
-    main->SetColor(model.getColor());
+    this->b = std::min(std::max(b, 0.0), 1.0);
+    model->setValue(2, round(b * 100.0));
+    main->SetColor(model->getColor());
 }
 
-double CylindricalSelectorTool::GetSaturation()
+double CylindricalSelectorTool::GetA()
 {
-    return saturation;
+    return a;
 }
 
-void CylindricalSelectorTool::SetSaturation(double saturation)
+void CylindricalSelectorTool::SetA(double a)
 {
-    this->saturation = std::min(std::max(saturation, 0.0), 1.0);
-    model.setValue(1, round(saturation * 100.0));
-    main->SetColor(model.getColor());
+    this->a = std::min(std::max(a, 0.0), 1.0);
+    model->setValue(1, round(a * 100.0));
+    main->SetColor(model->getColor());
 }
 
 void CylindricalSelectorTool::OnPushColor(wxMouseEvent& event)
 {
-    main->PushColor(model.getColor());
+    main->PushColor(model->getColor());
+}
+
+void CylindricalSelectorTool::OnSelectColorSpace(wxCommandEvent& event)
+{
+    size_t selection = spaceChoice->GetSelection();
+    if (selection >= 0 && selection < colorSpaces.size())
+        SetColorSpace(colorSpaces[selection]);
 }

@@ -66,6 +66,8 @@ public:
     virtual void setValue(int i, int value);
 };
 
+wxColour hsvToRgb(double h, double s, double l);
+
 /// Hue, saturation, value.
 class HSVModel : public IColorModel
 {

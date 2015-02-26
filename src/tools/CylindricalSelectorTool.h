@@ -10,35 +10,52 @@
 
 #include "colormodels.h"
 
+#include <vector>
+
 class HueSlider;
 class CrossSection;
+class wxChoice;
+
+struct CylColorSpace;
 
 class CylindricalSelectorTool : public ToolWindow
 {
 private:
+    std::vector<CylColorSpace*> colorSpaces;
     double hue;
-    double saturation;
-    double lightness;
-    HueSlider *hueSlider;
-    CrossSection *crossSection;
-    HSLModel model;
+    double a;
+    double b;
+    HueSlider* hueSlider;
+    CrossSection* crossSection;
+    wxChoice* spaceChoice;
+    wxColour (*toRgb)(double hue, double a, double b);
+    IColorModel* model;
+    
+    void AddColorSpace(const wxString& name, wxColour (*toRgb)(double hue, double a, double b), IColorModel *model);
+    void SetColorSpace(CylColorSpace* colorSpace);
 public:
     CylindricalSelectorTool(MainFrame* main);
 
     virtual std::string GetName();
     
+    virtual void Store(wxConfigBase* config);
+    virtual void Restore(wxConfigBase* config);
+    
     virtual void UpdateColor(const wxColour& color);
+    
+    wxColour ToRgb(double hue, double a, double b);
     
     void SetHue(double hue);
     double GetHue();
     
-    void SetSaturation(double saturation);
-    double GetSaturation();
+    void SetA(double a);
+    double GetA();
     
-    void SetLightness(double lightness);
-    double GetLightness();
+    void SetB(double b);
+    double GetB();
     
     void OnPushColor(wxMouseEvent& event);
+    void OnSelectColorSpace(wxCommandEvent& event);
 };
 
 #endif // CYLINDRICALSELECTORTOOL_H

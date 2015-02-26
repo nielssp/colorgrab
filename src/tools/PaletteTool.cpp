@@ -83,6 +83,14 @@ PaletteTool::PaletteTool(MainFrame* main) : ToolWindow(main, wxID_ANY, _("Palett
     t_saveAs->SetLongHelp(_("Save palette as..."));
     t_addColor->SetLongHelp(_("Add current primary color"));
     t_removeColor->SetLongHelp(_("Remove selected color"));
+    
+    wxAcceleratorEntry entries[4];
+    entries[0].Set(wxACCEL_CTRL, (int) 'N', t_new->GetId());
+    entries[1].Set(wxACCEL_CTRL, (int) 'O', t_open->GetId());
+    entries[2].Set(wxACCEL_CTRL, (int) 'S', t_save->GetId());
+    entries[3].Set(wxACCEL_CTRL | wxACCEL_SHIFT, (int) 'S', t_saveAs->GetId());
+    wxAcceleratorTable accel(4, entries);
+    SetAcceleratorTable(accel);
         
     colorList = new wxDataViewListCtrl(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxDV_ROW_LINES | wxDV_MULTIPLE | wxWANTS_CHARS);
     colorList->AppendColumn(new wxDataViewColumn("", new ColorColumnRenderer, 0));

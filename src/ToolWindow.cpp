@@ -8,6 +8,8 @@
 #include "MainFrame.h"
 
 #include <wx/confbase.h>
+#include <wx/msgdlg.h>
+#include <wx/accel.h>
 
 ToolWindow::ToolWindow(MainFrame *main, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style)
     : wxFrame(main, id, title, pos, size, style)
