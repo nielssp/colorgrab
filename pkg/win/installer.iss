@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "ColorGrab"
-#define MyAppVersion "0.1"
+#define MyAppVersion "0.2"
 #define MyAppPublisher "Niels Sonnich Poulsen"
 #define MyAppURL "https://github.com/Acolarh/colorgrab"
 #define MyAppExeName "ColorGrab.exe"
@@ -27,7 +27,7 @@ OutputBaseFilename={#MyAppName}-{#MyAppVersion}-setup
 Compression=lzma
 SolidCompression=yes
 ChangesAssociations=yes
-MinVersion=0,5.01
+MinVersion=0,5.0
 AlwaysShowGroupOnReadyPage=True
 AlwaysShowDirOnReadyPage=True
 Uninstallable=yes

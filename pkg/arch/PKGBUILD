@@ -1,6 +1,6 @@
 # Maintainer: Niels Sonnich Poulsen <niels@nielssp.dk>
 pkgname=colorgrab
-pkgver=0.1
+pkgver=0.2
 pkgrel=1
 pkgdesc="A cross-platform color picker."
 url="https://github.com/Acolarh/colorgrab"
