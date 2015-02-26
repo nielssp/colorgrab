@@ -2,6 +2,8 @@
 A cross-platform color picker.
 
 ![ColorGrab on Windows 8.](screenshots/main-win8.png)
+![ColorGrab palette tool.](screenshots/palette-kde.png)
+![ColorGrab HSV/HSL selector.](screenshots/selector-kde.png)
 
 ## License
 Copyright (C) 2015 Niels Sonnich Poulsen (http://nielssp.dk)
