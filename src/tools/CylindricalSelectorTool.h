@@ -35,6 +35,7 @@ private:
     void SetColorSpace(CylColorSpace* colorSpace);
 public:
     CylindricalSelectorTool(MainFrame* main);
+    ~CylindricalSelectorTool();
 
     virtual std::string GetName();
     

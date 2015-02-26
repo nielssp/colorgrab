@@ -242,6 +242,11 @@ CylindricalSelectorTool::CylindricalSelectorTool(MainFrame* main) : ToolWindow(m
     spaceChoice->SetSelection(0);
 }
 
+CylindricalSelectorTool::~CylindricalSelectorTool()
+{
+    
+}
+
 void CylindricalSelectorTool::AddColorSpace(const wxString& name, wxColour (*toRgb)(double hue, double a, double b), IColorModel *model)
 {
     CylColorSpace* space = new CylColorSpace;

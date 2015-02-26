@@ -213,6 +213,8 @@ std::string HSVModel::getName() const
 
 wxColour hsvToRgb(double h, double s, double v)
 {
+    if (h >= 1) h -= 1;
+    if (h < 0) h += 1;
     if (s == 0)
         return wxColour(v * 255, v * 255, v * 255);
     h *= 6;
