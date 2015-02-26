@@ -91,9 +91,16 @@ MainFrame::MainFrame(wxWindow* parent)
     AddTool(new PaletteTool(this));
     AddTool(new CylindricalSelectorTool(this));
     
-    AddCursor(_("Crosshair"), *wxCROSS_CURSOR);
-    AddCursor(_("Magnifier"), wxCursor(wxCURSOR_MAGNIFIER));
-    AddCursor(_("Bull's eye"), wxCursor(wxCURSOR_BULLSEYE));
+    AddCursor(_("&Crosshair"), *wxCROSS_CURSOR);
+    AddCursor(_("&Magnifier"), wxCursor(wxCURSOR_MAGNIFIER));
+    AddCursor(_("&Bullseye"), wxCursor(wxCURSOR_BULLSEYE));
+
+    #include "../img/eyedropper.xpm"
+    wxImage eyedropper(eyedropper_xpm);
+    eyedropper.SetOption(wxIMAGE_OPTION_CUR_HOTSPOT_X, 0);
+    eyedropper.SetOption(wxIMAGE_OPTION_CUR_HOTSPOT_Y, 17);
+    wxCursor eyedropperCursor(eyedropper);
+    AddCursor(_("&Eyedropper"), eyedropperCursor);
 }
 
 MainFrame::~MainFrame()
