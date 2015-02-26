@@ -232,7 +232,7 @@ CylindricalSelectorTool::CylindricalSelectorTool(MainFrame* main) : ToolWindow(m
     sizer->Add(crossSection, 1, wxALL | wxEXPAND, 5);
     
     mainPanel->SetSizerAndFit(sizer);
-    SetSizer(boxSizer);
+    SetSizerAndFit(boxSizer);
     SetSize(wxSize(300, 250));
     
     Bind(wxEVT_CHOICE, &CylindricalSelectorTool::OnSelectColorSpace, this);

@@ -44,6 +44,15 @@ MainFrame::MainFrame(wxWindow* parent)
     Bind(wxEVT_TIMER, &MainFrame::OnRefreshTimerEvent, this, refreshTimer.GetId());
     RestorePosition();
     
+    bool alwaysOnTop = config.ReadBool("Main/AlwaysOnTop", true);
+    if (alwaysOnTop) {
+        SetWindowStyle(GetWindowStyle() | wxSTAY_ON_TOP);
+        m_alwaysOnTopSetting->Check(true);
+    }
+    else {
+        SetWindowStyle(GetWindowStyle() & ~wxSTAY_ON_TOP);
+    }
+    
     colorOutput = new HtmlHexOutput;
     AddColorOutput(colorOutput);
     AddColorOutput(new CssRgbOutput);
@@ -81,6 +90,10 @@ MainFrame::MainFrame(wxWindow* parent)
     
     AddTool(new PaletteTool(this));
     AddTool(new CylindricalSelectorTool(this));
+    
+    AddCursor(_("Crosshair"), *wxCROSS_CURSOR);
+    AddCursor(_("Magnifier"), wxCursor(wxCURSOR_MAGNIFIER));
+    AddCursor(_("Bull's eye"), wxCursor(wxCURSOR_BULLSEYE));
 }
 
 MainFrame::~MainFrame()
@@ -96,20 +109,28 @@ MainFrame::~MainFrame()
     config.Write("Main/Model", wxString(colorModel->getName()));
     config.Write("Main/Output", wxString(colorOutput->getName()));
     
+    config.Write("Main/AlwaysOnTop", (GetWindowStyle() & wxSTAY_ON_TOP) != 0);
+
     // Save stack colors
-    for (size_t i = 0; i < 10; i++)
-    {
+    for(size_t i = 0; i < 10; i++) {
         wxWindow* stackColor = m_colorStack->GetSizer()->GetItem(i)->GetWindow();
-        config.Write(wxString::Format("Main/Stack/Color%d", (int) i), stackColor->GetBackgroundColour());
+        config.Write(wxString::Format("Main/Stack/Color%d", (int)i), stackColor->GetBackgroundColour());
     }
-    
+
     // Save state of tool windows
-    for (std::map<int, ToolWindow*>::const_iterator iter = tools.begin(); iter != tools.end(); ++iter )
-    {
+    for(std::map<int, ToolWindow*>::const_iterator iter = tools.begin(); iter != tools.end(); ++iter) {
         ToolWindow* tool = iter->second;
         config.SetPath(tool->GetName());
         tool->Store(&config);
         config.SetPath("..");
+    }
+
+    // Save cursor
+    for(std::map<int, std::pair<wxString, wxCursor> >::const_iterator iter = cursors.begin(); iter != cursors.end(); ++iter) {
+        if (m_cursorMenu->IsChecked(iter->first)) {
+            config.Write("Main/Cursor", iter->second.first);
+            break;
+        }
     }
 }
 
@@ -197,6 +218,18 @@ void MainFrame::AddTool(ToolWindow* tool)
     tool->Restore(&config);
     tool->UpdateColor(GetColor());
     config.SetPath("..");
+}
+
+void MainFrame::AddCursor(const wxString& label, const wxCursor& cursor)
+{
+    wxMenuItem* menuItem = new wxMenuItem(m_cursorMenu, wxID_ANY, label, wxT(""), wxITEM_RADIO);
+    m_cursorMenu->Append(menuItem);
+    if (label == config.Read("Main/Cursor", _("Crosshair"))) {
+        m_zoomPanel->SetCursor(cursor);
+        menuItem->Check();
+    }
+    cursors[menuItem->GetId()] = std::make_pair(label, cursor);
+    m_cursorMenu->Bind(wxEVT_COMMAND_MENU_SELECTED, &MainFrame::OnSelectCursor, this, menuItem->GetId());
 }
 
 void MainFrame::SetColorModel(IColorModel* colorModel)
@@ -344,7 +377,7 @@ void MainFrame::OnCaptureStart(wxMouseEvent& event)
     SetColorFromMouse();
     UpdateZoomArea();
     CaptureMouse();
-    SetCursor(*wxCROSS_CURSOR);
+    SetCursor(m_zoomPanel->GetCursor());
     capturing = true;
     SetFocus();
 }
@@ -418,6 +451,12 @@ void MainFrame::OnSelectTool(wxCommandEvent& event)
     tool->Show(!tool->IsVisible());
     if (tool->IsVisible())
         tool->SetFocus();
+}
+
+void MainFrame::OnSelectCursor(wxCommandEvent& event)
+{
+    wxCursor cursor = cursors[event.GetId()].second;
+    m_zoomPanel->SetCursor(cursor);
 }
 
 void MainFrame::OnSelectColorModel(wxCommandEvent& event)
@@ -553,4 +592,9 @@ ColorOutput* MainFrame::GetColorOutput() const
 IColorModel* MainFrame::GetColorModel() const
 {
     return colorModel;
+}
+
+void MainFrame::OnSetAlwaysOnTop(wxCommandEvent& event)
+{
+    SetWindowStyle(GetWindowStyle() ^ wxSTAY_ON_TOP);
 }

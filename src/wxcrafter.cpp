@@ -240,6 +240,14 @@ MainFrameBaseClass::MainFrameBaseClass(wxWindow* parent, wxWindowID id, const wx
     m_colorOutputMenu = new wxMenu();
     m_settingsMenu->AppendSubMenu(m_colorOutputMenu, _("Color &Output"));
     
+    m_settingsMenu->AppendSeparator();
+    
+    m_cursorMenu = new wxMenu();
+    m_settingsMenu->AppendSubMenu(m_cursorMenu, _("&Cursor"));
+    
+    m_alwaysOnTopSetting = new wxMenuItem(m_settingsMenu, wxID_ANY, _("&Always On Top"), wxT(""), wxITEM_CHECK);
+    m_settingsMenu->Append(m_alwaysOnTopSetting);
+    
     SetSizeHints(-1,-1);
     if ( GetSizer() ) {
          GetSizer()->Fit(this);
@@ -279,6 +287,7 @@ MainFrameBaseClass::MainFrameBaseClass(wxWindow* parent, wxWindowID id, const wx
     this->Connect(m_menuItem9->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(MainFrameBaseClass::OnAbout), NULL, this);
     this->Connect(m_menuItem7->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(MainFrameBaseClass::OnExit), NULL, this);
     this->Connect(m_menuItem79->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(MainFrameBaseClass::OnSystemColorPicker), NULL, this);
+    this->Connect(m_alwaysOnTopSetting->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(MainFrameBaseClass::OnSetAlwaysOnTop), NULL, this);
     
 }
 
@@ -317,5 +326,6 @@ MainFrameBaseClass::~MainFrameBaseClass()
     this->Disconnect(m_menuItem9->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(MainFrameBaseClass::OnAbout), NULL, this);
     this->Disconnect(m_menuItem7->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(MainFrameBaseClass::OnExit), NULL, this);
     this->Disconnect(m_menuItem79->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(MainFrameBaseClass::OnSystemColorPicker), NULL, this);
+    this->Disconnect(m_alwaysOnTopSetting->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(MainFrameBaseClass::OnSetAlwaysOnTop), NULL, this);
     
 }

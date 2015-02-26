@@ -56,6 +56,9 @@ protected:
     wxMenu* m_settingsMenu;
     wxMenu* m_colorModelMenu;
     wxMenu* m_colorOutputMenu;
+    wxMenuItem* m_menuItem202;
+    wxMenu* m_cursorMenu;
+    wxMenuItem* m_alwaysOnTopSetting;
 
 protected:
     virtual void OnCaptureEnd(wxMouseEvent& event) { event.Skip(); }
@@ -84,6 +87,7 @@ protected:
     virtual void OnAbout(wxCommandEvent& event) { event.Skip(); }
     virtual void OnExit(wxCommandEvent& event) { event.Skip(); }
     virtual void OnSystemColorPicker(wxCommandEvent& event) { event.Skip(); }
+    virtual void OnSetAlwaysOnTop(wxCommandEvent& event) { event.Skip(); }
 
 public:
     MainFrameBaseClass(wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = _("ColorGrab"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize(-1,-1), long style = wxCAPTION|wxMINIMIZE_BOX|wxSYSTEM_MENU|wxCLOSE_BOX|wxSTAY_ON_TOP);

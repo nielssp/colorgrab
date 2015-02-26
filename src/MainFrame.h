@@ -29,6 +29,7 @@ private:
     std::map<int, ColorOutput*> colorOutputs;
     std::map<int, wxPanel*> stackColors;
     std::map<int, ToolWindow*> tools;
+    std::map<int, std::pair<wxString, wxCursor> > cursors;
     ColorOutput* colorOutput;
     void RestorePosition();
 
@@ -66,6 +67,9 @@ public:
 
     /// Add a tool to the bottom of the tools-menu.
     void AddTool(ToolWindow* tool);
+    
+    /// Add a cursor to the bottom of the cursors-menu
+    void AddCursor(const wxString& label, const wxCursor& cursor);
 
     /// Push a color to the top of the color stack.
     void PushColor(const wxColour& color);
@@ -89,6 +93,7 @@ public:
     void UpdateZoomArea();
 
 protected:
+    virtual void OnSetAlwaysOnTop(wxCommandEvent& event);
     virtual void OnDragColor(wxMouseEvent& event);
     virtual void OnCopyColor(wxCommandEvent& event);
     virtual void OnCopyMagnifiedArea(wxCommandEvent& event);
@@ -117,6 +122,7 @@ protected:
     virtual void OnSelectColorModel(wxCommandEvent& event);
     virtual void OnSelectColorOutput(wxCommandEvent& event);
     virtual void OnSelectTool(wxCommandEvent& event);
+    virtual void OnSelectCursor(wxCommandEvent& event);
     virtual void OnSelectTiming(wxCommandEvent& event);
     virtual void OnRefreshTimerEvent(wxTimerEvent& event);
 };
