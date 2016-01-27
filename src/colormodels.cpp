@@ -149,6 +149,9 @@ int HSLModel::getMax(int i) const
         default: return 0;
     }
 }
+
+#include <stdlib.h>
+
 void HSLModel::setColor(const wxColour& color)
 {
     double r = color.Red() / 255.0;
@@ -175,7 +178,7 @@ void HSLModel::setColor(const wxColour& color)
             H = (r - g) / C + 4;
         }
     }
-    if (L != 0)
+    if (L != 0 && L != 1)
     {
         S = C / (1 - std::abs(2 * L - 1));
     }
