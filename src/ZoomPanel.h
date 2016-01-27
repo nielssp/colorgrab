@@ -52,6 +52,8 @@ public:
 
     /// Refresh the image.
     void Update();
+    
+    void OnResize(wxSizeEvent& event);
 
     DECLARE_EVENT_TABLE()
 };

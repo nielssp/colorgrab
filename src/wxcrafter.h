@@ -94,7 +94,7 @@ protected:
     virtual void OnSetCommaSpace(wxCommandEvent& event) { event.Skip(); }
 
 public:
-    MainFrameBaseClass(wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = _("ColorGrab"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize(-1,-1), long style = wxCAPTION|wxMINIMIZE_BOX|wxSYSTEM_MENU|wxCLOSE_BOX|wxSTAY_ON_TOP);
+    MainFrameBaseClass(wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = _("ColorGrab"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize(-1,-1), long style = wxCAPTION|wxMINIMIZE_BOX|wxSYSTEM_MENU|wxCLOSE_BOX|wxSTAY_ON_TOP|wxRESIZE_BORDER);
     virtual ~MainFrameBaseClass();
 };
 

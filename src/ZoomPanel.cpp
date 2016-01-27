@@ -16,12 +16,14 @@ ZoomPanel::ZoomPanel(wxWindow* parent, wxWindowID id, const wxPoint& pos, const 
     showPoi = false;
     zoom = 4;
     SetCursor(*wxCROSS_CURSOR);
+//    Bind(wxEVT_SIZE, &ZoomPanel::OnResize, this);
 }
 
 
 BEGIN_EVENT_TABLE(ZoomPanel, wxPanel)
 
     EVT_PAINT(ZoomPanel::paintEvent)
+    EVT_SIZE(ZoomPanel::OnResize)
 
 END_EVENT_TABLE()
 
@@ -40,6 +42,12 @@ void ZoomPanel::paintNow()
 wxBitmap ZoomPanel::getImage() const
 {
     return image;
+}
+
+    
+void ZoomPanel::OnResize(wxSizeEvent& event)
+{
+    Update();
 }
 
 void ZoomPanel::render(wxPaintDC& dc)
@@ -102,7 +110,8 @@ void ZoomPanel::ShowPoi(bool show) {
 
 void ZoomPanel::UpdateRoi() {
     wxSize screenSize = wxGetDisplaySize();
-    wxSize zoomArea(128 / zoom, 128 / zoom);
+    wxSize panelSize = GetSize();
+    wxSize zoomArea(panelSize.x / zoom, panelSize.y / zoom);
     roiCorner.x = 0;
     roiCorner.y = 0;
     if (poi.x > zoomArea.x / 2) {
@@ -121,13 +130,14 @@ void ZoomPanel::UpdateRoi() {
 
 void ZoomPanel::Update()
 {
-    wxSize zoomArea(128 / zoom, 128 / zoom);
+    wxSize panelSize = GetSize();
+    wxSize zoomArea(panelSize.x / zoom, panelSize.y / zoom);
     int x = roiCorner.x, y = roiCorner.y;
-    wxBitmap bitmap(128, 128);
+    wxBitmap bitmap(panelSize.x, panelSize.y);
     wxScreenDC dc;
     wxMemoryDC memDC;
     memDC.SelectObject(bitmap);
-    memDC.StretchBlit(0, 0, 128, 128, &dc, x, y, zoomArea.x, zoomArea.y);
+    memDC.StretchBlit(0, 0, panelSize.x, panelSize.y, &dc, x, y, zoomArea.x, zoomArea.y);
     memDC.SelectObject(wxNullBitmap);
     image = bitmap;
     Refresh();

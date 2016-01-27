@@ -67,11 +67,14 @@ MainFrameBaseClass::MainFrameBaseClass(wxWindow* parent, wxWindowID id, const wx
     wxFlexGridSizer* flexGridSizer68 = new wxFlexGridSizer(0, 2, 0, 0);
     flexGridSizer68->SetFlexibleDirection( wxBOTH );
     flexGridSizer68->SetNonFlexibleGrowMode( wxFLEX_GROWMODE_SPECIFIED );
+    flexGridSizer68->AddGrowableCol(1);
+    flexGridSizer68->AddGrowableRow(1);
     m_mainPanel->SetSizer(flexGridSizer68);
     
     wxFlexGridSizer* flexGridSizer33 = new wxFlexGridSizer(0, 2, 0, 0);
     flexGridSizer33->SetFlexibleDirection( wxBOTH );
     flexGridSizer33->SetNonFlexibleGrowMode( wxFLEX_GROWMODE_SPECIFIED );
+    flexGridSizer33->AddGrowableCol(1);
     
     flexGridSizer68->Add(flexGridSizer33, 1, wxLEFT|wxTOP|wxEXPAND, 5);
     
@@ -119,14 +122,17 @@ MainFrameBaseClass::MainFrameBaseClass(wxWindow* parent, wxWindowID id, const wx
     
     flexGridSizer68->Add(boxSizer51, 1, wxLEFT|wxRIGHT|wxTOP|wxEXPAND, 5);
     
-    wxBoxSizer* boxSizer155 = new wxBoxSizer(wxHORIZONTAL);
+    wxFlexGridSizer* boxSizer155 = new wxFlexGridSizer(0, 2, 0, 0);
+    boxSizer155->SetFlexibleDirection( wxBOTH );
+    boxSizer155->SetNonFlexibleGrowMode( wxFLEX_GROWMODE_SPECIFIED );
+    boxSizer155->AddGrowableCol(0);
     
     boxSizer51->Add(boxSizer155, 1, wxTOP|wxBOTTOM|wxEXPAND, 1);
     
     m_colorButton = new wxPanel(m_mainPanel, wxID_ANY, wxDefaultPosition, wxSize(70,70), wxBORDER_THEME);
     m_colorButton->SetBackgroundColour(wxColour(wxT("rgb(0,0,0)")));
     
-    boxSizer155->Add(m_colorButton, 0, wxRIGHT|wxALIGN_LEFT, 1);
+    boxSizer155->Add(m_colorButton, 0, wxRIGHT|wxALIGN_LEFT|wxEXPAND, 1);
     
     m_colorStack = new wxPanel(m_mainPanel, wxID_ANY, wxDefaultPosition, wxSize(52,70), wxTAB_TRAVERSAL);
     
@@ -142,7 +148,7 @@ MainFrameBaseClass::MainFrameBaseClass(wxWindow* parent, wxWindowID id, const wx
     m_formatText->SetHint(wxT(""));
     #endif
     
-    boxSizer51->Add(m_formatText, 0, wxTOP|wxBOTTOM|wxALIGN_CENTER_HORIZONTAL, 2);
+    boxSizer51->Add(m_formatText, 0, wxTOP|wxBOTTOM|wxEXPAND, 2);
     
     wxBoxSizer* boxSizer57 = new wxBoxSizer(wxVERTICAL);
     
@@ -199,7 +205,7 @@ MainFrameBaseClass::MainFrameBaseClass(wxWindow* parent, wxWindowID id, const wx
     
     m_zoomPanel = new ZoomPanel(m_mainPanel, wxID_ANY, wxDefaultPosition, wxSize(128,128), wxBORDER_THEME);
     
-    flexGridSizer68->Add(m_zoomPanel, 0, wxALL, 5);
+    flexGridSizer68->Add(m_zoomPanel, 0, wxALL | wxEXPAND, 5);
     m_zoomPanel->SetMinSize(wxSize(128,128));
     
     m_menuBar = new wxMenuBar(0);

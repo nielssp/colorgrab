@@ -42,6 +42,14 @@ MainFrame::MainFrame(wxWindow* parent)
     SetDropTarget(dt);
     
     Bind(wxEVT_TIMER, &MainFrame::OnRefreshTimerEvent, this, refreshTimer.GetId());
+    
+    
+    SetMinSize(GetSize());
+    SetSize(
+        std::max(config.ReadLong("Main/Size/X", GetSize().x), (long)GetSize().x),
+        std::max(config.ReadLong("Main/Size/Y", GetSize().y), (long)GetSize().y)
+    );
+    
     RestorePosition();
     
     bool alwaysOnTop = config.ReadBool("Main/AlwaysOnTop", true);
@@ -116,6 +124,10 @@ MainFrame::~MainFrame()
     wxPoint pos = GetScreenPosition();
     config.Write("Main/Position/X", pos.x);
     config.Write("Main/Position/Y", pos.y);
+    wxSize size = GetSize();
+    config.Write("Main/Size/X", size.x);
+    config.Write("Main/Size/Y", size.y);
+    
     config.Write("Main/Color", GetColor());
     wxPoint poi = m_zoomPanel->GetPoi();
     config.Write("Main/ZoomPanel/X", poi.x);
