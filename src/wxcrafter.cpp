@@ -240,6 +240,14 @@ MainFrameBaseClass::MainFrameBaseClass(wxWindow* parent, wxWindowID id, const wx
     m_colorOutputMenu = new wxMenu();
     m_settingsMenu->AppendSubMenu(m_colorOutputMenu, _("Color &Output"));
     
+    m_commaSpaceSetting = new wxMenuItem(m_colorOutputMenu, wxID_ANY, _("&Space After Comma"), wxT(""), wxITEM_CHECK);
+    m_colorOutputMenu->Append(m_commaSpaceSetting);
+    
+    m_alignSetting = new wxMenuItem(m_colorOutputMenu, wxID_ANY, _("&Alignment Spaces"), wxT(""), wxITEM_CHECK);
+    m_colorOutputMenu->Append(m_alignSetting);
+    
+    m_colorOutputMenu->AppendSeparator();
+    
     m_settingsMenu->AppendSeparator();
     
     m_cursorMenu = new wxMenu();
@@ -288,6 +296,8 @@ MainFrameBaseClass::MainFrameBaseClass(wxWindow* parent, wxWindowID id, const wx
     this->Connect(m_menuItem7->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(MainFrameBaseClass::OnExit), NULL, this);
     this->Connect(m_menuItem79->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(MainFrameBaseClass::OnSystemColorPicker), NULL, this);
     this->Connect(m_alwaysOnTopSetting->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(MainFrameBaseClass::OnSetAlwaysOnTop), NULL, this);
+    this->Connect(m_commaSpaceSetting->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(MainFrameBaseClass::OnSetCommaSpace), NULL, this);
+    this->Connect(m_alignSetting->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(MainFrameBaseClass::OnSetAlign), NULL, this);
     
 }
 

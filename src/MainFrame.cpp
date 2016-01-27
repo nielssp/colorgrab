@@ -53,6 +53,14 @@ MainFrame::MainFrame(wxWindow* parent)
         SetWindowStyle(GetWindowStyle() & ~wxSTAY_ON_TOP);
     }
     
+    
+    if (config.ReadBool("Main/CommaSpace", true)) {
+        m_commaSpaceSetting->Check();
+    }
+    if (config.ReadBool("Main/AlignSpace", false)) {
+        m_alignSetting->Check();
+    }
+    
     colorOutput = new HtmlHexOutput;
     AddColorOutput(colorOutput);
     AddColorOutput(new CssRgbOutput);
@@ -117,6 +125,8 @@ MainFrame::~MainFrame()
     config.Write("Main/Output", wxString(colorOutput->getName()));
     
     config.Write("Main/AlwaysOnTop", (GetWindowStyle() & wxSTAY_ON_TOP) != 0);
+    config.Write("Main/CommaSpace", m_commaSpaceSetting->IsChecked());
+    config.Write("Main/AlignSpace", m_alignSetting->IsChecked());
 
     // Save stack colors
     for(size_t i = 0; i < 10; i++) {
@@ -354,7 +364,7 @@ void MainFrame::SetColor(const wxColor& color, bool updateInputs, bool updateOut
     }
     colorOutput->setColor(color);
     if (updateOutput)
-        m_formatText->ChangeValue(colorOutput->getOutput());
+        m_formatText->ChangeValue(colorOutput->getOutput(m_commaSpaceSetting->IsChecked(), m_alignSetting->IsChecked()));
         
     for (std::map<int, ToolWindow*>::const_iterator iter = tools.begin(); iter != tools.end(); ++iter )
     {
@@ -604,4 +614,14 @@ IColorModel* MainFrame::GetColorModel() const
 void MainFrame::OnSetAlwaysOnTop(wxCommandEvent& event)
 {
     SetWindowStyle(GetWindowStyle() ^ wxSTAY_ON_TOP);
+}
+
+void MainFrame::OnSetCommaSpace(wxCommandEvent& event)
+{
+    SetColor(GetColor());
+}
+
+void MainFrame::OnSetAlign(wxCommandEvent& event)
+{
+    SetColor(GetColor());
 }

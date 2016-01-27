@@ -125,5 +125,7 @@ protected:
     virtual void OnSelectCursor(wxCommandEvent& event);
     virtual void OnSelectTiming(wxCommandEvent& event);
     virtual void OnRefreshTimerEvent(wxTimerEvent& event);
+    virtual void OnSetAlign(wxCommandEvent& event);
+    virtual void OnSetCommaSpace(wxCommandEvent& event);
 };
 #endif // MAINFRAME_H

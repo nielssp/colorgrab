@@ -20,9 +20,9 @@ void ColorOutput::setColor(const wxColour& color)
     this->color = color;
 }
 
-std::string ColorOutput::getOutput()
+std::string ColorOutput::getOutput(bool commaSpace, bool align)
 {
-    return format(color);
+    return format(color, commaSpace, align);
 }
 
 bool ColorOutput::parseColor(std::string colorString)
@@ -30,7 +30,7 @@ bool ColorOutput::parseColor(std::string colorString)
     return parseColor(colorString, color);
 }
 
-wxString HtmlHexOutput::getFormat() const
+wxString HtmlHexOutput::getFormat(bool commaSpace, bool align) const
 {
     return "#%02X%02X%02X";
 }
@@ -38,9 +38,9 @@ std::string HtmlHexOutput::getName() const
 {
     return "Hexadecimal (HTML/CSS)";
 }
-std::string HtmlHexOutput::format(const wxColour& color)
+std::string HtmlHexOutput::format(const wxColour& color, bool commaSpace, bool align)
 {
-    return wxString::Format(getFormat(), color.Red(), color.Green(), color.Blue()).ToStdString();
+    return wxString::Format(getFormat(commaSpace, align), color.Red(), color.Green(), color.Blue()).ToStdString();
 }
 bool HtmlHexOutput::parseColor(std::string colorString, wxColour& color)
 {
@@ -57,9 +57,13 @@ bool HtmlHexOutput::parseColor(std::string colorString, wxColour& color)
     return false;
 }
 
-wxString CssRgbOutput::getFormat() const
+wxString CssRgbOutput::getFormat(bool commaSpace, bool align) const
 {
-    return "rgb(%3d, %3d, %3d)";
+    wxString placeholder = align ? "%3d" : "%d";
+    if (commaSpace)
+        return wxString::Format("rgb(%s, %s, %s)", placeholder, placeholder, placeholder);
+    else
+        return wxString::Format("rgb(%s,%s,%s)", placeholder, placeholder, placeholder);
 }
 
 std::string CssRgbOutput::getName() const
@@ -81,19 +85,23 @@ bool CssRgbOutput::parseColor(std::string colorString, wxColour& color)
     return false;
 }
 
-wxString CssHslOutput::getFormat() const
+wxString CssHslOutput::getFormat(bool commaSpace, bool align) const
 {
-    return "hsl(%3d, %3d%%, %3d%%)";
+    wxString placeholder = align ? "%3d" : "%d";
+    if (commaSpace)
+        return wxString::Format("hsl(%s, %s%%%%, %s%%%%)", placeholder, placeholder, placeholder);
+    else
+        return wxString::Format("hsl(%s,%s%%%%,%s%%%%)", placeholder, placeholder, placeholder);
 }
 
 std::string CssHslOutput::getName() const
 {
     return "Decimal HSL (CSS)";
 }
-std::string CssHslOutput::format(const wxColour& color)
+std::string CssHslOutput::format(const wxColour& color, bool commaSpace, bool align)
 {
     model.setColor(color);
-    return wxString::Format(getFormat(), model.getValue(0), model.getValue(1), model.getValue(2)).ToStdString();
+    return wxString::Format(getFormat(commaSpace, align), model.getValue(0), model.getValue(1), model.getValue(2)).ToStdString();
 }
 bool CssHslOutput::parseColor(std::string colorString, wxColour& color)
 {
@@ -113,7 +121,7 @@ bool CssHslOutput::parseColor(std::string colorString, wxColour& color)
     return false;
 }
 
-wxString HexOutput::getFormat() const
+wxString HexOutput::getFormat(bool commaSpace, bool align) const
 {
     return "%02X%02X%02X";
 }
@@ -124,14 +132,17 @@ std::string HexOutput::getName() const
 }
 
 
-wxString RgbFloatOutput::getFormat() const
+wxString RgbFloatOutput::getFormat(bool commaSpace, bool align) const
 {
-    return "%.2lf, %.2lf, %.2lf";
+    if (commaSpace)
+        return "%.2lf, %.2lf, %.2lf";
+    else
+        return "%.2lf,%.2lf,%.2lf";
 }
 
-std::string RgbFloatOutput::format(const wxColour& color)
+std::string RgbFloatOutput::format(const wxColour& color, bool commaSpace, bool align)
 {
-    return wxString::Format(getFormat(), color.Red() / 255.0, color.Green() / 255.0, color.Blue() / 255.0).ToStdString();
+    return wxString::Format(getFormat(commaSpace, align), color.Red() / 255.0, color.Green() / 255.0, color.Blue() / 255.0).ToStdString();
 }
 
 std::string RgbFloatOutput::getName() const

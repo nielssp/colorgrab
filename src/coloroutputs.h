@@ -22,12 +22,12 @@ public:
     virtual wxColor getColor() const;
     virtual void setColor(const wxColour& color);
     
-    virtual std::string getOutput();
+    virtual std::string getOutput(bool commaSpace = true, bool align = false);
     virtual bool parseColor(std::string colorString);
 
     virtual std::string getName() const = 0;
     virtual bool parseColor(std::string colorString, wxColour& color) = 0;
-    virtual std::string format(const wxColour& color) = 0;
+    virtual std::string format(const wxColour& color, bool commaSpace = true, bool align = false) = 0;
 
 };
 
@@ -35,17 +35,17 @@ public:
 class HtmlHexOutput : public ColorOutput
 {
 public:
-    virtual wxString getFormat() const;
+    virtual wxString getFormat(bool commaSpace = true, bool align = false) const;
     virtual std::string getName() const;
     virtual bool parseColor(std::string colorString, wxColour& color);
-    virtual std::string format(const wxColour& color);
+    virtual std::string format(const wxColour& color, bool commaSpace = true, bool align = false);
 };
 
 /// Decimal RGB color: rgb(255, 255, 255)
 class CssRgbOutput : public HtmlHexOutput
 {
 public:
-    virtual wxString getFormat() const;
+    virtual wxString getFormat(bool commaSpace = true, bool align = false) const;
     virtual std::string getName() const;
     virtual bool parseColor(std::string colorString, wxColour& color);
 };
@@ -56,17 +56,17 @@ class CssHslOutput : public HtmlHexOutput
 private:
     HSLModel model;
 public:
-    virtual wxString getFormat() const;
+    virtual wxString getFormat(bool commaSpace = true, bool align = false) const;
     virtual std::string getName() const;
     virtual bool parseColor(std::string colorString, wxColour& color);
-    virtual std::string format(const wxColour& color);
+    virtual std::string format(const wxColour& color, bool commaSpace = true, bool align = false);
 };
 
 /// Hexadecimal RGB color: FFFFFF
 class HexOutput : public HtmlHexOutput
 {
 public:
-    virtual wxString getFormat() const;
+    virtual wxString getFormat(bool commaSpace = true, bool align = false) const;
     virtual std::string getName() const;
 };
 
@@ -74,8 +74,8 @@ public:
 class RgbFloatOutput : public HtmlHexOutput
 {
 public:
-    virtual wxString getFormat() const;
-    virtual std::string format(const wxColour& color);
+    virtual wxString getFormat(bool commaSpace = true, bool align = false) const;
+    virtual std::string format(const wxColour& color, bool commaSpace = true, bool align = false);
     virtual std::string getName() const;
     virtual bool parseColor(std::string colorString, wxColour& color);
 };
