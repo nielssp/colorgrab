@@ -44,17 +44,18 @@ wxBitmap ZoomPanel::getImage() const
     return image;
 }
 
-    
+
 void ZoomPanel::OnResize(wxSizeEvent& event)
 {
+    UpdateRoi();
     Update();
 }
 
 void ZoomPanel::render(wxPaintDC& dc)
 {
-	 if (image.IsOk())
+    if (image.IsOk())
     {
-		  dc.DrawBitmap(image, 0, 0, false);
+        dc.DrawBitmap(image, 0, 0, false);
         if (showPoi)
         {
             wxGraphicsContext* gc = wxGraphicsContext::Create(dc);
@@ -103,12 +104,14 @@ void ZoomPanel::SetZoom(int zoom)
     Update();
 }
 
-void ZoomPanel::ShowPoi(bool show) {
+void ZoomPanel::ShowPoi(bool show)
+{
     showPoi = show;
     Refresh();
 }
 
-void ZoomPanel::UpdateRoi() {
+void ZoomPanel::UpdateRoi()
+{
     wxSize screenSize = wxGetDisplaySize();
     wxSize panelSize = GetSize();
     wxSize zoomArea(panelSize.x / zoom, panelSize.y / zoom);

@@ -107,16 +107,18 @@ MainFrame::MainFrame(wxWindow* parent)
     AddTool(new PaletteTool(this));
     AddTool(new CylindricalSelectorTool(this));
     
-    AddCursor(_("&Crosshair"), *wxCROSS_CURSOR);
-    AddCursor(_("&Magnifier"), wxCursor(wxCURSOR_MAGNIFIER));
-    AddCursor(_("&Bullseye"), wxCursor(wxCURSOR_BULLSEYE));
-
     #include "../img/eyedropper.xpm"
     wxImage eyedropper(eyedropper_xpm);
     eyedropper.SetOption(wxIMAGE_OPTION_CUR_HOTSPOT_X, 0);
     eyedropper.SetOption(wxIMAGE_OPTION_CUR_HOTSPOT_Y, 17);
+    m_pickerButton->SetBitmap(wxBitmap(eyedropper), wxLEFT);
     wxCursor eyedropperCursor(eyedropper);
     AddCursor(_("&Eyedropper"), eyedropperCursor);
+    
+    AddCursor(_("&Crosshair"), *wxCROSS_CURSOR);
+    AddCursor(_("&Magnifier"), wxCursor(wxCURSOR_MAGNIFIER));
+    AddCursor(_("&Bullseye"), wxCursor(wxCURSOR_BULLSEYE));
+
 }
 
 MainFrame::~MainFrame()
@@ -253,7 +255,7 @@ void MainFrame::AddCursor(const wxString& label, const wxCursor& cursor)
 {
     wxMenuItem* menuItem = new wxMenuItem(m_cursorMenu, wxID_ANY, label, wxT(""), wxITEM_RADIO);
     m_cursorMenu->Append(menuItem);
-    if (label == config.Read("Main/Cursor", _("Crosshair"))) {
+    if (label == config.Read("Main/Cursor", _("&Eyedropper"))) {
         m_zoomPanel->SetCursor(cursor);
         menuItem->Check();
     }
@@ -365,7 +367,7 @@ void MainFrame::SetColor(const wxColor& color, bool updateInputs, bool updateOut
 {
 //    m_colourPicker->SetColour(color);
     m_colorButton->SetBackgroundColour(color);
-	m_colorButton->Refresh();
+    m_colorButton->Refresh();
     colorModel->setColor(color);
     if (updateInputs)
     {
@@ -377,7 +379,7 @@ void MainFrame::SetColor(const wxColor& color, bool updateInputs, bool updateOut
     colorOutput->setColor(color);
     if (updateOutput)
         m_formatText->ChangeValue(colorOutput->getOutput(m_commaSpaceSetting->IsChecked(), m_alignSetting->IsChecked()));
-        
+
     for (std::map<int, ToolWindow*>::const_iterator iter = tools.begin(); iter != tools.end(); ++iter )
     {
         ToolWindow* tool = iter->second;

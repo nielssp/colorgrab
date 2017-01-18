@@ -169,7 +169,12 @@ MainFrameBaseClass::MainFrameBaseClass(wxWindow* parent, wxWindowID id, const wx
     
     m_button1281 = new wxButton(m_mainPanel, wxID_ANY, wxT(""), wxDefaultPosition, wxSize(24,24), 0);
     #if wxVERSION_NUMBER >= 2904
+    #ifdef __WXGTK__
+    m_button1281->SetBitmap(wxArtProvider::GetBitmap("gtk-zoom-in", wxART_TOOLBAR, wxSize(14, 14)), wxLEFT);
+    #else
     m_button1281->SetBitmap(wxXmlResource::Get()->LoadBitmap(wxT("add")), wxLEFT);
+    #endif
+//    m_button1281->SetBitmap(wxXmlResource::Get()->LoadBitmap(wxT("add")), wxLEFT);
     m_button1281->SetBitmapMargins(2,2);
     #endif
     m_button1281->SetToolTip(_("Zoom in"));
@@ -178,7 +183,11 @@ MainFrameBaseClass::MainFrameBaseClass(wxWindow* parent, wxWindowID id, const wx
     
     m_button128 = new wxButton(m_mainPanel, wxID_ANY, wxT(""), wxDefaultPosition, wxSize(24,24), 0);
     #if wxVERSION_NUMBER >= 2904
+    #ifdef __WXGTK__
+    m_button128->SetBitmap(wxArtProvider::GetBitmap("gtk-zoom-out", wxART_TOOLBAR, wxSize(14, 14)), wxLEFT);
+    #else
     m_button128->SetBitmap(wxXmlResource::Get()->LoadBitmap(wxT("remove")), wxLEFT);
+    #endif
     m_button128->SetBitmapMargins(2,2);
     #endif
     m_button128->SetToolTip(_("Zoom out"));
@@ -187,7 +196,11 @@ MainFrameBaseClass::MainFrameBaseClass(wxWindow* parent, wxWindowID id, const wx
     
     m_button12845 = new wxButton(m_mainPanel, wxID_ANY, wxT(""), wxDefaultPosition, wxSize(24,24), 0);
     #if wxVERSION_NUMBER >= 2904
+    #ifdef __WXGTK__
+    m_button12845->SetBitmap(wxArtProvider::GetBitmap("gtk-refresh", wxART_TOOLBAR, wxSize(14, 14)), wxLEFT);
+    #else
     m_button12845->SetBitmap(wxXmlResource::Get()->LoadBitmap(wxT("refresh")), wxLEFT);
+    #endif
     m_button12845->SetBitmapMargins(2,2);
     #endif
     m_button12845->SetToolTip(_("Refresh image"));
@@ -196,7 +209,8 @@ MainFrameBaseClass::MainFrameBaseClass(wxWindow* parent, wxWindowID id, const wx
     
     m_timerButton = new wxButton(m_mainPanel, wxID_ANY, wxT(""), wxDefaultPosition, wxSize(24,24), 0);
     #if wxVERSION_NUMBER >= 2904
-    m_timerButton->SetBitmap(wxXmlResource::Get()->LoadBitmap(wxT("timer")), wxLEFT);
+    wxBitmap timerIcon = wxXmlResource::Get()->LoadBitmap(wxT("timer"));
+    m_timerButton->SetBitmap(timerIcon, wxLEFT);
     m_timerButton->SetBitmapMargins(2,2);
     #endif
     m_timerButton->SetToolTip(_("Refresh image in..."));

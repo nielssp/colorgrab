@@ -150,8 +150,6 @@ int HSLModel::getMax(int i) const
     }
 }
 
-#include <stdlib.h>
-
 void HSLModel::setColor(const wxColour& color)
 {
     double r = color.Red() / 255.0;
