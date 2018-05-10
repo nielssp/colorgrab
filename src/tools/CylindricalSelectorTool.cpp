@@ -44,6 +44,7 @@ public:
         Bind(wxEVT_LEFT_DOWN, &HueSlider::OnSetHue, this);
         Bind(wxEVT_MOTION, &HueSlider::OnSetHue, this);
         Bind(wxEVT_LEFT_UP, &HueSlider::OnSetHue, this);
+        Bind(wxEVT_MOUSEWHEEL, &HueSlider::OnSetHue, this);
         
         Bind(wxEVT_RIGHT_DOWN, &HueSlider::OnPushColor, this);
     }
@@ -61,7 +62,14 @@ public:
     
     void OnSetHue(wxMouseEvent& event)
     {
-        if (event.GetEventType() == wxEVT_LEFT_DOWN) {
+        if (event.GetEventType() == wxEVT_MOUSEWHEEL) {
+            if (event.GetWheelRotation() > 0) {
+                tool->SetHue(tool->GetHue() + 0.00277777);
+            } else {
+                tool->SetHue(tool->GetHue() - 0.00277777);
+            }
+            return;
+        } else if (event.GetEventType() == wxEVT_LEFT_DOWN) {
             dragging = true;
             CaptureMouse();
         }
@@ -131,6 +139,7 @@ public:
         Bind(wxEVT_LEFT_DOWN, &CrossSection::OnSetPosition, this);
         Bind(wxEVT_MOTION, &CrossSection::OnSetPosition, this);
         Bind(wxEVT_LEFT_UP, &CrossSection::OnSetPosition, this);
+        Bind(wxEVT_MOUSEWHEEL, &CrossSection::OnSetPosition, this);
         
         Bind(wxEVT_RIGHT_DOWN, &CrossSection::OnPushColor, this);
     }
@@ -148,7 +157,23 @@ public:
     
     void OnSetPosition(wxMouseEvent& event)
     {
-        if (event.GetEventType() == wxEVT_LEFT_DOWN) {
+        if (event.GetEventType() == wxEVT_MOUSEWHEEL) {
+            if (event.GetWheelAxis() == wxMOUSE_WHEEL_HORIZONTAL || event.ShiftDown()) {
+                if (event.GetWheelRotation() > 0) {
+                    tool->SetB(tool->GetB() + 0.01);
+                } else {
+                    tool->SetB(tool->GetB() - 0.01);
+                }
+            } else {
+                if (event.GetWheelRotation() > 0) {
+                    tool->SetA(tool->GetA() + 0.01);
+                } else {
+                    tool->SetA(tool->GetA() - 0.01);
+                }
+            }
+            Refresh(false);
+            return;
+        } else if (event.GetEventType() == wxEVT_LEFT_DOWN) {
             dragging = true;
             CaptureMouse();
         }
