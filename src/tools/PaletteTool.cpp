@@ -173,7 +173,7 @@ void PaletteTool::RefreshTitle()
 void PaletteTool::AddColor(const wxColour& color, const wxString& name)
 {
     wxVector<wxVariant> data;
-    data.push_back(wxVariant(color));
+    data.push_back(wxVariant(wxAny(color)));
     data.push_back(wxVariant(name));
     colorList->AppendItem(data);
     isSaved = false;
