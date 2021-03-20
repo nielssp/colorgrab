@@ -1,10 +1,10 @@
 Name: colorgrab
 Version: 0.3
 Release: 1%{?dist}
-Summary: A cross-platform color picker.
+Summary: A cross-platform color picker
 License: MIT
 URL: https://github.com/nielssp/colorgrab
-Source0: %{name}-%{version}.tar.gz
+Source0: https://github.com/nielssp/colorgrab/archive/refs/tags/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
 
 BuildRequires: compat-wxGTK3-gtk2-devel
 
