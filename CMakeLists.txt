@@ -4,6 +4,8 @@ cmake_minimum_required(VERSION 2.8.11)
 
 find_package(wxWidgets COMPONENTS core base xml xrc adv REQUIRED)
 
+include(GNUInstallDirs)
+
 include(${wxWidgets_USE_FILE})
 
 include_directories(src)
@@ -20,5 +22,13 @@ else()
   add_executable(${PROJECT_NAME} ${SRC_LIST})
 endif()
 
+install(TARGETS ${PROJECT_NAME} DESTINATION ${CMAKE_INSTALL_FULL_BINDIR})
+install(FILES pkg/arch/${PROJECT_NAME}.desktop DESTINATION ${CMAKE_INSTALL_FULL_DATADIR}/applications)
+install(FILES img/scalable.svg DESTINATION ${CMAKE_INSTALL_FULL_DATADIR}/icons/hicolor/scalable/apps RENAME ${PROJECT_NAME}.svg)
+foreach(res 16 32 48 64 128 256)
+  install(FILES img/${res}x${res}.png DESTINATION ${CMAKE_INSTALL_FULL_DATADIR}/icons/hicolor/${res}x${res}/apps RENAME ${PROJECT_NAME}.png)
+endforeach()
+install(FILES LICENSE DESTINATION ${CMAKE_INSTALL_FULL_DOCDIR})
+install(FILES README.md DESTINATION ${CMAKE_INSTALL_FULL_DOCDIR})
 
 target_link_libraries(${PROJECT_NAME} ${wxWidgets_LIBRARIES})
