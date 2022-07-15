@@ -356,6 +356,10 @@ void MainFrame::SetColorFromPixel(wxCoord x, wxCoord y)
     wxScreenDC dc;
     dc.GetPixel(x, y, &color);
     SetColor(color);
+#ifdef __WXGTK3__
+    wxSize screenSize = dc.GetSize();
+    dc.Blit(0, 0, screenSize.x, screenSize.y, &dc, 0, 0, wxXOR);
+#endif
 }
 
 wxColor MainFrame::GetColor() const

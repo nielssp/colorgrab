@@ -142,6 +142,10 @@ void ZoomPanel::Update()
     memDC.SelectObject(bitmap);
     memDC.StretchBlit(0, 0, panelSize.x, panelSize.y, &dc, x, y, zoomArea.x, zoomArea.y);
     memDC.SelectObject(wxNullBitmap);
+#ifdef __WXGTK3__
+    wxSize screenSize = dc.GetSize();
+    dc.Blit(0, 0, screenSize.x, screenSize.y, &dc, 0, 0, wxXOR);
+#endif
     image = bitmap;
     Refresh();
 }

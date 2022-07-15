@@ -82,7 +82,7 @@ MainFrameBaseClass::MainFrameBaseClass(wxWindow* parent, wxWindowID id, const wx
     
     flexGridSizer33->Add(m_firstLabel, 0, wxRIGHT|wxTOP, 5);
     
-    m_firstCtrl = new wxSpinCtrl(m_mainPanel, wxID_ANY, wxT("0"), wxDefaultPosition, wxSize(50,20), wxSP_ARROW_KEYS);
+    m_firstCtrl = new wxSpinCtrl(m_mainPanel, wxID_ANY, wxT("0"), wxDefaultPosition, wxSize(50,-1), wxSP_ARROW_KEYS);
     m_firstCtrl->SetRange(0, 100);
     m_firstCtrl->SetValue(0);
     
@@ -92,7 +92,7 @@ MainFrameBaseClass::MainFrameBaseClass(wxWindow* parent, wxWindowID id, const wx
     
     flexGridSizer33->Add(m_secondLabel, 0, wxRIGHT|wxTOP, 5);
     
-    m_secondCtrl = new wxSpinCtrl(m_mainPanel, wxID_ANY, wxT("0"), wxDefaultPosition, wxSize(50,20), wxSP_ARROW_KEYS);
+    m_secondCtrl = new wxSpinCtrl(m_mainPanel, wxID_ANY, wxT("0"), wxDefaultPosition, wxSize(50,-1), wxSP_ARROW_KEYS);
     m_secondCtrl->SetRange(0, 100);
     m_secondCtrl->SetValue(0);
     
@@ -102,7 +102,7 @@ MainFrameBaseClass::MainFrameBaseClass(wxWindow* parent, wxWindowID id, const wx
     
     flexGridSizer33->Add(m_thirdLabel, 0, wxRIGHT|wxTOP, 5);
     
-    m_thirdCtrl = new wxSpinCtrl(m_mainPanel, wxID_ANY, wxT("0"), wxDefaultPosition, wxSize(50,20), wxSP_ARROW_KEYS);
+    m_thirdCtrl = new wxSpinCtrl(m_mainPanel, wxID_ANY, wxT("0"), wxDefaultPosition, wxSize(50,-1), wxSP_ARROW_KEYS);
     m_thirdCtrl->SetRange(0, 100);
     m_thirdCtrl->SetValue(0);
     
@@ -112,7 +112,7 @@ MainFrameBaseClass::MainFrameBaseClass(wxWindow* parent, wxWindowID id, const wx
     
     flexGridSizer33->Add(m_fourthLabel, 0, wxRIGHT|wxTOP, 5);
     
-    m_fourthCtrl = new wxSpinCtrl(m_mainPanel, wxID_ANY, wxT("0"), wxDefaultPosition, wxSize(50,20), wxSP_ARROW_KEYS);
+    m_fourthCtrl = new wxSpinCtrl(m_mainPanel, wxID_ANY, wxT("0"), wxDefaultPosition, wxSize(50,-1), wxSP_ARROW_KEYS);
     m_fourthCtrl->SetRange(0, 100);
     m_fourthCtrl->SetValue(0);
     
@@ -129,7 +129,7 @@ MainFrameBaseClass::MainFrameBaseClass(wxWindow* parent, wxWindowID id, const wx
     
     boxSizer51->Add(boxSizer155, 1, wxTOP|wxBOTTOM|wxEXPAND, 1);
     
-    m_colorButton = new wxPanel(m_mainPanel, wxID_ANY, wxDefaultPosition, wxSize(70,70), wxBORDER_THEME);
+    m_colorButton = new wxPanel(m_mainPanel, wxID_ANY, wxDefaultPosition, wxSize(70,120), wxBORDER_THEME);
     m_colorButton->SetBackgroundColour(wxColour(wxT("rgb(0,0,0)")));
     
     boxSizer155->Add(m_colorButton, 0, wxRIGHT|wxALIGN_LEFT|wxEXPAND, 1);
@@ -143,7 +143,7 @@ MainFrameBaseClass::MainFrameBaseClass(wxWindow* parent, wxWindowID id, const wx
     flexGridSizer159->SetNonFlexibleGrowMode( wxFLEX_GROWMODE_SPECIFIED );
     m_colorStack->SetSizer(flexGridSizer159);
     
-    m_formatText = new wxTextCtrl(m_mainPanel, wxID_ANY, wxT("#000000"), wxDefaultPosition, wxSize(128,20), wxTE_PROCESS_ENTER|wxTE_CENTRE);
+    m_formatText = new wxTextCtrl(m_mainPanel, wxID_ANY, wxT("#000000"), wxDefaultPosition, wxSize(-1,-1), wxTE_PROCESS_ENTER|wxTE_CENTRE);
     #if wxVERSION_NUMBER >= 3000
     m_formatText->SetHint(wxT(""));
     #endif
@@ -167,7 +167,7 @@ MainFrameBaseClass::MainFrameBaseClass(wxWindow* parent, wxWindowID id, const wx
     
     boxSizer57->Add(gridSizer153, 1, wxTOP|wxEXPAND, 27);
     
-    m_button1281 = new wxButton(m_mainPanel, wxID_ANY, wxT(""), wxDefaultPosition, wxSize(24,24), 0);
+    m_button1281 = new wxButton(m_mainPanel, wxID_ANY, wxT(""), wxDefaultPosition, wxSize(32,32), 0);
     #if wxVERSION_NUMBER >= 2904
     #ifdef __WXGTK__
     m_button1281->SetBitmap(wxArtProvider::GetBitmap("gtk-zoom-in", wxART_TOOLBAR, wxSize(14, 14)), wxLEFT);
@@ -181,7 +181,7 @@ MainFrameBaseClass::MainFrameBaseClass(wxWindow* parent, wxWindowID id, const wx
     
     gridSizer153->Add(m_button1281, 0, wxRIGHT|wxTOP|wxBOTTOM, 1);
     
-    m_button128 = new wxButton(m_mainPanel, wxID_ANY, wxT(""), wxDefaultPosition, wxSize(24,24), 0);
+    m_button128 = new wxButton(m_mainPanel, wxID_ANY, wxT(""), wxDefaultPosition, wxSize(32,32), 0);
     #if wxVERSION_NUMBER >= 2904
     #ifdef __WXGTK__
     m_button128->SetBitmap(wxArtProvider::GetBitmap("gtk-zoom-out", wxART_TOOLBAR, wxSize(14, 14)), wxLEFT);
@@ -194,7 +194,7 @@ MainFrameBaseClass::MainFrameBaseClass(wxWindow* parent, wxWindowID id, const wx
     
     gridSizer153->Add(m_button128, 0, wxLEFT|wxTOP|wxBOTTOM, 1);
     
-    m_button12845 = new wxButton(m_mainPanel, wxID_ANY, wxT(""), wxDefaultPosition, wxSize(24,24), 0);
+    m_button12845 = new wxButton(m_mainPanel, wxID_ANY, wxT(""), wxDefaultPosition, wxSize(32,32), 0);
     #if wxVERSION_NUMBER >= 2904
     #ifdef __WXGTK__
     m_button12845->SetBitmap(wxArtProvider::GetBitmap("gtk-refresh", wxART_TOOLBAR, wxSize(14, 14)), wxLEFT);
@@ -207,7 +207,7 @@ MainFrameBaseClass::MainFrameBaseClass(wxWindow* parent, wxWindowID id, const wx
     
     gridSizer153->Add(m_button12845, 0, wxRIGHT|wxTOP, 1);
     
-    m_timerButton = new wxButton(m_mainPanel, wxID_ANY, wxT(""), wxDefaultPosition, wxSize(24,24), 0);
+    m_timerButton = new wxButton(m_mainPanel, wxID_ANY, wxT(""), wxDefaultPosition, wxSize(32,32), 0);
     #if wxVERSION_NUMBER >= 2904
     wxBitmap timerIcon = wxXmlResource::Get()->LoadBitmap(wxT("timer"));
     m_timerButton->SetBitmap(timerIcon, wxLEFT);
