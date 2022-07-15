@@ -4,7 +4,7 @@
 #define MyAppName "ColorGrab"
 #define MyAppVersion "0.4.0"
 #define MyAppPublisher "Niels Sonnich Poulsen"
-#define MyAppURL "https://github.com/Acolarh/colorgrab"
+#define MyAppURL "https://github.com/nielssp/colorgrab"
 #define MyAppExeName "ColorGrab.exe"
 
 [Setup]

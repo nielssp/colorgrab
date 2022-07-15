@@ -6,6 +6,12 @@
 
 #include "wxcrafter.h"
 
+#if defined(__WXGTK__) && !defined(__WXGTK3__)
+#define SPIN_WIDTH 50
+#else
+#define SPIN_WIDTH -1
+#endif
+
 
 // Declare the bitmap loading function
 extern void wxC9ED9InitBitmapResources();
@@ -83,7 +89,7 @@ MainFrameBaseClass::MainFrameBaseClass(wxWindow* parent, wxWindowID id, const wx
     
     flexGridSizer33->Add(m_firstLabel, 0, wxRIGHT|wxTOP, 5);
     
-    m_firstCtrl = new wxSpinCtrl(m_mainPanel, wxID_ANY, wxT("0"), wxDefaultPosition, wxSize(-1,-1), wxSP_ARROW_KEYS);
+    m_firstCtrl = new wxSpinCtrl(m_mainPanel, wxID_ANY, wxT("0"), wxDefaultPosition, wxSize(SPIN_WIDTH,-1), wxSP_ARROW_KEYS);
     m_firstCtrl->SetRange(0, 100);
     m_firstCtrl->SetValue(0);
     
@@ -93,7 +99,7 @@ MainFrameBaseClass::MainFrameBaseClass(wxWindow* parent, wxWindowID id, const wx
     
     flexGridSizer33->Add(m_secondLabel, 0, wxRIGHT|wxTOP, 5);
     
-    m_secondCtrl = new wxSpinCtrl(m_mainPanel, wxID_ANY, wxT("0"), wxDefaultPosition, wxSize(-1,-1), wxSP_ARROW_KEYS);
+    m_secondCtrl = new wxSpinCtrl(m_mainPanel, wxID_ANY, wxT("0"), wxDefaultPosition, wxSize(SPIN_WIDTH,-1), wxSP_ARROW_KEYS);
     m_secondCtrl->SetRange(0, 100);
     m_secondCtrl->SetValue(0);
     
@@ -103,7 +109,7 @@ MainFrameBaseClass::MainFrameBaseClass(wxWindow* parent, wxWindowID id, const wx
     
     flexGridSizer33->Add(m_thirdLabel, 0, wxRIGHT|wxTOP, 5);
     
-    m_thirdCtrl = new wxSpinCtrl(m_mainPanel, wxID_ANY, wxT("0"), wxDefaultPosition, wxSize(-1,-1), wxSP_ARROW_KEYS);
+    m_thirdCtrl = new wxSpinCtrl(m_mainPanel, wxID_ANY, wxT("0"), wxDefaultPosition, wxSize(SPIN_WIDTH,-1), wxSP_ARROW_KEYS);
     m_thirdCtrl->SetRange(0, 100);
     m_thirdCtrl->SetValue(0);
     
@@ -113,7 +119,7 @@ MainFrameBaseClass::MainFrameBaseClass(wxWindow* parent, wxWindowID id, const wx
     
     flexGridSizer33->Add(m_fourthLabel, 0, wxRIGHT|wxTOP, 5);
     
-    m_fourthCtrl = new wxSpinCtrl(m_mainPanel, wxID_ANY, wxT("0"), wxDefaultPosition, wxSize(-1,-1), wxSP_ARROW_KEYS);
+    m_fourthCtrl = new wxSpinCtrl(m_mainPanel, wxID_ANY, wxT("0"), wxDefaultPosition, wxSize(SPIN_WIDTH,-1), wxSP_ARROW_KEYS);
     m_fourthCtrl->SetRange(0, 100);
     m_fourthCtrl->SetValue(0);
     
