@@ -275,7 +275,7 @@ void MainFrame::SetColorOutput(ColorOutput* colorOutput)
     SetColor(GetColor());
 }
 
-void update_label_and_ctrl(int i, IColorModel* colorModel, wxStaticText* label, wxSpinCtrl* ctrl)
+void MainFrame::update_label_and_ctrl(int i, IColorModel* colorModel, wxStaticText* label, wxSpinCtrl* ctrl)
 {
     if (colorModel->getNumComponents() > i) {
         label->Show(true);
@@ -290,14 +290,15 @@ void update_label_and_ctrl(int i, IColorModel* colorModel, wxStaticText* label, 
         label->Show(false);
         ctrl->Show(false);
     }
+    this->Layout();
 }
 
 void MainFrame::UpdateColorModel()
 {
-    update_label_and_ctrl(0, colorModel, m_firstLabel, m_firstCtrl);
-    update_label_and_ctrl(1, colorModel, m_secondLabel, m_secondCtrl);
-    update_label_and_ctrl(2, colorModel, m_thirdLabel, m_thirdCtrl);
-    update_label_and_ctrl(3, colorModel, m_fourthLabel, m_fourthCtrl);
+    this->update_label_and_ctrl(0, colorModel, m_firstLabel, m_firstCtrl);
+    this->update_label_and_ctrl(1, colorModel, m_secondLabel, m_secondCtrl);
+    this->update_label_and_ctrl(2, colorModel, m_thirdLabel, m_thirdCtrl);
+    this->update_label_and_ctrl(3, colorModel, m_fourthLabel, m_fourthCtrl);
     SetColor(GetColor());
 }
 

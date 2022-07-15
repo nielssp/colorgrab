@@ -32,6 +32,7 @@ private:
     std::map<int, std::pair<wxString, wxCursor> > cursors;
     ColorOutput* colorOutput;
     void RestorePosition();
+    void update_label_and_ctrl(int i, IColorModel* colorModel, wxStaticText* label, wxSpinCtrl* ctrl);
 
 public:
     MainFrame(wxWindow* parent);

@@ -74,6 +74,7 @@ MainFrameBaseClass::MainFrameBaseClass(wxWindow* parent, wxWindowID id, const wx
     wxFlexGridSizer* flexGridSizer33 = new wxFlexGridSizer(0, 2, 0, 0);
     flexGridSizer33->SetFlexibleDirection( wxBOTH );
     flexGridSizer33->SetNonFlexibleGrowMode( wxFLEX_GROWMODE_SPECIFIED );
+    flexGridSizer33->AddGrowableCol(0);
     flexGridSizer33->AddGrowableCol(1);
     
     flexGridSizer68->Add(flexGridSizer33, 1, wxLEFT|wxTOP|wxEXPAND, 5);
@@ -126,10 +127,11 @@ MainFrameBaseClass::MainFrameBaseClass(wxWindow* parent, wxWindowID id, const wx
     boxSizer155->SetFlexibleDirection( wxBOTH );
     boxSizer155->SetNonFlexibleGrowMode( wxFLEX_GROWMODE_SPECIFIED );
     boxSizer155->AddGrowableCol(0);
+    boxSizer155->AddGrowableRow(0);
     
     boxSizer51->Add(boxSizer155, 1, wxTOP|wxBOTTOM|wxEXPAND, 1);
     
-    m_colorButton = new wxPanel(m_mainPanel, wxID_ANY, wxDefaultPosition, wxSize(70,120), wxBORDER_THEME);
+    m_colorButton = new wxPanel(m_mainPanel, wxID_ANY, wxDefaultPosition, wxSize(70,-1), wxBORDER_THEME);
     m_colorButton->SetBackgroundColour(wxColour(wxT("rgb(0,0,0)")));
     
     boxSizer155->Add(m_colorButton, 0, wxRIGHT|wxALIGN_LEFT|wxEXPAND, 1);
