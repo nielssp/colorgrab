@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "ColorGrab"
-#define MyAppVersion "0.4.0"
+#define MyAppVersion "0.4.0-pre.1"
 #define MyAppPublisher "Niels Sonnich Poulsen"
 #define MyAppURL "https://github.com/nielssp/colorgrab"
 #define MyAppExeName "ColorGrab.exe"

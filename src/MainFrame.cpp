@@ -313,7 +313,7 @@ void MainFrame::OnAbout(wxCommandEvent& event)
     wxUnusedVar(event);
     wxAboutDialogInfo info;
     info.SetName("ColorGrab");
-    info.SetVersion("0.4-pre");
+    info.SetVersion("0.4.0-pre.1");
     info.SetWebSite("http://nielssp.dk");
     info.SetCopyright(_("(C) 2015 Niels Sonnich Poulsen"));
     info.SetLicence(_("Copyright (C) 2015 Niels Sonnich Poulsen (http://nielssp.dk)\n\
