@@ -9,6 +9,7 @@
 #include <wx/dcscreen.h>
 #include <wx/graphics.h>
 #include <wx/dcmemory.h>
+#include <wx/display.h>
 
 ZoomPanel::ZoomPanel(wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style)
     : wxPanel(parent, id, pos, size, style)
@@ -112,22 +113,28 @@ void ZoomPanel::ShowPoi(bool show)
 
 void ZoomPanel::UpdateRoi()
 {
-    wxSize screenSize = wxGetDisplaySize();
-    wxSize panelSize = GetSize();
-    wxSize zoomArea(panelSize.x / zoom, panelSize.y / zoom);
-    roiCorner.x = 0;
-    roiCorner.y = 0;
-    if (poi.x > zoomArea.x / 2) {
-        if (poi.x > screenSize.x - zoomArea.x / 2)
-            roiCorner.x = screenSize.x - zoomArea.x;
-        else
-            roiCorner.x = poi.x - zoomArea.x / 2;
-    }
-    if (poi.y > zoomArea.y / 2) {
-        if (poi.y > screenSize.y - zoomArea.y / 2)
-            roiCorner.y = screenSize.y - zoomArea.y;
-        else
-            roiCorner.y = poi.y - zoomArea.y / 2;
+    int idx = wxDisplay::GetFromPoint(poi);
+    if (idx >= 0) {
+        wxDisplay display(idx);
+        wxRect geometry = display.GetGeometry();
+        wxSize panelSize = GetSize();
+        wxSize zoomArea(panelSize.x / zoom, panelSize.y / zoom);
+        int relativeX = poi.x - geometry.x;
+        int relativeY = poi.y - geometry.y;
+        roiCorner.x = geometry.x;
+        roiCorner.y = geometry.y;
+        if (relativeX > zoomArea.x / 2) {
+            if (relativeX > geometry.width - zoomArea.x / 2)
+                roiCorner.x = geometry.x + geometry.width - zoomArea.x;
+            else
+                roiCorner.x = geometry.x + relativeX - zoomArea.x / 2;
+        }
+        if (relativeY > zoomArea.y / 2) {
+            if (relativeY > geometry.height - zoomArea.y / 2)
+                roiCorner.y = geometry.y + geometry.height - zoomArea.y;
+            else
+                roiCorner.y = geometry.y + relativeY - zoomArea.y / 2;
+        }
     }
 }
 
