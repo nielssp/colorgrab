@@ -1,6 +1,7 @@
-project(colorgrab)
+cmake_minimum_required(VERSION 3.10)
 
-cmake_minimum_required(VERSION 2.8.12)
+project(colorgrab LANGUAGES CXX)
+
 
 find_package(wxWidgets COMPONENTS core base xml xrc adv REQUIRED)
 
