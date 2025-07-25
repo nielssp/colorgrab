@@ -1,14 +1,13 @@
-project(colorgrab)
+cmake_minimum_required(VERSION 3.10)
 
-cmake_minimum_required(VERSION 2.8.12)
+project(colorgrab LANGUAGES CXX)
+
 
 find_package(wxWidgets COMPONENTS core base xml xrc adv REQUIRED)
 
 include(GNUInstallDirs)
 
 include(${wxWidgets_USE_FILE})
-
-include_directories(src)
 
 file(GLOB_RECURSE SRC_LIST src/*.cpp)
 
@@ -33,3 +32,4 @@ install(FILES LICENSE DESTINATION ${CMAKE_INSTALL_FULL_DOCDIR})
 install(FILES README.md DESTINATION ${CMAKE_INSTALL_FULL_DOCDIR})
 
 target_link_libraries(${PROJECT_NAME} ${wxWidgets_LIBRARIES})
+target_include_directories(${PROJECT_NAME} PRIVATE src)
