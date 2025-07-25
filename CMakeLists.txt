@@ -9,8 +9,6 @@ include(GNUInstallDirs)
 
 include(${wxWidgets_USE_FILE})
 
-include_directories(src)
-
 file(GLOB_RECURSE SRC_LIST src/*.cpp)
 
 if(WIN32)
@@ -34,3 +32,4 @@ install(FILES LICENSE DESTINATION ${CMAKE_INSTALL_FULL_DOCDIR})
 install(FILES README.md DESTINATION ${CMAKE_INSTALL_FULL_DOCDIR})
 
 target_link_libraries(${PROJECT_NAME} ${wxWidgets_LIBRARIES})
+target_include_directories(${PROJECT_NAME} PRIVATE src)
